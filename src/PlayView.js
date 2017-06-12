@@ -12,6 +12,23 @@ export default connect(
     })
 )(
 class PlayView extends Component {
+
+  state ={
+    areas: null,
+  }
+
+  componentWillMount() {
+    fetch(
+        process.env.PUBLIC_URL + '/data/areas.json'
+    ).then(
+        response => response.json()
+    ).then(
+        areas => this.setState({
+          areas: areas
+        })
+    )
+  }
+
   storyOutputStyle = {
     width: "100%",
     height: "30vh",
