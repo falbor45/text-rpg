@@ -4,7 +4,8 @@ import { connect } from 'react-redux'
 
 export default connect(
     state => ({
-      playerStats: state.playerStats
+      playerStats: state.playerStats,
+      playView: state.playView
     }),
     dispatch => ({
       hitPlayer: value => dispatch({ type: 'playerStats/HIT_PLAYER', value}),
@@ -50,8 +51,8 @@ class PlayView extends Component {
         <Col lg={6}>
           <hr/>
           <textarea style={this.storyOutputStyle} readOnly value=""/>
-          <input style={this.playerInputStyle}/>
-          <button style={this.playerButtonStyle}>Perform action</button>
+          <input style={this.playerInputStyle} onChange={event => this.props.inputChange(event.target.value)}/>
+          <button style={this.playerButtonStyle} onClick={() => (this.props.playView.inputValue) === 'hit' ? this.props.hitPlayer(2) : null }>Perform action</button>
         </Col>
     )
   }
