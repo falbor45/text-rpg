@@ -23,5 +23,9 @@ export default (state = initialState, action) => {
         fetching: false,
         error: action.error
       }
+    default:
+      return {
+        state
+      }
   }
 }
