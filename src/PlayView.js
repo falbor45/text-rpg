@@ -5,7 +5,8 @@ import { connect } from 'react-redux'
 export default connect(
     state => ({
       playerStats: state.playerStats,
-      playView: state.playView
+      playView: state.playView,
+      areas: state.areas
     }),
     dispatch => ({
       hitPlayer: value => dispatch({ type: 'playerStats/HIT_PLAYER', value}),
