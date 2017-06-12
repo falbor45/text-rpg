@@ -9,24 +9,26 @@ export default connect(
     }),
     dispatch => ({
       hitPlayer: value => dispatch({ type: 'playerStats/HIT_PLAYER', value}),
-      inputChange: value => dispatch({ type: 'playView/INPUT_CHANGE', value})
+      inputChange: value => dispatch({ type: 'playView/INPUT_CHANGE', value}),
+      areasFetchBegin: () => dispatch({ type: 'areas/FETCH__BEGIN'}),
+      areasFetchSuccess: data => dispatch({ type: 'areas/FETCH__SUCCESS', data}),
+      areasFetchFailure: error => dispatch({ type: 'areas/FETCH__FAILURE', error})
     })
 )(
 class PlayView extends Component {
 
-  state ={
-    areas: null,
-  }
-
   componentWillMount() {
+    this.props.areasFetchBegin()
     fetch(
-        process.env.PUBLIC_URL + '/data/areas.json'
+        `${process.env.PUBLIC_URL}/data/areas.json`
     ).then(
-        response => response.json()
-    ).then(
-        areas => this.setState({
-          areas: areas
-        })
+        response => response.json().then(
+            data => this.props.areasFetchSuccess(data)
+        ).catch(
+            error => this.props.areasFetchFailure('Malformed JSON.')
+        )
+    ).catch(
+        error => this.props.areasFetchFailure('Connection error.')
     )
   }
 
