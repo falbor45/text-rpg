@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import {Grid} from 'react-bootstrap'
 import PlayerView from './PlayerView'
 import PlayView from './PlayView'
+import EnemyView from './EnemyView'
 
 class App extends Component {
   render() {
@@ -10,6 +11,7 @@ class App extends Component {
         <Grid>
           <PlayerView/>
           <PlayView/>
+          <EnemyView/>
         </Grid>
       </div>
     );
