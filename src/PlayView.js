@@ -4,6 +4,7 @@ import { Col } from 'react-bootstrap'
 class PlayView extends Component {
   storyOutputStyle = {
     width: "100%",
+    height: "30vh",
     maxHeight: "90vh",
     resize: "vertical"
   }
@@ -15,7 +16,7 @@ class PlayView extends Component {
     return (
         <Col lg={6}>
           <hr/>
-          <textarea style={this.storyOutputStyle} readOnly/>
+          <textarea style={this.storyOutputStyle} readOnly value=""/>
           <input style={this.playerInputStyle}/>
         </Col>
     )
