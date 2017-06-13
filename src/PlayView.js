@@ -6,14 +6,18 @@ export default connect(
     state => ({
       playerStats: state.playerStats,
       playView: state.playView,
-      areas: state.areas
+      areas: state.areas,
+      enemies: state.enemies
     }),
     dispatch => ({
       hitPlayer: value => dispatch({ type: 'playerStats/HIT_PLAYER', value}),
       inputChange: value => dispatch({ type: 'playView/INPUT_CHANGE', value}),
       areasFetchBegin: () => dispatch({ type: 'areas/FETCH__BEGIN'}),
       areasFetchSuccess: data => dispatch({ type: 'areas/FETCH__SUCCESS', data}),
-      areasFetchFailure: error => dispatch({ type: 'areas/FETCH__FAILURE', error})
+      areasFetchFailure: error => dispatch({ type: 'areas/FETCH__FAILURE', error}),
+      enemiesFetchBegin: () => dispatch({ type: 'enemies/FETCH__BEGIN'}),
+      enemiesFetchSuccess: data => dispatch({ type: 'enemies/FETCH__SUCCESS', data}),
+      enemiesFetchFailure: error => dispatch({ type: 'enemies/FETCH__FAILURE', error}),
     })
 )(
 class PlayView extends Component {
@@ -30,6 +34,19 @@ class PlayView extends Component {
         )
     ).catch(
         error => this.props.areasFetchFailure('Connection error.')
+    )
+
+    this.props.enemiesFetchBegin()
+    fetch(
+        `${process.env.PUBLIC_URL}/data/enemies.json`
+    ).then(
+        response => response.json().then(
+            data => this.props.enemiesFetchSuccess(data)
+        ).catch(
+            error => this.props.enemiesFetchFailure('Malformed JSON.')
+        )
+    ).catch(
+        error => this.props.enemiesFetchFailure('Connection error.')
     )
   }
 
