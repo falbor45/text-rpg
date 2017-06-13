@@ -49,13 +49,21 @@ class PlayView extends Component {
     float: 'right'
   }
 
+  state = {
+    storyOutput: [],
+  }
+
+  handleStoryUpdate = () => this.setState ({
+    storyOutput: this.state.storyOutput.concat(this.props.areas.data[Math.floor(Math.random() * this.props.areas.data.length)].description)
+  })
+
   render() {
     return (
         <Col lg={6}>
           <hr/>
-          <textarea style={this.storyOutputStyle} readOnly value=""/>
+          <textarea style={this.storyOutputStyle} readOnly value={this.state.storyOutput.join('\n')}/>
           <input style={this.playerInputStyle} onChange={event => this.props.inputChange(event.target.value)}/>
-          <button style={this.playerButtonStyle} onClick={() => (this.props.playView.inputValue) === 'hit' ? this.props.hitPlayer(2) : null }>Perform action</button>
+          <button style={this.playerButtonStyle} onClick={() => (this.props.playView.inputValue) === 'explore' ? this.handleStoryUpdate() : null }>Perform action</button>
         </Col>
     )
   }
