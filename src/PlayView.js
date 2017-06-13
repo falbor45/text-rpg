@@ -68,10 +68,15 @@ class PlayView extends Component {
 
   state = {
     storyOutput: [],
+    areaRNG: 0,
+    enemyRNG: 0
   }
 
   handleStoryUpdate = () => this.setState ({
-    storyOutput: this.state.storyOutput.concat(this.props.areas.data[Math.floor(Math.random() * this.props.areas.data.length)].description)
+    areaRNG: Math.floor(Math.random() * this.props.areas.data.length),
+    enemyRNG: Math.floor(Math.random() * this.props.enemies.data.length),
+    storyOutput: this.state.storyOutput.concat(this.props.areas.data[this.state.areaRNG].description,
+        'You encounter ' + this.props.enemies.data[this.state.enemyRNG].name + '!'),
   })
 
   render() {
