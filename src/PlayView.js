@@ -13,15 +13,19 @@ export default connect(
     dispatch => ({
       hitPlayer: value => dispatch({ type: 'playerStats/HIT_PLAYER', value}),
       inputChange: value => dispatch({ type: 'playView/INPUT_CHANGE', value}),
+      playViewSetEventRNG: () => dispatch({type: 'playView/SET_EVENT_RNG'}),
       areasFetchBegin: () => dispatch({ type: 'areas/FETCH__BEGIN'}),
       areasFetchSuccess: data => dispatch({ type: 'areas/FETCH__SUCCESS', data}),
       areasFetchFailure: error => dispatch({ type: 'areas/FETCH__FAILURE', error}),
+      areasSetAreaRNG: () => dispatch({ type: 'areas/SET_AREA_RNG'}),
       enemiesFetchBegin: () => dispatch({ type: 'enemies/FETCH__BEGIN'}),
       enemiesFetchSuccess: data => dispatch({ type: 'enemies/FETCH__SUCCESS', data}),
       enemiesFetchFailure: error => dispatch({ type: 'enemies/FETCH__FAILURE', error}),
+      enemiesSetEnemyRNG: () => dispatch({ type: 'enemies/SET_ENEMY_RNG'}),
       choiceEventsFetchBegin: () => dispatch({ type: 'choiceEvents/FETCH__BEGIN'}),
       choiceEventsFetchSuccess: data => dispatch({ type: 'choiceEvents/FETCH__SUCCESS', data}),
-      choiceEventsFetchFailure: error => dispatch({ type: 'choiceEvents/FETCH__FAILURE', error})
+      choiceEventsFetchFailure: error => dispatch({ type: 'choiceEvents/FETCH__FAILURE', error}),
+      choiceEventsSetChoiceEventRNG: () => dispatch({ type: 'choiceEvents/SET_CHOICE_EVENT_RNG'})
     })
 )(
 class PlayView extends Component {
@@ -92,6 +96,10 @@ class PlayView extends Component {
   }
 
   handleStoryUpdate = () => {
+    this.props.areasSetAreaRNG()
+    this.props.playViewSetEventRNG()
+    this.props.playView.events[this.props.playView.eventRNG] === 'fight' ? this.props.enemiesSetEnemyRNG() : null
+    this.props.playView.events[this.props.playView.eventRNG] === 'choiceEvent' ? this.props.choiceEventsSetChoiceEventRNG() : null
     this.setState({
       areaRNG: Math.floor(Math.random() * this.props.areas.data.length),
       eventRNG: Math.floor(Math.random() * this.state.events.length),
