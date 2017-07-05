@@ -100,6 +100,9 @@ class PlayView extends Component {
     this.props.playViewSetEventRNG()
     this.props.playView.events[this.props.playView.eventRNG] === 'fight' ? this.props.enemiesSetEnemyRNG() : null
     this.props.playView.events[this.props.playView.eventRNG] === 'choiceEvent' ? this.props.choiceEventsSetChoiceEventRNG() : null
+    this.props.playView.events[this.props.playView.eventRNG] === 'fight' ? this.props.playView.storyOutput.push(this.props.areas.data[this.props.areas.areaRNG].description,
+      'You encounter ' + this.props.enemies.data[this.props.enemies.enemyRNG].name + '!'): this.props.playView.events[this.props.playView.eventRNG] === 'choiceEvent' ?
+        this.props.playView.storyOutput.push(this.props.choiceEvents.data[this.props.choiceEvents.choiceEventRNG].description): null
     this.setState({
       areaRNG: Math.floor(Math.random() * this.props.areas.data.length),
       eventRNG: Math.floor(Math.random() * this.state.events.length),
