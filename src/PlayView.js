@@ -91,13 +91,18 @@ class PlayView extends Component {
     eventRNG: 0
   }
 
-  handleStoryUpdate = () => this.setState ({
-    areaRNG: Math.floor(Math.random() * this.props.areas.data.length),
-    eventRNG: Math.floor(Math.random() * this.state.events.length),
-    enemyRNG: this.state.events[this.state.eventRNG] === 'fight' ? Math.floor(Math.random() * this.props.enemies.data.length) : 0,
-    storyOutput: this.state.events[this.state.eventRNG] === 'fight' ? this.state.storyOutput.concat(this.props.areas.data[this.state.areaRNG].description,
-        'You encounter ' + this.props.enemies.data[this.state.enemyRNG].name + '!') : this.state.events[this.state.eventRNG] === 'choiceEvent' ? this.state.storyOutput.concat(this.props.choiceEvents.data[this.state.choiceEventRNG].description) : null,
-  })
+  handleStoryUpdate = () => {
+    this.setState({
+      areaRNG: Math.floor(Math.random() * this.props.areas.data.length),
+      eventRNG: Math.floor(Math.random() * this.state.events.length),
+      enemyRNG: this.state.events[this.state.eventRNG] === 'fight' ? Math.floor(Math.random() * this.props.enemies.data.length) : 0,
+      choiceEventRNG: this.state.events[this.state.eventRNG] === 'choiceEvent' ? Math.floor(Math.random() * this.props.choiceEvents.data.length) : 0
+    })
+    this.setState({
+      storyOutput: this.state.events[this.state.eventRNG] === 'fight' ? this.state.storyOutput.concat(this.props.areas.data[this.state.areaRNG].description,
+          'You encounter ' + this.props.enemies.data[this.state.enemyRNG].name + '!') : this.state.events[this.state.eventRNG] === 'choiceEvent' ? this.state.storyOutput.concat(this.props.choiceEvents.data[this.state.choiceEventRNG].description) : null,
+    })
+  }
 
   render() {
     return (
