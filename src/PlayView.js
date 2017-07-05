@@ -103,23 +103,13 @@ class PlayView extends Component {
     this.props.playView.events[this.props.playView.eventRNG] === 'fight' ? this.props.playView.storyOutput.push(this.props.areas.data[this.props.areas.areaRNG].description,
       'You encounter ' + this.props.enemies.data[this.props.enemies.enemyRNG].name + '!'): this.props.playView.events[this.props.playView.eventRNG] === 'choiceEvent' ?
         this.props.playView.storyOutput.push(this.props.choiceEvents.data[this.props.choiceEvents.choiceEventRNG].description): null
-    this.setState({
-      areaRNG: Math.floor(Math.random() * this.props.areas.data.length),
-      eventRNG: Math.floor(Math.random() * this.state.events.length),
-      enemyRNG: this.state.events[this.state.eventRNG] === 'fight' ? Math.floor(Math.random() * this.props.enemies.data.length) : 0,
-      choiceEventRNG: this.state.events[this.state.eventRNG] === 'choiceEvent' ? Math.floor(Math.random() * this.props.choiceEvents.data.length) : 0
-    })
-    this.setState({
-      storyOutput: this.state.events[this.state.eventRNG] === 'fight' ? this.state.storyOutput.concat(this.props.areas.data[this.state.areaRNG].description,
-          'You encounter ' + this.props.enemies.data[this.state.enemyRNG].name + '!') : this.state.events[this.state.eventRNG] === 'choiceEvent' ? this.state.storyOutput.concat(this.props.choiceEvents.data[this.state.choiceEventRNG].description) : null,
-    })
   }
 
   render() {
     return (
         <Col lg={6}>
           <hr/>
-          <textarea style={this.storyOutputStyle} readOnly value={this.state.storyOutput.join('\n')}/>
+          <textarea style={this.storyOutputStyle} readOnly value={this.props.playView.storyOutput.join('\n')}/>
           <input style={this.playerInputStyle} onChange={event => this.props.inputChange(event.target.value)}/>
           <button style={this.playerButtonStyle} onClick={() => (this.props.playView.inputValue) === 'explore' ? this.handleStoryUpdate() : null }>Perform action</button>
         </Col>
