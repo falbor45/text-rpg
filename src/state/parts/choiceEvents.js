@@ -1,7 +1,8 @@
 const initialState = {
   data: null,
   fetching: false,
-  error: null
+  error: null,
+  choiceEventRNG: 0
 }
 
 export default (state = initialState, action) => {
@@ -22,6 +23,11 @@ export default (state = initialState, action) => {
         ...state,
         fetching: false,
         error: action.error
+      }
+    case 'choiceEvents/SET_CHOICE_EVENT_RNG':
+      return {
+          ...state,
+        choiceEventRNG: Math.floor(Math.random() * state.data.length)
       }
     default:
       return {
