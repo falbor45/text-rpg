@@ -93,7 +93,7 @@ class PlayView extends Component {
 
 
   handleStoryUpdate = () => {
-    if (this.props.playView.inputValue === 'explore') {
+    if (this.props.playView.inputValue === 'explore' && this.props.playView.possibleActions.includes('explore')) {
       this.setState({
         isDisabled: true,
       })
