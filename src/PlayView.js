@@ -93,19 +93,23 @@ class PlayView extends Component {
 
 
   handleStoryUpdate = () => {
-    this.setState({
-      isDisabled: true,
-    })
-    this.props.areasSetAreaRNG()
-    this.props.playViewSetEventRNG()
-    this.props.playView.events[this.props.playView.eventRNG] === 'fight' ? this.props.enemiesSetEnemyRNG() : null
-    this.props.playView.events[this.props.playView.eventRNG] === 'choiceEvent' ? this.props.choiceEventsSetChoiceEventRNG() : null
-    this.props.playView.events[this.props.playView.eventRNG] === 'fight' ? this.props.playView.storyOutput.push(this.props.areas.data[this.props.areas.areaRNG].description,
-      'You encounter ' + this.props.enemies.data[this.props.enemies.enemyRNG].name + '!'): this.props.playView.events[this.props.playView.eventRNG] === 'choiceEvent' ?
-        this.props.playView.storyOutput.push(this.props.choiceEvents.data[this.props.choiceEvents.choiceEventRNG].description): null
-    setTimeout(() => this.setState({
-      isDisabled: false
-    }), 3000)
+    if (this.props.playView.inputValue === 'explore') {
+      this.setState({
+        isDisabled: true,
+      })
+      this.props.areasSetAreaRNG()
+      this.props.playViewSetEventRNG()
+      this.props.playView.events[this.props.playView.eventRNG] === 'fight' ? this.props.enemiesSetEnemyRNG() : null
+      this.props.playView.events[this.props.playView.eventRNG] === 'choiceEvent' ? this.props.choiceEventsSetChoiceEventRNG() : null
+      this.props.playView.events[this.props.playView.eventRNG] === 'fight' ? this.props.playView.storyOutput.push(this.props.areas.data[this.props.areas.areaRNG].description,
+          'You encounter ' + this.props.enemies.data[this.props.enemies.enemyRNG].name + '!') : this.props.playView.events[this.props.playView.eventRNG] === 'choiceEvent' ?
+          this.props.playView.storyOutput.push(this.props.choiceEvents.data[this.props.choiceEvents.choiceEventRNG].description) : null
+      setTimeout(() => this.setState({
+        isDisabled: false
+      }), 3000)
+    } else {
+      return null
+    }
   }
 
   render() {
@@ -114,7 +118,7 @@ class PlayView extends Component {
           <hr/>
           <textarea style={this.storyOutputStyle} readOnly value={this.props.playView.storyOutput.join('\n')}/>
           <input style={this.playerInputStyle} onChange={event => this.props.inputChange(event.target.value)}/>
-          <button disabled={this.state.isDisabled} style={this.playerButtonStyle} onClick={() => (this.props.playView.inputValue) === 'explore' ? this.handleStoryUpdate() : null }>Perform action</button>
+          <button disabled={this.state.isDisabled} style={this.playerButtonStyle} onClick={() => this.handleStoryUpdate()}>Perform action</button>
         </Col>
     )
   }
