@@ -12,6 +12,14 @@ export default (state = initialState, action) => {
         ...state,
         health: state.health - action.value
       }
+    case 'enemyStats/SET_ENEMY':
+      return {
+          ...state,
+        health: action.health,
+        maxHealth: action.maxHealth,
+        energy: action.energy,
+        maxEnergy: action.maxEnergy
+      }
     default:
       return state
   }
