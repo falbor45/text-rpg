@@ -13,6 +13,7 @@ export default connect(
     }),
     dispatch => ({
       hitPlayer: value => dispatch({ type: 'playerStats/HIT_PLAYER', value}),
+      hitEnemy: value => dispatch({ type: 'enemyStats/HIT_ENEMY', value}),
       enemyStatsSetEnemy: (health, maxHealth, energy, maxEnergy) => dispatch({ type: 'enemyStats/SET_ENEMY', health, maxHealth, energy, maxEnergy}),
       inputChange: value => dispatch({ type: 'playView/INPUT_CHANGE', value}),
       playViewSetEventRNG: () => dispatch({type: 'playView/SET_EVENT_RNG'}),
@@ -101,7 +102,7 @@ class PlayView extends Component {
       })
       this.props.areasSetAreaRNG()
       this.props.playViewSetEventRNG()
-      this.props.playView.events[this.props.playView.eventRNG] === 'fight' ? this.props.enemiesSetEnemyRNG() : null
+      this.props.playView.events[this.props.playView.eventRNG] === 'fight' ? (this.props.enemiesSetEnemyRNG(), this.props.playView.possibleActions.push('attack')) : null
       this.props.playView.events[this.props.playView.eventRNG] === 'choiceEvent' ? this.props.choiceEventsSetChoiceEventRNG() : null
       this.props.playView.events[this.props.playView.eventRNG] === 'fight' ? this.props.playView.storyOutput.push(this.props.areas.data[this.props.areas.areaRNG].description,
           'You encounter ' + this.props.enemies.data[this.props.enemies.enemyRNG].name + '!') : this.props.playView.events[this.props.playView.eventRNG] === 'choiceEvent' ?
@@ -110,6 +111,8 @@ class PlayView extends Component {
       setTimeout(() => this.setState({
         isDisabled: false
       }), 3000)
+    } else if(this.props.playView.inputValue === 'attack' && this.props.playView.possibleActions.includes('attack')) {
+        this.props.hitEnemy(Math.ceil(Math.random() * 4))
     } else {
       return null
     }
