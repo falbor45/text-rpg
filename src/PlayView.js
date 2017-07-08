@@ -13,7 +13,7 @@ export default connect(
     }),
     dispatch => ({
       hitPlayer: value => dispatch({ type: 'playerStats/HIT_PLAYER', value}),
-      enemyStatsSetEnemy: (health, maxHealth, energy, maxEnergy) => dispatch({ type: 'enemyStats/SET_ENEMY'}),
+      enemyStatsSetEnemy: (health, maxHealth, energy, maxEnergy) => dispatch({ type: 'enemyStats/SET_ENEMY', health, maxHealth, energy, maxEnergy}),
       inputChange: value => dispatch({ type: 'playView/INPUT_CHANGE', value}),
       playViewSetEventRNG: () => dispatch({type: 'playView/SET_EVENT_RNG'}),
       areasFetchBegin: () => dispatch({ type: 'areas/FETCH__BEGIN'}),
