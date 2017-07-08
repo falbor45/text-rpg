@@ -112,7 +112,12 @@ class PlayView extends Component {
         isDisabled: false
       }), 3000)
     } else if(this.props.playView.inputValue === 'attack' && this.props.playView.possibleActions.includes('attack')) {
-        this.props.hitEnemy(Math.ceil(Math.random() * 4))
+        if(this.props.enemyStats.health > 0) {
+            this.props.hitEnemy(Math.ceil(Math.random() * 4))
+        } else {
+            let indexOfAttackCommand = this.props.playView.possibleActions.indexOf('attack')
+            this.props.playView.possibleActions.splice(indexOfAttackCommand, 1)
+        }
     } else {
       return null
     }
