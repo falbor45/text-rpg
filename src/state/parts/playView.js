@@ -3,7 +3,7 @@ const initialState = {
   storyOutput: [],
   events: ['fight', 'choiceEvent'],
   eventRNG: 0,
-  possibleActions: ['explore', 'attack']
+  possibleActions: ['explore']
 }
 
 export default (state = initialState, action) => {
