@@ -15,7 +15,7 @@ export default connect(
       hitPlayer: value => dispatch({ type: 'playerStats/HIT_PLAYER', value}),
       hitEnemy: value => dispatch({ type: 'enemyStats/HIT_ENEMY', value}),
       enemyStatsSetEnemy: (health, maxHealth, energy, maxEnergy) => dispatch({ type: 'enemyStats/SET_ENEMY', health, maxHealth, energy, maxEnergy}),
-      enemyStatsHideEnemy: () => ({ type: 'enemyStats/HIDE_ENEMY'}),
+      enemyStatsHideEnemy: () => dispatch({ type: 'enemyStats/HIDE_ENEMY'}),
       inputChange: value => dispatch({ type: 'playView/INPUT_CHANGE', value}),
       playViewSetEventRNG: () => dispatch({type: 'playView/SET_EVENT_RNG'}),
       areasFetchBegin: () => dispatch({ type: 'areas/FETCH__BEGIN'}),
@@ -112,16 +112,11 @@ class PlayView extends Component {
       setTimeout(() => this.setState({
         isDisabled: false
       }), 3000)
-    } else if(this.props.playView.inputValue === 'attack' && this.props.playView.possibleActions.includes('attack')) {
-        if(this.props.enemyStats.health > 0) {
-            this.props.hitEnemy(Math.ceil(Math.random() * 4))
-        } else {
-            let indexOfAttackCommand = this.props.playView.possibleActions.indexOf('attack')
-            this.props.playView.possibleActions.splice(indexOfAttackCommand, 1)
-        }
-    } else {
-      return null
     }
+    if(this.props.playView.inputValue === 'attack' && this.props.playView.possibleActions.includes('attack')) {
+        this.props.enemyStats.health > 0 ? this.props.hitEnemy(Math.ceil(Math.random() * 4)) : (this.props.enemyStatsHideEnemy(), this.props.playView.possibleActions = (this.props.playView.possibleActions.filter(action => action !== 'attack')))
+    }
+    return null
   }
 
   render() {
