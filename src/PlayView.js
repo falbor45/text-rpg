@@ -15,6 +15,7 @@ export default connect(
       hitPlayer: value => dispatch({ type: 'playerStats/HIT_PLAYER', value}),
       hitEnemy: value => dispatch({ type: 'enemyStats/HIT_ENEMY', value}),
       enemyStatsSetEnemy: (health, maxHealth, energy, maxEnergy) => dispatch({ type: 'enemyStats/SET_ENEMY', health, maxHealth, energy, maxEnergy}),
+      enemyStatsHideEnemy: () => ({ type: 'enemyStats/HIDE_ENEMY'}),
       inputChange: value => dispatch({ type: 'playView/INPUT_CHANGE', value}),
       playViewSetEventRNG: () => dispatch({type: 'playView/SET_EVENT_RNG'}),
       areasFetchBegin: () => dispatch({ type: 'areas/FETCH__BEGIN'}),
