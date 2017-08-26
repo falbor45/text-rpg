@@ -3,28 +3,36 @@
     "id": 1,
     "description": "You see a strange-looking shrine made purely out of cobalt stone - what do you do?",
     "choiceOne": "You touch the shrine and you feel the power flowing through your body. You gain +1 attack!",
+    "choiceOneB": "Touch the shrine",
     "choiceTwo": "You walk away not even bothering to look at it once again...",
+    "choiceTwoB": "Walk away",
     "eventEnd": "You decide you have nothing else to do here and continue exploring"
   },
   {
     "id": 2,
     "description": "You hear a scream of a man so vivid you get goose-bumps all over your body. Frightened, you don't know whether you should run to him or escape.",
     "choiceOne": "Without hesitation you run to help, how it turns out, an injured man. His wound is too big to be treated. You watch him slowly dying, unable to do anything.",
+    "choiceOneB": "Help the man",
     "choiceTwo": "With all the might in your legs you decide to escape. On the way out you see someone running the same way you do. You try to catch him, but he is too fast.",
+    "choiceTwoB": "Run away",
     "eventEnd": "Disappointed, you continue exploring"
   },
   {
     "id": 3,
     "description": "You notice strange light, which looks like it tries to show you something...",
     "choiceOne": "You follow the light, but suddenly it disappears. Just when you were about to ignore what just happened you get thrown into some kind of dark room. It turns out it was just hallucination.",
+    "choiceOneB": "Follow the light",
     "choiceTwo": "You try to catch it and after several attempts, light imbues your body, making you stronger. You gain +5 health!",
+    "choiceTwoB": "Catch it",
     "eventEnd": "The thing that just happened disturbed you hard. You continue exploring"
   },
   {
     "id": 4,
     "description": "A merchant tries to attract as many customers as it is possible. What do you do?",
     "choiceOne": "You pay a merchant 12 gold and acquire an odd-looking flask. Upon drinking, you regain your health!",
+    "choiceOneB": "Pay merchant for one of his offers",
     "choiceTwo": "You try to steal from the merchant, but he sees you and deals you 40 damage!",
+    "choiceTwoB": "Steal from the merchant",
     "eventEnd": "You continue exploring"
   }
 ]
