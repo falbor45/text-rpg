@@ -144,6 +144,15 @@ class PlayView extends Component {
           <textarea style={this.storyOutputStyle} readOnly value={this.props.playView.storyOutput.join('\n')}/>
           <input style={this.playerInputStyle} onChange={event => this.props.inputChange(event.target.value)}/>
           <button disabled={this.state.isDisabled} style={this.playerButtonStyle} onClick={() => this.handleStoryUpdate()}>Perform action</button>
+          {
+            this.props.playView.events[this.props.playView.eventRNG] === 'choiceEvent' ?
+                (
+                    <div>
+                      <button>{this.props.choiceEvents.data[this.props.choiceEvents.choiceEventRNG].choiceOneB}</button>
+                      <button>{this.props.choiceEvents.data[this.props.choiceEvents.choiceEventRNG].choiceTwoB}</button>
+                    </div>
+                ) : null
+          }
         </Col>
     )
   }
