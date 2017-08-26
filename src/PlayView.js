@@ -114,9 +114,9 @@ class PlayView extends Component {
             'You encounter ' + this.props.enemies.data[this.props.enemies.enemyRNG].name + '!') : this.props.playView.events[this.props.playView.eventRNG] === 'choiceEvent' ?
             this.props.playView.storyOutput.push(this.props.choiceEvents.data[this.props.choiceEvents.choiceEventRNG].description) : null
         this.props.playView.events[this.props.playView.eventRNG] === 'fight' ? this.props.enemyStatsSetEnemy(this.props.enemies.data[this.props.enemies.enemyRNG].health, this.props.enemies.data[this.props.enemies.enemyRNG].maxHealth, this.props.enemies.data[this.props.enemies.enemyRNG].energy, this.props.enemies.data[this.props.enemies.enemyRNG].maxEnergy) : null
-        setTimeout(() => this.setState({
+        this.setState({
           isDisabled: false
-        }), 3000)
+        })
       }, 0)
     }
     if(this.props.playView.inputValue === 'attack' && this.props.playView.possibleActions.includes('attack')) {
