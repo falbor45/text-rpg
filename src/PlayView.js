@@ -109,6 +109,10 @@ class PlayView extends Component {
           exploreIndex > -1 ? this.props.playView.possibleActions.splice(exploreIndex, 1) : null
           this.props.playView.possibleActions.push('attack')
         }
+        if (this.props.playView.events[this.props.playView.eventRNG] === 'choiceEvent') {
+          let exploreIndex = this.props.playView.possibleActions.indexOf('explore');
+          exploreIndex > -1 ? this.props.playView.possibleActions.splice(exploreIndex, 1) : null
+        }
         this.props.playView.events[this.props.playView.eventRNG] === 'fight' ? this.props.enemiesSetEnemyRNG() : null
         this.props.playView.events[this.props.playView.eventRNG] === 'choiceEvent' ? this.props.choiceEventsSetChoiceEventRNG() : null
         this.props.playView.events[this.props.playView.eventRNG] === 'fight' ? this.props.playView.storyOutput.push(this.props.areas.data[this.props.areas.areaRNG].description,
