@@ -118,7 +118,15 @@ class PlayView extends Component {
       }), 3000)
     }
     if(this.props.playView.inputValue === 'attack' && this.props.playView.possibleActions.includes('attack')) {
-        this.props.enemyStats.health > 0 ? this.props.hitEnemy(Math.ceil(Math.random() * 4)) : (this.props.enemyStatsHideEnemy(), this.props.playView.possibleActions = (this.props.playView.possibleActions.filter(action => action !== 'attack')))
+      if (this.props.enemyStats.health > 0) {
+          this.props.hitEnemy(Math.ceil(Math.random() * 4))
+      }
+      if (this.props.enemyStats.health <= 0) {
+          this.props.enemyStatsHideEnemy();
+          let attackIndex = this.props.playView.possibleActions.indexOf('attack');
+          attackIndex > -1 ? this.props.playView.possibleActions.splice(attackIndex, 1) : null;
+          this.props.playView.possibleActions.push('explore')
+      }
     }
     return null
   }
