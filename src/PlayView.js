@@ -103,25 +103,28 @@ class PlayView extends Component {
       })
       this.props.areasSetAreaRNG()
       this.props.playViewSetEventRNG()
-      if (this.props.playView.events[this.props.playView.eventRNG] === 'fight') {
-        let exploreIndex = this.props.playView.possibleActions.indexOf('explore');
-        exploreIndex > -1 ? this.props.playView.possibleActions.splice(exploreIndex, 1) : null
-      }
-      this.props.playView.events[this.props.playView.eventRNG] === 'fight' ? (this.props.enemiesSetEnemyRNG(), this.props.playView.possibleActions.push('attack')) : null
-      this.props.playView.events[this.props.playView.eventRNG] === 'choiceEvent' ? this.props.choiceEventsSetChoiceEventRNG() : null
-      this.props.playView.events[this.props.playView.eventRNG] === 'fight' ? this.props.playView.storyOutput.push(this.props.areas.data[this.props.areas.areaRNG].description,
-          'You encounter ' + this.props.enemies.data[this.props.enemies.enemyRNG].name + '!') : this.props.playView.events[this.props.playView.eventRNG] === 'choiceEvent' ?
-          this.props.playView.storyOutput.push(this.props.choiceEvents.data[this.props.choiceEvents.choiceEventRNG].description) : null
-      this.props.playView.events[this.props.playView.eventRNG] === 'fight' ? this.props.enemyStatsSetEnemy(this.props.enemies.data[this.props.enemies.enemyRNG].health, this.props.enemies.data[this.props.enemies.enemyRNG].maxHealth, this.props.enemies.data[this.props.enemies.enemyRNG].energy, this.props.enemies.data[this.props.enemies.enemyRNG].maxEnergy) : null
-      setTimeout(() => this.setState({
-        isDisabled: false
-      }), 3000)
+      setTimeout(() => {
+        if (this.props.playView.events[this.props.playView.eventRNG] === 'fight') {
+          let exploreIndex = this.props.playView.possibleActions.indexOf('explore');
+          exploreIndex > -1 ? this.props.playView.possibleActions.splice(exploreIndex, 1) : null
+        }
+        this.props.playView.events[this.props.playView.eventRNG] === 'fight' ? (this.props.enemiesSetEnemyRNG(), this.props.playView.possibleActions.push('attack')) : null
+        this.props.playView.events[this.props.playView.eventRNG] === 'choiceEvent' ? this.props.choiceEventsSetChoiceEventRNG() : null
+        this.props.playView.events[this.props.playView.eventRNG] === 'fight' ? this.props.playView.storyOutput.push(this.props.areas.data[this.props.areas.areaRNG].description,
+            'You encounter ' + this.props.enemies.data[this.props.enemies.enemyRNG].name + '!') : this.props.playView.events[this.props.playView.eventRNG] === 'choiceEvent' ?
+            this.props.playView.storyOutput.push(this.props.choiceEvents.data[this.props.choiceEvents.choiceEventRNG].description) : null
+        this.props.playView.events[this.props.playView.eventRNG] === 'fight' ? this.props.enemyStatsSetEnemy(this.props.enemies.data[this.props.enemies.enemyRNG].health, this.props.enemies.data[this.props.enemies.enemyRNG].maxHealth, this.props.enemies.data[this.props.enemies.enemyRNG].energy, this.props.enemies.data[this.props.enemies.enemyRNG].maxEnergy) : null
+        setTimeout(() => this.setState({
+          isDisabled: false
+        }), 3000)
+      }, 0)
     }
     if(this.props.playView.inputValue === 'attack' && this.props.playView.possibleActions.includes('attack')) {
       if (this.props.enemyStats.health > 0) {
           this.props.hitEnemy(Math.ceil(Math.random() * 4));
           setTimeout(() => {
             if (this.props.enemyStats.health <= 0) {
+              this.props.playView.storyOutput.push(`You've killed ${this.props.enemies.data[this.props.enemies.enemyRNG].name}!`)
               this.props.enemyStatsHideEnemy();
               let attackIndex = this.props.playView.possibleActions.indexOf('attack');
               attackIndex > -1 ? this.props.playView.possibleActions.splice(attackIndex, 1) : null;
