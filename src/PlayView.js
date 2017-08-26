@@ -122,6 +122,7 @@ class PlayView extends Component {
     if(this.props.playView.inputValue === 'attack' && this.props.playView.possibleActions.includes('attack')) {
       if (this.props.enemyStats.health > 0) {
           this.props.hitEnemy(Math.ceil(Math.random() * 4));
+          this.props.hitPlayer(Math.ceil(Math.random() * 4))
           setTimeout(() => {
             if (this.props.enemyStats.health <= 0) {
               this.props.playView.storyOutput.push(`You've killed ${this.props.enemies.data[this.props.enemies.enemyRNG].name}!`)
