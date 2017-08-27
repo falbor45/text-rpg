@@ -92,6 +92,20 @@ class PlayView extends Component {
     float: 'right'
   }
 
+  choiceOneButtonStyle = {
+    width: '25%',
+    margin: '2% 1% 0 0'
+  }
+
+  choiceTwoButtonStyle = {
+    width: '25%',
+    margin: '2% 0 0 1%'
+  }
+
+  choiceButtonContainer = {
+    textAlign: 'center'
+  }
+
   state = {
     isDisabled: null,
   }
@@ -171,9 +185,9 @@ class PlayView extends Component {
           {
             this.props.playView.possibleActions.includes('choose') === true ?
                 (
-                    <div>
-                      <button onClick={() => this.handleChoice(1)}>{this.props.choiceEvents.data[this.props.choiceEvents.choiceEventRNG].choiceOneB}</button>
-                      <button onClick={() => this.handleChoice(2)}>{this.props.choiceEvents.data[this.props.choiceEvents.choiceEventRNG].choiceTwoB}</button>
+                    <div style={this.choiceButtonContainer}>
+                      <button style={this.choiceOneButtonStyle} onClick={() => this.handleChoice(1)}>{this.props.choiceEvents.data[this.props.choiceEvents.choiceEventRNG].choiceOneB}</button>
+                      <button style={this.choiceTwoButtonStyle} onClick={() => this.handleChoice(2)}>{this.props.choiceEvents.data[this.props.choiceEvents.choiceEventRNG].choiceTwoB}</button>
                     </div>
                 ) : null
           }
