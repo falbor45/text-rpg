@@ -15,7 +15,7 @@ export default connect (
               <h2>Health</h2>
               <p>{`${this.props.playerStats.health}/${this.props.playerStats.maxHealth}`}</p>
               <h2>Energy</h2>
-              <p>20/20</p>
+              <p>{`${this.props.playerStats.energy}/${this.props.playerStats.maxEnergy}`}</p>
             </Col>
         )
       }
