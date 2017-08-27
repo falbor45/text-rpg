@@ -18,6 +18,7 @@ export default connect(
       enemyStatsHideEnemy: () => dispatch({ type: 'enemyStats/HIDE_ENEMY'}),
       inputChange: value => dispatch({ type: 'playView/INPUT_CHANGE', value}),
       playViewSetEventRNG: () => dispatch({type: 'playView/SET_EVENT_RNG'}),
+      playViewForceUpdate: () => dispatch({type: 'playView/FORCE_UPDATE'}),
       areasFetchBegin: () => dispatch({ type: 'areas/FETCH__BEGIN'}),
       areasFetchSuccess: data => dispatch({ type: 'areas/FETCH__SUCCESS', data}),
       areasFetchFailure: error => dispatch({ type: 'areas/FETCH__FAILURE', error}),
@@ -112,6 +113,7 @@ class PlayView extends Component {
         if (this.props.playView.events[this.props.playView.eventRNG] === 'choiceEvent') {
           let exploreIndex = this.props.playView.possibleActions.indexOf('explore');
           exploreIndex > -1 ? this.props.playView.possibleActions.splice(exploreIndex, 1) : null
+          this.props.playView.possibleActions.push('choose')
         }
         this.props.playView.events[this.props.playView.eventRNG] === 'fight' ? this.props.enemiesSetEnemyRNG() : null
         this.props.playView.events[this.props.playView.eventRNG] === 'choiceEvent' ? this.props.choiceEventsSetChoiceEventRNG() : null
@@ -142,6 +144,23 @@ class PlayView extends Component {
     return null
   }
 
+  handleChoice = (choice) =>  {
+    if (choice === 1) {
+      this.props.playView.storyOutput.push(this.props.choiceEvents.data[this.props.choiceEvents.choiceEventRNG].choiceOne)
+      let chooseIndex = this.props.playView.possibleActions.indexOf('choose');
+      chooseIndex > -1 ? this.props.playView.possibleActions.splice(chooseIndex, 1) : null
+      this.props.playView.possibleActions.push('explore')
+      this.props.playViewForceUpdate()
+    }
+    if (choice === 2) {
+      this.props.playView.storyOutput.push(this.props.choiceEvents.data[this.props.choiceEvents.choiceEventRNG].choiceTwo)
+      let chooseIndex = this.props.playView.possibleActions.indexOf('choose');
+      chooseIndex > -1 ? this.props.playView.possibleActions.splice(chooseIndex, 1) : null
+      this.props.playView.possibleActions.push('explore')
+      this.props.playViewForceUpdate()
+    }
+  }
+
   render() {
     return (
         <Col lg={6}>
@@ -150,11 +169,11 @@ class PlayView extends Component {
           <input style={this.playerInputStyle} onChange={event => this.props.inputChange(event.target.value)}/>
           <button disabled={this.state.isDisabled} style={this.playerButtonStyle} onClick={() => this.handleStoryUpdate()}>Perform action</button>
           {
-            this.props.playView.events[this.props.playView.eventRNG] === 'choiceEvent' ?
+            this.props.playView.possibleActions.includes('choose') === true ?
                 (
                     <div>
-                      <button>{this.props.choiceEvents.data[this.props.choiceEvents.choiceEventRNG].choiceOneB}</button>
-                      <button>{this.props.choiceEvents.data[this.props.choiceEvents.choiceEventRNG].choiceTwoB}</button>
+                      <button onClick={() => this.handleChoice(1)}>{this.props.choiceEvents.data[this.props.choiceEvents.choiceEventRNG].choiceOneB}</button>
+                      <button onClick={() => this.handleChoice(2)}>{this.props.choiceEvents.data[this.props.choiceEvents.choiceEventRNG].choiceTwoB}</button>
                     </div>
                 ) : null
           }

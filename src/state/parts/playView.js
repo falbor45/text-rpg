@@ -22,6 +22,10 @@ export default (state = initialState, action) => {
       return {
         ...state
       }
+    case 'playView/FORCE_UPDATE':
+      return {
+          ...state,
+      }
     default:
       return state
   }
