@@ -6,7 +6,10 @@
     "choiceOneB": "Touch the shrine",
     "choiceTwo": "You walk away not even bothering to look at it once again...",
     "choiceTwoB": "Walk away",
-    "eventEnd": "You decide you have nothing else to do here and continue exploring"
+    "eventEnd": "You decide you have nothing else to do here and continue exploring",
+    "choiceOneEffects": {
+      "pAttGain": 1
+    }
   },
   {
     "id": 2,
@@ -15,7 +18,13 @@
     "choiceOneB": "Help the man",
     "choiceTwo": "With all the might in your legs you decide to escape. On the way out you see someone running the same way you do. You try to catch him, but he is too fast.",
     "choiceTwoB": "Run away",
-    "eventEnd": "Disappointed, you continue exploring"
+    "eventEnd": "Disappointed, you continue exploring",
+    "choiceOneEffects": {
+      "pWisGain": 1
+    },
+    "choiceTwoEffects": {
+      "pAgiGain": 1
+    }
   },
   {
     "id": 3,
@@ -29,10 +38,17 @@
   {
     "id": 4,
     "description": "A merchant tries to attract as many customers as it is possible. What do you do?",
-    "choiceOne": "You pay a merchant 12 gold and acquire an odd-looking flask. Upon drinking, you regain your health!",
+    "choiceOne": "You pay a merchant 12 gold and acquire an odd-looking flask. Upon drinking, you regain 20 health!",
     "choiceOneB": "Pay merchant for one of his offers",
     "choiceTwo": "You try to steal from the merchant, but he sees you and deals you 40 damage!",
     "choiceTwoB": "Steal from the merchant",
-    "eventEnd": "You continue exploring"
+    "eventEnd": "You continue exploring",
+    "choiceOneEffects": {
+      "pGoldLoss": 12,
+      "pHealthGain": 20
+    },
+    "choiceTwoEffects": {
+      "pHealthLoss": 40
+    }
   }
 ]
