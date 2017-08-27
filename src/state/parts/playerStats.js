@@ -2,7 +2,8 @@ const initialState = {
   health: 100,
   maxHealth: 100,
   energy: 20,
-  maxEnergy: 20
+  maxEnergy: 20,
+  attackPower: 2
 }
 
 export default (state = initialState, action) => {
