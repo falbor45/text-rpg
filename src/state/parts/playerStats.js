@@ -22,6 +22,26 @@ export default (state = initialState, action) => {
           ...state,
         attackPower: state.attackPower + action.value
       }
+    case 'playerStats/GAIN_STRENGTH':
+      return {
+          ...state,
+        strength: state.strength + action.value
+      }
+    case 'playerStats/GAIN_WISDOM':
+      return {
+          ...state,
+        wisdom: state.wisdom + action.value
+      }
+    case 'playerStats/GAIN_AGILITY':
+      return {
+          ...state,
+        agility: state.agility + action.value
+      }
+    case 'playerStats/GAIN_CONSTITUTION':
+      return {
+          ...state,
+        constitution: state.constitution + action.value
+      }
     default:
       return state
   }
