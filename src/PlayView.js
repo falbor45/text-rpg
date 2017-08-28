@@ -13,6 +13,11 @@ export default connect(
     }),
     dispatch => ({
       hitPlayer: value => dispatch({ type: 'playerStats/HIT_PLAYER', value}),
+      playerStatsGainAttack: value => dispatch({ type: 'playerStats/GAIN_ATTACK', value}),
+      playerStatsGainStrength: value => dispatch({ type: 'playerSTats/GAIN_STRENGTH', value}),
+      playerStatsGainWisdom: value => dispatch({ type: 'playerSTats/GAIN_WISDOM', value}),
+      playerStatsGainAgility: value => dispatch({ type: 'playerSTats/GAIN_AGILITY', value}),
+      playerStatsGainConstitution: value => dispatch({ type: 'playerSTats/GAIN_CONSTITUTION', value}),
       hitEnemy: value => dispatch({ type: 'enemyStats/HIT_ENEMY', value}),
       enemyStatsSetEnemy: (health, maxHealth, energy, maxEnergy) => dispatch({ type: 'enemyStats/SET_ENEMY', health, maxHealth, energy, maxEnergy}),
       enemyStatsHideEnemy: () => dispatch({ type: 'enemyStats/HIDE_ENEMY'}),
@@ -161,6 +166,9 @@ class PlayView extends Component {
   handleChoice = (choice) =>  {
     if (choice === 1) {
       this.props.playView.storyOutput.push(this.props.choiceEvents.data[this.props.choiceEvents.choiceEventRNG].choiceOne)
+      if (this.props.choiceEvents.data[this.props.choiceEvents.choiceEventRNG].choiceOneEffects.hasOwnProperty('pAttGain') === true) {
+        this.props.playerStatsGainAttack(this.props.choiceEvents.data[this.props.choiceEvents.choiceEventRNG].choiceOneEffects.pAttGain)
+      }
       let chooseIndex = this.props.playView.possibleActions.indexOf('choose');
       chooseIndex > -1 ? this.props.playView.possibleActions.splice(chooseIndex, 1) : null
       this.props.playView.possibleActions.push('explore')
@@ -168,6 +176,9 @@ class PlayView extends Component {
     }
     if (choice === 2) {
       this.props.playView.storyOutput.push(this.props.choiceEvents.data[this.props.choiceEvents.choiceEventRNG].choiceTwo)
+      if (this.props.choiceEvents.data[this.props.choiceEvents.choiceEventRNG].choiceOneEffects.hasOwnProperty('pAttGain') === true) {
+        this.props.playerStatsGainAttack(this.props.choiceEvents.data[this.props.choiceEvents.choiceEventRNG].choiceOneEffects.pAttGain)
+      }
       let chooseIndex = this.props.playView.possibleActions.indexOf('choose');
       chooseIndex > -1 ? this.props.playView.possibleActions.splice(chooseIndex, 1) : null
       this.props.playView.possibleActions.push('explore')
