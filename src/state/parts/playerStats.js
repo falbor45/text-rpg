@@ -42,6 +42,46 @@ export default (state = initialState, action) => {
           ...state,
         constitution: state.constitution + action.value
       }
+    case 'playerStats/GAIN_HEALTH':
+      return {
+          ...state,
+        health: state.health + action.value
+      }
+    case 'playerStats/GAIN_MAX_HEALTH':
+      return {
+          ...state,
+        maxHealth: state.maxHealth + action.value
+      }
+    case 'playerStats/GAIN_ENERGY':
+      return {
+          ...state,
+        energy: state.energy + action.value
+      }
+    case 'playerStats/GAIN_MAX_ENERGY':
+      return {
+          ...state,
+        maxEnergy: state.maxEnergy + action.value
+      }
+    case 'playerStats/LOSE_HEALTH':
+      return {
+          ...state,
+        health: state.health - action.value
+      }
+    case 'playerStats/LOSE_MAX_HEALTH':
+      return {
+          ...state,
+        maxHealth: state.maxHealth - action.value
+      }
+    case 'playerStats/LOSE_ENERGY':
+      return {
+        ...state,
+        maxEnergy: state.maxEnergy - action.value
+      }
+    case 'playerStats/LOSE_MAX_ENERGY':
+      return {
+        ...state,
+        maxEnergy: state.maxEnergy - action.value
+      }
     default:
       return state
   }
