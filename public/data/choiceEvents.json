@@ -9,6 +9,8 @@
     "eventEnd": "You decide you have nothing else to do here and continue exploring",
     "choiceOneEffects": {
       "pAttGain": 1
+    },
+    "choiceTwoEffects": {
     }
   },
   {
@@ -31,9 +33,14 @@
     "description": "You notice strange light, which looks like it tries to show you something...",
     "choiceOne": "You follow the light, but suddenly it disappears. Just when you were about to ignore what just happened you get thrown into some kind of dark room. It turns out it was just hallucination.",
     "choiceOneB": "Follow the light",
-    "choiceTwo": "You try to catch it and after several attempts, light imbues your body, making you stronger. You gain +5 health!",
+    "choiceTwo": "You try to catch it and after several attempts, light imbues your body, making you stronger. You gain +5 to maximum health!",
     "choiceTwoB": "Catch it",
-    "eventEnd": "The thing that just happened disturbed you hard. You continue exploring"
+    "eventEnd": "The thing that just happened disturbed you hard. You continue exploring",
+    "choiceOneEffects": {
+    },
+    "choiceTwoEffects": {
+      "pMaxHealthGain": 5
+    }
   },
   {
     "id": 4,
