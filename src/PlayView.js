@@ -189,6 +189,30 @@ class PlayView extends Component {
       if (this.props.choiceEvents.data[this.props.choiceEvents.choiceEventRNG].choiceOneEffects.hasOwnProperty('pConstGain') === true) {
         this.props.playerStatsGainConstitution(this.props.choiceEvents.data[this.props.choiceEvents.choiceEventRNG].choiceOneEffects.pConstGain)
       }
+      if (this.props.choiceEvents.data[this.props.choiceEvents.choiceEventRNG].choiceOneEffects.hasOwnProperty('pHealthGain') === true) {
+        this.props.playerStatsGainHealth(this.props.choiceEvents.data[this.props.choiceEvents.choiceEventRNG].choiceOneEffects.pHealthGain)
+      }
+      if (this.props.choiceEvents.data[this.props.choiceEvents.choiceEventRNG].choiceOneEffects.hasOwnProperty('pMaxHealthGain') === true) {
+        this.props.playerStatsGainMaxHealth(this.props.choiceEvents.data[this.props.choiceEvents.choiceEventRNG].choiceOneEffects.pMaxHealthGain)
+      }
+      if (this.props.choiceEvents.data[this.props.choiceEvents.choiceEventRNG].choiceOneEffects.hasOwnProperty('pEnergyGain') === true) {
+        this.props.playerStatsGainEnergy(this.props.choiceEvents.data[this.props.choiceEvents.choiceEventRNG].choiceOneEffects.pEnergyGain)
+      }
+      if (this.props.choiceEvents.data[this.props.choiceEvents.choiceEventRNG].choiceOneEffects.hasOwnProperty('pMaxEnergyGain') === true) {
+        this.props.playerStatsGainMaxEnergy(this.props.choiceEvents.data[this.props.choiceEvents.choiceEventRNG].choiceOneEffects.pMaxEnergyGain)
+      }
+      if (this.props.choiceEvents.data[this.props.choiceEvents.choiceEventRNG].choiceOneEffects.hasOwnProperty('pHealthLoss') === true) {
+        this.props.playerStatsLoseHealth(this.props.choiceEvents.data[this.props.choiceEvents.choiceEventRNG].choiceOneEffects.pHealthLoss)
+      }
+      if (this.props.choiceEvents.data[this.props.choiceEvents.choiceEventRNG].choiceOneEffects.hasOwnProperty('pMaxHealthLoss') === true) {
+        this.props.playerStatsLoseMaxHealth(this.props.choiceEvents.data[this.props.choiceEvents.choiceEventRNG].choiceOneEffects.pMaxHealthLoss)
+      }
+      if (this.props.choiceEvents.data[this.props.choiceEvents.choiceEventRNG].choiceOneEffects.hasOwnProperty('pEnergyLoss') === true) {
+        this.props.playerStatsLoseEnergy(this.props.choiceEvents.data[this.props.choiceEvents.choiceEventRNG].choiceOneEffects.pEnergyLoss)
+      }
+      if (this.props.choiceEvents.data[this.props.choiceEvents.choiceEventRNG].choiceOneEffects.hasOwnProperty('pMaxEnergyLoss') === true) {
+        this.props.playerStatsLoseMaxEnergy(this.props.choiceEvents.data[this.props.choiceEvents.choiceEventRNG].choiceOneEffects.pMaxEnergyLoss)
+      }
       let chooseIndex = this.props.playView.possibleActions.indexOf('choose');
       chooseIndex > -1 ? this.props.playView.possibleActions.splice(chooseIndex, 1) : null
       this.props.playView.possibleActions.push('explore')
@@ -210,6 +234,30 @@ class PlayView extends Component {
       }
       if (this.props.choiceEvents.data[this.props.choiceEvents.choiceEventRNG].choiceTwoEffects.hasOwnProperty('pConstGain') === true) {
         this.props.playerStatsGainConstitution(this.props.choiceEvents.data[this.props.choiceEvents.choiceEventRNG].choiceTwoEffects.pConstGain)
+      }
+      if (this.props.choiceEvents.data[this.props.choiceEvents.choiceEventRNG].choiceTwoEffects.hasOwnProperty('pHealthGain') === true) {
+        this.props.playerStatsGainHealth(this.props.choiceEvents.data[this.props.choiceEvents.choiceEventRNG].choiceTwoEffects.pHealthGain)
+      }
+      if (this.props.choiceEvents.data[this.props.choiceEvents.choiceEventRNG].choiceTwoEffects.hasOwnProperty('pMaxHealthGain') === true) {
+        this.props.playerStatsGainMaxHealth(this.props.choiceEvents.data[this.props.choiceEvents.choiceEventRNG].choiceTwoEffects.pMaxHealthGain)
+      }
+      if (this.props.choiceEvents.data[this.props.choiceEvents.choiceEventRNG].choiceTwoEffects.hasOwnProperty('pEnergyGain') === true) {
+        this.props.playerStatsGainEnergy(this.props.choiceEvents.data[this.props.choiceEvents.choiceEventRNG].choiceTwoEffects.pEnergyGain)
+      }
+      if (this.props.choiceEvents.data[this.props.choiceEvents.choiceEventRNG].choiceTwoEffects.hasOwnProperty('pMaxEnergyGain') === true) {
+        this.props.playerStatsGainMaxEnergy(this.props.choiceEvents.data[this.props.choiceEvents.choiceEventRNG].choiceTwoEffects.pMaxEnergyGain)
+      }
+      if (this.props.choiceEvents.data[this.props.choiceEvents.choiceEventRNG].choiceTwoEffects.hasOwnProperty('pHealthLoss') === true) {
+        this.props.playerStatsLoseHealth(this.props.choiceEvents.data[this.props.choiceEvents.choiceEventRNG].choiceTwoEffects.pHealthLoss)
+      }
+      if (this.props.choiceEvents.data[this.props.choiceEvents.choiceEventRNG].choiceTwoEffects.hasOwnProperty('pMaxHealthLoss') === true) {
+        this.props.playerStatsLoseMaxHealth(this.props.choiceEvents.data[this.props.choiceEvents.choiceEventRNG].choiceTwoEffects.pMaxHealthLoss)
+      }
+      if (this.props.choiceEvents.data[this.props.choiceEvents.choiceEventRNG].choiceTwoEffects.hasOwnProperty('pEnergyLoss') === true) {
+        this.props.playerStatsLoseEnergy(this.props.choiceEvents.data[this.props.choiceEvents.choiceEventRNG].choiceTwoEffects.pEnergyLoss)
+      }
+      if (this.props.choiceEvents.data[this.props.choiceEvents.choiceEventRNG].choiceTwoEffects.hasOwnProperty('pMaxEnergyLoss') === true) {
+        this.props.playerStatsLoseMaxEnergy(this.props.choiceEvents.data[this.props.choiceEvents.choiceEventRNG].choiceTwoEffects.pMaxEnergyLoss)
       }
       let chooseIndex = this.props.playView.possibleActions.indexOf('choose');
       chooseIndex > -1 ? this.props.playView.possibleActions.splice(chooseIndex, 1) : null
