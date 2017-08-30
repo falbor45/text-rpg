@@ -7,7 +7,8 @@ const initialState = {
   wisdom: 10,
   agility: 10,
   constitution: 10,
-  attackPower: 2
+  attackPowerMin: 2,
+  attackPowerMax: 4
 }
 
 export default (state = initialState, action) => {
