@@ -83,6 +83,16 @@ export default (state = initialState, action) => {
         ...state,
         maxEnergy: state.maxEnergy - action.value
       }
+    case 'playerStats/CALC_ATT_POW_MIN':
+      return {
+          ...state,
+        attackPowerMin: initialState.attackPowerMin + Math.floor((state.strength - 10) / 2)
+      }
+    case 'playerStats/CALC_ATT_POW_MAX':
+      return {
+          ...state,
+        attackPowerMax: initialState.attackPowerMax + (state.strength - 10)
+      }
     default:
       return state
   }
