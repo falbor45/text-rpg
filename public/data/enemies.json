@@ -1,6 +1,6 @@
 [{"id": 1, "name":"a rat", "health": 17, "maxHealth": 17, "attackPowerMin": 1, "attackPowerMax": 2},
-{"id": 2, "name":"a cave Rat", "health": 20, "maxHealth": 20, "attackPowerMin": 1, "attackPowerMax": 3},
-{"id": 3, "name":"a giant Frog", "health": 10, "maxHealth": 10, "attackPowerMin": 2, "attackPowerMax": 3},
+{"id": 2, "name":"a cave rat", "health": 20, "maxHealth": 20, "attackPowerMin": 1, "attackPowerMax": 3},
+{"id": 3, "name":"a giant frog", "health": 10, "maxHealth": 10, "attackPowerMin": 2, "attackPowerMax": 3},
 {"id": 4, "name":"a deer", "health": 17, "maxHealth": 17, "attackPowerMin": 3, "attackPowerMax": 5},
 {"id": 5, "name":"a wolf", "health": 24, "maxHealth": 24, "attackPowerMin": 6, "attackPowerMax": 8},
 {"id": 6, "name":"a rabid dog", "health": 17, "maxHealth": 17, "attackPowerMin": 1, "attackPowerMax": 10},
