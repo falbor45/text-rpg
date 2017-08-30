@@ -19,8 +19,6 @@ export default connect(
                             <h1>Monster</h1>
                             <h2>Health</h2>
                             <p>{this.props.enemyStats.health}/{this.props.enemyStats.maxHealth}</p>
-                            <h2>Energy</h2>
-                            <p>{this.props.enemyStats.energy}/{this.props.enemyStats.maxEnergy}</p>
                         </div> : <div></div>
                 }
             </Col>
