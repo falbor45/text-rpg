@@ -4,7 +4,8 @@ import { connect } from 'react-redux'
 
 export default connect(
     state => ({
-      enemyStats: state.enemyStats
+      enemyStats: state.enemyStats,
+      enemies: state.enemies
     }),
     dispatch => ({
     })
@@ -16,7 +17,7 @@ export default connect(
                 {
                     this.props.enemyStats.isAlive ?
                         <div>
-                            <h1>Monster</h1>
+                            <h1>{this.props.enemies.data[this.props.enemies.enemyRNG].name.charAt(0).toUpperCase() + this.props.enemies.data[this.props.enemies.enemyRNG].name.slice(1)}</h1>
                             <h2>Health</h2>
                             <p>{this.props.enemyStats.health}/{this.props.enemyStats.maxHealth}</p>
                         </div> : <div></div>
