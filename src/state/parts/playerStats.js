@@ -94,6 +94,22 @@ export default (state = initialState, action) => {
           ...state,
         isAlive: false
       }
+    case 'playerStats/EQUALIZE' :
+      if (action.what === 'health') {
+        return {
+            ...state,
+          health: state.maxHealth
+        }
+      }
+      if (action.what === 'energy') {
+        return {
+            ...state,
+          energy: state.maxEnergy
+        }
+      }
+      return {
+          ...state
+      }
     default:
       return state
   }
