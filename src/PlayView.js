@@ -27,6 +27,7 @@ export default connect(
       playerStatsLoseMaxHealth: value => dispatch({ type: 'playerStats/LOSE_MAX_HEALTH', value}),
       playerStatsLoseEnergy: value => dispatch({ type: 'playerStats/LOSE_ENERGY', value}),
       playerStatsLoseMaxEnergy: value => dispatch({ type: 'playerStats/LOSE_MAX_ENERGY', value}),
+      playerStatsKillPlayer: () => dispatch({ type: 'playerStats/KILL_PLAYER'}),
       hitEnemy: value => dispatch({ type: 'enemyStats/HIT_ENEMY', value}),
       enemyStatsSetEnemy: (health, maxHealth, energy, maxEnergy) => dispatch({ type: 'enemyStats/SET_ENEMY', health, maxHealth, energy, maxEnergy}),
       enemyStatsHideEnemy: () => dispatch({ type: 'enemyStats/HIDE_ENEMY'}),
@@ -123,6 +124,14 @@ class PlayView extends Component {
     textAlign: 'center'
   }
 
+  dieScreenTextStyle = {
+    color: "#8a2a2d",
+  }
+
+  dieScreenStyle = {
+    textAlign: 'center'
+  }
+
   state = {
     isDisabled: null,
   }
@@ -167,6 +176,11 @@ class PlayView extends Component {
       if (this.props.enemyStats.health > 0) {
           this.props.hitEnemy(Math.round(Math.random() * (this.props.playerStats.attackPowerMax - this.props.playerStats.attackPowerMin) + this.props.playerStats.attackPowerMin));
           this.props.playerStatsLoseHealth(Math.round(Math.random() * (this.props.enemies.data[this.props.enemies.enemyRNG].attackPowerMax - this.props.enemies.data[this.props.enemies.enemyRNG].attackPowerMin) + this.props.enemies.data[this.props.enemies.enemyRNG].attackPowerMin))
+          setTimeout(() => {
+            if (this.props.playerStats.health <= 0) {
+             this.props.playerStatsKillPlayer()
+           }
+          }, 100)
           setTimeout(() => {
             if (this.props.enemyStats.health <= 0) {
               this.props.playView.storyOutput.push(`You've killed ${this.props.enemies.data[this.props.enemies.enemyRNG].name}!`)
@@ -213,6 +227,11 @@ class PlayView extends Component {
       }
       if (this.props.choiceEvents.data[this.props.choiceEvents.choiceEventRNG].choiceOneEffects.hasOwnProperty('pHealthLoss') === true) {
         this.props.playerStatsLoseHealth(this.props.choiceEvents.data[this.props.choiceEvents.choiceEventRNG].choiceOneEffects.pHealthLoss)
+        setTimeout(() => {
+          if (this.props.playerStats.health <= 0) {
+            this.props.playerStatsKillPlayer()
+          }
+        }, 100)
       }
       if (this.props.choiceEvents.data[this.props.choiceEvents.choiceEventRNG].choiceOneEffects.hasOwnProperty('pMaxHealthLoss') === true) {
         this.props.playerStatsLoseMaxHealth(this.props.choiceEvents.data[this.props.choiceEvents.choiceEventRNG].choiceOneEffects.pMaxHealthLoss)
@@ -259,6 +278,11 @@ class PlayView extends Component {
       }
       if (this.props.choiceEvents.data[this.props.choiceEvents.choiceEventRNG].choiceTwoEffects.hasOwnProperty('pHealthLoss') === true) {
         this.props.playerStatsLoseHealth(this.props.choiceEvents.data[this.props.choiceEvents.choiceEventRNG].choiceTwoEffects.pHealthLoss)
+        setTimeout(() => {
+          if (this.props.playerStats.health <= 0) {
+            this.props.playerStatsKillPlayer()
+          }
+        }, 100)
       }
       if (this.props.choiceEvents.data[this.props.choiceEvents.choiceEventRNG].choiceTwoEffects.hasOwnProperty('pMaxHealthLoss') === true) {
         this.props.playerStatsLoseMaxHealth(this.props.choiceEvents.data[this.props.choiceEvents.choiceEventRNG].choiceTwoEffects.pMaxHealthLoss)
@@ -279,16 +303,34 @@ class PlayView extends Component {
   render() {
     return (
         <Col lg={6}>
-          <hr/>
-          <textarea style={this.storyOutputStyle} readOnly value={this.props.playView.storyOutput.join('\n')}/>
-          <input style={this.playerInputStyle} onChange={event => this.props.inputChange(event.target.value)}/>
-          <button disabled={this.state.isDisabled} style={this.playerButtonStyle} onClick={() => this.handleStoryUpdate()}>Perform action</button>
+          {
+            this.props.playerStats.isAlive === true ?
+                (
+                    <div>
+                      <hr/>
+                      < textarea style={this.storyOutputStyle} readOnly
+                                 value={this.props.playView.storyOutput.join('\n')}/>
+                      <input style={this.playerInputStyle}
+                             onChange={event => this.props.inputChange(event.target.value)}/>
+                      <button disabled={this.state.isDisabled} style={this.playerButtonStyle}
+                              onClick={() => this.handleStoryUpdate()}>Perform action
+                      </button>
+                    </div>
+                )
+                : (
+                    <div style={this.dieScreenStyle}>
+                      <h1 style={this.dieScreenTextStyle}>YOU DIED</h1>
+                    </div>
+            )
+          }
           {
             this.props.playView.possibleActions.includes('choose') === true ?
                 (
                     <div style={this.choiceButtonContainer}>
-                      <button style={this.choiceOneButtonStyle} onClick={() => this.handleChoice(1)}>{this.props.choiceEvents.data[this.props.choiceEvents.choiceEventRNG].choiceOneB}</button>
-                      <button style={this.choiceTwoButtonStyle} onClick={() => this.handleChoice(2)}>{this.props.choiceEvents.data[this.props.choiceEvents.choiceEventRNG].choiceTwoB}</button>
+                      <button style={this.choiceOneButtonStyle}
+                              onClick={() => this.handleChoice(1)}>{this.props.choiceEvents.data[this.props.choiceEvents.choiceEventRNG].choiceOneB}</button>
+                      <button style={this.choiceTwoButtonStyle}
+                              onClick={() => this.handleChoice(2)}>{this.props.choiceEvents.data[this.props.choiceEvents.choiceEventRNG].choiceTwoB}</button>
                     </div>
                 ) : null
           }
