@@ -13,11 +13,6 @@ const initialState = {
 
 export default (state = initialState, action) => {
   switch (action.type) {
-    case 'playerStats/HIT_PLAYER':
-      return {
-          ...state,
-        health: state.health - action.value
-      }
     case 'playerStats/GAIN_ATTACK':
       return {
           ...state,

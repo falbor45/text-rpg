@@ -12,7 +12,6 @@ export default connect(
       choiceEvents: state.choiceEvents
     }),
     dispatch => ({
-      hitPlayer: value => dispatch({ type: 'playerStats/HIT_PLAYER', value}),
       playerStatsCalcAttPowMin: () => dispatch({ type: 'playerStats/CALC_ATT_POW_MIN'}),
       playerStatsCalcAttPowMax: () => dispatch({ type: 'playerStats/CALC_ATT_POW_MAX'}),
       playerStatsGainAttack: value => dispatch({ type: 'playerStats/GAIN_ATTACK', value}),
@@ -167,7 +166,7 @@ class PlayView extends Component {
     if(this.props.playView.inputValue === 'attack' && this.props.playView.possibleActions.includes('attack')) {
       if (this.props.enemyStats.health > 0) {
           this.props.hitEnemy(Math.round(Math.random() * (this.props.playerStats.attackPowerMax - this.props.playerStats.attackPowerMin) + this.props.playerStats.attackPowerMin));
-          this.props.hitPlayer(Math.round(Math.random() * (this.props.enemies.data[this.props.enemies.enemyRNG].attackPowerMax - this.props.enemies.data[this.props.enemies.enemyRNG].attackPowerMin) + this.props.enemies.data[this.props.enemies.enemyRNG].attackPowerMin))
+          this.props.playerStatsLoseHealth(Math.round(Math.random() * (this.props.enemies.data[this.props.enemies.enemyRNG].attackPowerMax - this.props.enemies.data[this.props.enemies.enemyRNG].attackPowerMin) + this.props.enemies.data[this.props.enemies.enemyRNG].attackPowerMin))
           setTimeout(() => {
             if (this.props.enemyStats.health <= 0) {
               this.props.playView.storyOutput.push(`You've killed ${this.props.enemies.data[this.props.enemies.enemyRNG].name}!`)
