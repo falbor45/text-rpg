@@ -9,6 +9,7 @@ const initialState = {
   constitution: 10,
   attackPowerMin: 2,
   attackPowerMax: 4,
+  baseDodgeChance: 5,
   isAlive: true
 }
 
@@ -88,6 +89,11 @@ export default (state = initialState, action) => {
       return {
           ...state,
         attackPowerMax: initialState.attackPowerMax + (state.strength - 10)
+      }
+    case 'playerStats/CALC_BASE_DODGE_CHANCE':
+      return {
+          ...state,
+        baseDodgeChance: state.agility / 2
       }
     case 'playerStats/KILL_PLAYER':
       return {

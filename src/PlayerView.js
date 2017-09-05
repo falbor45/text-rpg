@@ -25,6 +25,8 @@ export default connect (
               <p>{`${this.props.playerStats.energy}/${this.props.playerStats.maxEnergy}`}</p>
               <h2>Attack power</h2>
               <h3>{this.props.playerStats.attackPowerMin} - {this.props.playerStats.attackPowerMax}</h3>
+              <h2>Dodge chance</h2>
+              <h3>{this.props.playerStats.baseDodgeChance}%</h3>
               <hr/>
               <h2>Attributes</h2>
               <div style={this.attrStyleLeft}>

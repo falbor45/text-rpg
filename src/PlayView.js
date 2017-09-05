@@ -14,6 +14,7 @@ export default connect(
     dispatch => ({
       playerStatsCalcAttPowMin: () => dispatch({ type: 'playerStats/CALC_ATT_POW_MIN'}),
       playerStatsCalcAttPowMax: () => dispatch({ type: 'playerStats/CALC_ATT_POW_MAX'}),
+      playerStatsCalcBaseDodgeChance: () => dispatch({ type: 'playerStats/CALC_BASE_DODGE_CHANCE'}),
       playerStatsGainAttack: value => dispatch({ type: 'playerStats/GAIN_ATTACK', value}),
       playerStatsGainStrength: value => dispatch({ type: 'playerStats/GAIN_STRENGTH', value}),
       playerStatsGainWisdom: value => dispatch({ type: 'playerStats/GAIN_WISDOM', value}),
@@ -93,6 +94,7 @@ class PlayView extends Component {
 
     this.props.playerStatsCalcAttPowMin()
     this.props.playerStatsCalcAttPowMax()
+    this.props.playerStatsCalcBaseDodgeChance()
   }
 
   storyOutputStyle = {
@@ -137,6 +139,17 @@ class PlayView extends Component {
     isDisabled: null,
   }
 
+  hitTrade = () => {
+    let numberRoll1to100 = Math.ceil(Math.random() * 100)
+    let dodgeThreshold = this.props.enemies.data[this.props.enemies.enemyRNG].accuracy - this.props.playerStats.baseDodgeChance
+    if (numberRoll1to100 >= dodgeThreshold || numberRoll1to100 === 100) {
+      this.props.hitEnemy(Math.round(Math.random() * (this.props.playerStats.attackPowerMax - this.props.playerStats.attackPowerMin) + this.props.playerStats.attackPowerMin));
+    }
+    if (numberRoll1to100 < dodgeThreshold || numberRoll1to100 === 1) {
+      this.props.hitEnemy(Math.round(Math.random() * (this.props.playerStats.attackPowerMax - this.props.playerStats.attackPowerMin) + this.props.playerStats.attackPowerMin));
+      this.props.playerStatsLoseHealth(Math.round(Math.random() * (this.props.enemies.data[this.props.enemies.enemyRNG].attackPowerMax - this.props.enemies.data[this.props.enemies.enemyRNG].attackPowerMin) + this.props.enemies.data[this.props.enemies.enemyRNG].attackPowerMin))
+    }
+  }
 
   handleStoryUpdate = () => {
     if (this.props.playView.inputValue === 'explore' && this.props.playView.possibleActions.includes('explore')) {
@@ -147,17 +160,21 @@ class PlayView extends Component {
       this.props.playViewSetEventRNG()
       this.props.playerStatsCalcAttPowMin()
       this.props.playerStatsCalcAttPowMax()
+      this.props.playerStatsCalcBaseDodgeChance()
       setTimeout(() => {
         if (this.props.playView.events[this.props.playView.eventRNG] === 'fight') {
           this.props.playerStatsCalcAttPowMin()
           this.props.playerStatsCalcAttPowMax()
+          this.props.playerStatsCalcBaseDodgeChance()
           let exploreIndex = this.props.playView.possibleActions.indexOf('explore');
           exploreIndex > -1 ? this.props.playView.possibleActions.splice(exploreIndex, 1) : null
           this.props.playView.possibleActions.push('attack')
+          this.props.playView.possibleActions.push('dodge')
         }
         if (this.props.playView.events[this.props.playView.eventRNG] === 'choiceEvent') {
           this.props.playerStatsCalcAttPowMin()
           this.props.playerStatsCalcAttPowMax()
+          this.props.playerStatsCalcBaseDodgeChance()
           let exploreIndex = this.props.playView.possibleActions.indexOf('explore');
           exploreIndex > -1 ? this.props.playView.possibleActions.splice(exploreIndex, 1) : null
           this.props.playView.possibleActions.push('choose')
@@ -175,9 +192,8 @@ class PlayView extends Component {
     }
     if(this.props.playView.inputValue === 'attack' && this.props.playView.possibleActions.includes('attack')) {
       if (this.props.enemyStats.health > 0) {
-          this.props.hitEnemy(Math.round(Math.random() * (this.props.playerStats.attackPowerMax - this.props.playerStats.attackPowerMin) + this.props.playerStats.attackPowerMin));
-          this.props.playerStatsLoseHealth(Math.round(Math.random() * (this.props.enemies.data[this.props.enemies.enemyRNG].attackPowerMax - this.props.enemies.data[this.props.enemies.enemyRNG].attackPowerMin) + this.props.enemies.data[this.props.enemies.enemyRNG].attackPowerMin))
-          setTimeout(() => {
+        this.hitTrade()
+        setTimeout(() => {
             if (this.props.playerStats.health <= 0) {
              this.props.playerStatsKillPlayer()
            }
