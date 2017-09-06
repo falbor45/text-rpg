@@ -10,14 +10,47 @@ import blockLeft3 from './assets/images/blockleft3.png'
 import blockRight1 from './assets/images/blockright1.png'
 import blockRight2 from './assets/images/blockright2.png'
 import blockRight3 from './assets/images/blockright3.png'
+import blockPlaceholder from './assets/images/blockplaceholder.png'
 
 export default connect (
     state => ({
       playerStats: state.playerStats,
       blockMechanic: state.blockMechanic
     }),
+    dispatch => ({
+      blockMechanicChangeLeftBlock: (what) => dispatch({ type: 'blockMechanic/CHANGE_LEFT_BLOCK', what}),
+      blockMechanicChangeFrontBlock: (what) => dispatch({ type: 'blockMechanic/CHANGE_FRONT_BLOCK', what}),
+      blockMechanicChangeRightBlock: (what) => dispatch({ type: 'blockMechanic/CHANGE_RIGHT_BLOCK', what})
+    })
 )(
     class PlayerView extends Component {
+
+      handleLeftBlockClick = (e) => {
+        if (e.nativeEvent.which === 1) {
+          this.props.blockMechanicChangeLeftBlock('add')
+        }
+        if (e.nativeEvent.which === 3) {
+          this.props.blockMechanicChangeLeftBlock('substract')
+        }
+      }
+
+      handleFrontBlockClick = (e) => {
+        if (e.nativeEvent.which === 1) {
+          this.props.blockMechanicChangeFrontBlock('add')
+        }
+        if (e.nativeEvent.which === 3) {
+          this.props.blockMechanicChangeFrontBlock('substract')
+        }
+      }
+
+      handleRightBlockClick = (e) => {
+        if (e.nativeEvent.which === 1 ) {
+          this.props.blockMechanicChangeRightBlock('add')
+        }
+        if (e.nativeEvent.which === 3) {
+          this.props.blockMechanicChangeRightBlock('substract')
+        }
+      }
 
       attrStyleLeft = {
         float: 'left'
@@ -31,6 +64,11 @@ export default connect (
       }
 
       render() {
+        for (let i = 0; i < document.getElementsByTagName('img').length; i++) {
+          document.getElementsByTagName('img')[i].oncontextmenu = () => {
+            return false
+          }
+        }
         return (
             <Col lg={3}>
               <h1>Player</h1>
@@ -43,9 +81,9 @@ export default connect (
               <h2>Dodge chance</h2>
               <h3>{this.props.playerStats.baseDodgeChance}%</h3>
               <h2>Block setup </h2>
-                  <img src={blockLeft1} style={this.imageBlockStyle}/>
-                  <img src={blockFront1} style={this.imageBlockStyle}/>
-                  <img src={blockRight1} style={this.imageBlockStyle}/>
+              <img onMouseDown={(e) => this.handleLeftBlockClick(e)} src={this.props.blockMechanic.leftBlockPoints === 1 ? blockLeft1 : this.props.blockMechanic.leftBlockPoints === 2 ? blockLeft2 : this.props.blockMechanic.leftBlockPoints === 3 ? blockLeft3 : blockPlaceholder} style={this.imageBlockStyle}/>
+              <img onMouseDown={(e) => this.handleFrontBlockClick(e)} src={this.props.blockMechanic.frontBlockPoints === 1 ? blockFront1 : this.props.blockMechanic.frontBlockPoints === 2 ? blockFront2 : this.props.blockMechanic.frontBlockPoints === 3 ? blockFront3 : blockPlaceholder} style={this.imageBlockStyle}/>
+              <img onMouseDown={(e) => this.handleRightBlockClick(e)} src={this.props.blockMechanic.rightBlockPoints === 1 ? blockRight1 : this.props.blockMechanic.rightBlockPoints === 2 ? blockRight2 : this.props.blockMechanic.rightBlockPoints === 3 ? blockRight3 : blockPlaceholder} style={this.imageBlockStyle}/>
               <hr/>
               <h2>Attributes</h2>
               <div style={this.attrStyleLeft}>
