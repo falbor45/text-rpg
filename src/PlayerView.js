@@ -80,6 +80,9 @@ export default connect (
               <h3>{this.props.playerStats.attackPowerMin} - {this.props.playerStats.attackPowerMax}</h3>
               <h2>Dodge chance</h2>
               <h3>{this.props.playerStats.baseDodgeChance}%</h3>
+              <h2>Armour</h2>
+              <h3>{this.props.playerStats.armour}</h3>
+              <p>Damage reduction: {this.props.playerStats.damageReduction}%</p>
               <h2>Block setup </h2>
               <img onMouseDown={(e) => this.handleLeftBlockClick(e)} src={this.props.blockMechanic.leftBlockPoints === 1 ? blockLeft1 : this.props.blockMechanic.leftBlockPoints === 2 ? blockLeft2 : this.props.blockMechanic.leftBlockPoints === 3 ? blockLeft3 : blockPlaceholder} style={this.imageBlockStyle}/>
               <img onMouseDown={(e) => this.handleFrontBlockClick(e)} src={this.props.blockMechanic.frontBlockPoints === 1 ? blockFront1 : this.props.blockMechanic.frontBlockPoints === 2 ? blockFront2 : this.props.blockMechanic.frontBlockPoints === 3 ? blockFront3 : blockPlaceholder} style={this.imageBlockStyle}/>

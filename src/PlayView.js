@@ -15,6 +15,7 @@ export default connect(
       playerStatsCalcAttPowMin: () => dispatch({ type: 'playerStats/CALC_ATT_POW_MIN'}),
       playerStatsCalcAttPowMax: () => dispatch({ type: 'playerStats/CALC_ATT_POW_MAX'}),
       playerStatsCalcBaseDodgeChance: () => dispatch({ type: 'playerStats/CALC_BASE_DODGE_CHANCE'}),
+      playerStatsCalcDmgReduction: () => dispatch({ type: 'playerStats/CALC_DMG_REDUCTION'}),
       playerStatsGainAttack: value => dispatch({ type: 'playerStats/GAIN_ATTACK', value}),
       playerStatsGainStrength: value => dispatch({ type: 'playerStats/GAIN_STRENGTH', value}),
       playerStatsGainWisdom: value => dispatch({ type: 'playerStats/GAIN_WISDOM', value}),
@@ -95,6 +96,7 @@ class PlayView extends Component {
     this.props.playerStatsCalcAttPowMin()
     this.props.playerStatsCalcAttPowMax()
     this.props.playerStatsCalcBaseDodgeChance()
+    this.props.playerStatsCalcDmgReduction()
   }
 
   storyOutputStyle = {
@@ -161,11 +163,13 @@ class PlayView extends Component {
       this.props.playerStatsCalcAttPowMin()
       this.props.playerStatsCalcAttPowMax()
       this.props.playerStatsCalcBaseDodgeChance()
+      this.props.playerStatsCalcDmgReduction()
       setTimeout(() => {
         if (this.props.playView.events[this.props.playView.eventRNG] === 'fight') {
           this.props.playerStatsCalcAttPowMin()
           this.props.playerStatsCalcAttPowMax()
           this.props.playerStatsCalcBaseDodgeChance()
+          this.props.playerStatsCalcDmgReduction()
           let exploreIndex = this.props.playView.possibleActions.indexOf('explore');
           exploreIndex > -1 ? this.props.playView.possibleActions.splice(exploreIndex, 1) : null
           this.props.playView.possibleActions.push('attack')
@@ -175,6 +179,7 @@ class PlayView extends Component {
           this.props.playerStatsCalcAttPowMin()
           this.props.playerStatsCalcAttPowMax()
           this.props.playerStatsCalcBaseDodgeChance()
+          this.props.playerStatsCalcDmgReduction()
           let exploreIndex = this.props.playView.possibleActions.indexOf('explore');
           exploreIndex > -1 ? this.props.playView.possibleActions.splice(exploreIndex, 1) : null
           this.props.playView.possibleActions.push('choose')

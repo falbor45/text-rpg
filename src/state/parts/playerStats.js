@@ -10,6 +10,8 @@ const initialState = {
   attackPowerMin: 2,
   attackPowerMax: 4,
   baseDodgeChance: 5,
+  armour: 0,
+  damageReduction: 0,
   isAlive: true
 }
 
@@ -94,6 +96,16 @@ export default (state = initialState, action) => {
       return {
           ...state,
         baseDodgeChance: state.agility / 2
+      }
+    case 'playerStats/CALC_ARMOUR':
+      return {
+        ...state,
+        armour: state.armour + Math.floor((state.constitution - 10) / 3)
+      }
+    case 'playerStats/CALC_DMG_REDUCTION':
+      return {
+        ...state,
+        damageReduction: Math.round(state.armour/(state.armour + 100) * 100)
       }
     case 'playerStats/KILL_PLAYER':
       return {
