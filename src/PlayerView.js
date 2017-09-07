@@ -63,6 +63,16 @@ export default connect (
         width: '33.3%'
       }
 
+      centerBarText = {
+        position: 'absolute',
+        left: '50%'
+      }
+
+      barOverlap = {
+        position: 'relative',
+        left: '-50%'
+      }
+
       render() {
         for (let i = 0; i < document.getElementsByTagName('img').length; i++) {
           document.getElementsByTagName('img')[i].oncontextmenu = () => {
@@ -73,10 +83,14 @@ export default connect (
             <Col lg={3}>
               <h1>Player</h1>
               <h2>Health</h2>
-              <p>{`${this.props.playerStats.health}/${this.props.playerStats.maxHealth}`}</p>
+              <div style={this.centerBarText}>
+              <p style={this.barOverlap}>{`${this.props.playerStats.health}/${this.props.playerStats.maxHealth}`}</p>
+              </div>
               <ProgressBar bsStyle="success" now={Math.round((this.props.playerStats.health / this.props.playerStats.maxHealth) * 100)}/>
               <h2>Energy</h2>
-              <p>{`${this.props.playerStats.energy}/${this.props.playerStats.maxEnergy}`}</p>
+              <div style={this.centerBarText}>
+              <p style={this.barOverlap}>{`${this.props.playerStats.energy}/${this.props.playerStats.maxEnergy}`}</p>
+              </div>
               <ProgressBar bsStyle="info" now={Math.round((this.props.playerStats.energy / this.props.playerStats.maxEnergy) * 100)}/>
               <h2>Attack power</h2>
               <h3>{this.props.playerStats.attackPowerMin} - {this.props.playerStats.attackPowerMax}</h3>
