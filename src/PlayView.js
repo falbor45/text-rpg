@@ -9,7 +9,8 @@ export default connect(
       playView: state.playView,
       areas: state.areas,
       enemies: state.enemies,
-      choiceEvents: state.choiceEvents
+      choiceEvents: state.choiceEvents,
+      blockMechanic: state.blockMechanic
     }),
     dispatch => ({
       playerStatsCalcAttPowMin: () => dispatch({ type: 'playerStats/CALC_ATT_POW_MIN'}),
@@ -45,6 +46,7 @@ export default connect(
       enemiesFetchSuccess: data => dispatch({ type: 'enemies/FETCH__SUCCESS', data}),
       enemiesFetchFailure: error => dispatch({ type: 'enemies/FETCH__FAILURE', error}),
       enemiesSetEnemyRNG: () => dispatch({ type: 'enemies/SET_ENEMY_RNG'}),
+      enemiesNextAttPattern: () => dispatch({ type: 'enemies/NEXT_ATT_PATTERN'}),
       choiceEventsFetchBegin: () => dispatch({ type: 'choiceEvents/FETCH__BEGIN'}),
       choiceEventsFetchSuccess: data => dispatch({ type: 'choiceEvents/FETCH__SUCCESS', data}),
       choiceEventsFetchFailure: error => dispatch({ type: 'choiceEvents/FETCH__FAILURE', error}),
@@ -138,18 +140,35 @@ class PlayView extends Component {
   }
 
   state = {
-    isDisabled: null,
+    isDisabled: null
   }
 
   hitTrade = () => {
+    let aPattern = this.props.enemies.data[this.props.enemies.enemyRNG].aPattern
     let numberRoll1to100 = Math.ceil(Math.random() * 100)
     let dodgeThreshold = this.props.enemies.data[this.props.enemies.enemyRNG].accuracy - this.props.playerStats.baseDodgeChance
     if (numberRoll1to100 >= dodgeThreshold || numberRoll1to100 === 100) {
       this.props.hitEnemy(Math.round(Math.random() * (this.props.playerStats.attackPowerMax - this.props.playerStats.attackPowerMin) + this.props.playerStats.attackPowerMin));
+      this.props.enemiesNextAttPattern()
     }
     if (numberRoll1to100 < dodgeThreshold || numberRoll1to100 === 1) {
       this.props.hitEnemy(Math.round(Math.random() * (this.props.playerStats.attackPowerMax - this.props.playerStats.attackPowerMin) + this.props.playerStats.attackPowerMin));
-      this.props.playerStatsLoseHealth(Math.round(Math.random() * (this.props.enemies.data[this.props.enemies.enemyRNG].attackPowerMax - this.props.enemies.data[this.props.enemies.enemyRNG].attackPowerMin) + this.props.enemies.data[this.props.enemies.enemyRNG].attackPowerMin) * (this.props.playerStats.damageReduction / 100))
+      if (aPattern[this.props.enemies.aPatternI] === 'f') {
+        let readBlockP = this.props.blockMechanic.frontBlockPoints
+        let blockRed = readBlockP === 3 ? 50 : readBlockP === 2 ? 30 : readBlockP === 1 ? 15 : 0
+        this.props.playerStatsLoseHealth(Math.round((Math.random() * (this.props.enemies.data[this.props.enemies.enemyRNG].attackPowerMax - this.props.enemies.data[this.props.enemies.enemyRNG].attackPowerMin) + this.props.enemies.data[this.props.enemies.enemyRNG].attackPowerMin) * (1 - (this.props.playerStats.damageReduction / 100)) * (1 - (blockRed / 100))))
+      }
+      if (aPattern[this.props.enemies.aPatternI] === 'l') {
+        let readBlockP = this.props.blockMechanic.leftBlockPoints
+        let blockRed = readBlockP === 3 ? 50 : readBlockP === 2 ? 30 : readBlockP === 1 ? 15 : 0
+        this.props.playerStatsLoseHealth(Math.round((Math.random() * (this.props.enemies.data[this.props.enemies.enemyRNG].attackPowerMax - this.props.enemies.data[this.props.enemies.enemyRNG].attackPowerMin) + this.props.enemies.data[this.props.enemies.enemyRNG].attackPowerMin) * (1 - (this.props.playerStats.damageReduction / 100)) * (1 - (blockRed / 100))))
+      }
+      if (aPattern[this.props.enemies.aPatternI] === 'r') {
+        let readBlockP = this.props.blockMechanic.rightBlockPoints
+        let blockRed = readBlockP === 3 ? 50 : readBlockP === 2 ? 30 : readBlockP === 1 ? 15 : 0
+        this.props.playerStatsLoseHealth(Math.round((Math.random() * (this.props.enemies.data[this.props.enemies.enemyRNG].attackPowerMax - this.props.enemies.data[this.props.enemies.enemyRNG].attackPowerMin) + this.props.enemies.data[this.props.enemies.enemyRNG].attackPowerMin) * (1 - (this.props.playerStats.damageReduction / 100)) * (1 - (blockRed / 100))))
+      }
+      this.props.enemiesNextAttPattern()
     }
   }
 

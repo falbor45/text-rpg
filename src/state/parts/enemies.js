@@ -2,7 +2,8 @@ const initialState = {
   data: null,
   fetching: false,
   error: null,
-  enemyRNG: 0
+  enemyRNG: 0,
+  aPatternI: 0
 }
 
 export default (state = initialState, action) => {
@@ -28,6 +29,11 @@ export default (state = initialState, action) => {
       return {
           ...state,
         enemyRNG: Math.floor(Math.random() * state.data.length)
+      }
+    case 'enemies/NEXT_ATT_PATTERN':
+      return {
+        ...state,
+        aPatternI: state.aPatternI === 5 ? 0 : (state.aPatternI + 1)
       }
     default:
       return {
