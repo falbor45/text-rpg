@@ -149,7 +149,7 @@ class PlayView extends Component {
     }
     if (numberRoll1to100 < dodgeThreshold || numberRoll1to100 === 1) {
       this.props.hitEnemy(Math.round(Math.random() * (this.props.playerStats.attackPowerMax - this.props.playerStats.attackPowerMin) + this.props.playerStats.attackPowerMin));
-      this.props.playerStatsLoseHealth(Math.round(Math.random() * (this.props.enemies.data[this.props.enemies.enemyRNG].attackPowerMax - this.props.enemies.data[this.props.enemies.enemyRNG].attackPowerMin) + this.props.enemies.data[this.props.enemies.enemyRNG].attackPowerMin))
+      this.props.playerStatsLoseHealth(Math.round(Math.random() * (this.props.enemies.data[this.props.enemies.enemyRNG].attackPowerMax - this.props.enemies.data[this.props.enemies.enemyRNG].attackPowerMin) + this.props.enemies.data[this.props.enemies.enemyRNG].attackPowerMin) * (this.props.playerStats.damageReduction / 100))
     }
   }
 
