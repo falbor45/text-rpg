@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Col } from 'react-bootstrap'
+import { Col, ProgressBar } from 'react-bootstrap'
 import { connect } from 'react-redux'
 import blockFront1 from './assets/images/blockfront1.png'
 import blockFront2 from './assets/images/blockfront2.png'
@@ -74,8 +74,10 @@ export default connect (
               <h1>Player</h1>
               <h2>Health</h2>
               <p>{`${this.props.playerStats.health}/${this.props.playerStats.maxHealth}`}</p>
+              <ProgressBar bsStyle="success" now={Math.round((this.props.playerStats.health / this.props.playerStats.maxHealth) * 100)}/>
               <h2>Energy</h2>
               <p>{`${this.props.playerStats.energy}/${this.props.playerStats.maxEnergy}`}</p>
+              <ProgressBar bsStyle="info" now={Math.round((this.props.playerStats.energy / this.props.playerStats.maxEnergy) * 100)}/>
               <h2>Attack power</h2>
               <h3>{this.props.playerStats.attackPowerMin} - {this.props.playerStats.attackPowerMax}</h3>
               <h2>Dodge chance</h2>
