@@ -46,7 +46,7 @@ export default connect(
       enemiesFetchBegin: () => dispatch({ type: 'enemies/FETCH__BEGIN'}),
       enemiesFetchSuccess: data => dispatch({ type: 'enemies/FETCH__SUCCESS', data}),
       enemiesFetchFailure: error => dispatch({ type: 'enemies/FETCH__FAILURE', error}),
-      enemiesSetEnemyRNG: () => dispatch({ type: 'enemies/SET_ENEMY_RNG'}),
+      enemiesSetEnemyRNG: (value) => dispatch({ type: 'enemies/SET_ENEMY_RNG', value}),
       enemiesNextAttPattern: () => dispatch({ type: 'enemies/NEXT_ATT_PATTERN'}),
       choiceEventsFetchBegin: () => dispatch({ type: 'choiceEvents/FETCH__BEGIN'}),
       choiceEventsFetchSuccess: data => dispatch({ type: 'choiceEvents/FETCH__SUCCESS', data}),
@@ -182,6 +182,7 @@ class PlayView extends Component {
   }
 
   handleStoryUpdate = () => {
+    let filteredEnemies = this.props.enemies.data.filter((i) => i.difficulty <= Math.sqrt(this.props.playView.days))
     if (this.props.playView.inputValue === 'explore' && this.props.playView.possibleActions.includes('explore')) {
       this.props.playViewForwardTime()
       this.setState({
@@ -213,12 +214,12 @@ class PlayView extends Component {
           exploreIndex > -1 ? this.props.playView.possibleActions.splice(exploreIndex, 1) : null
           this.props.playView.possibleActions.push('choose')
         }
-        this.props.playView.events[this.props.playView.eventRNG] === 'fight' ? this.props.enemiesSetEnemyRNG() : null
+        this.props.playView.events[this.props.playView.eventRNG] === 'fight' ? this.props.enemiesSetEnemyRNG(filteredEnemies.length) : null
         this.props.playView.events[this.props.playView.eventRNG] === 'choiceEvent' ? this.props.choiceEventsSetChoiceEventRNG() : null
         this.props.playView.events[this.props.playView.eventRNG] === 'fight' ? this.props.playView.storyOutput.push(this.props.areas.data[this.props.areas.areaRNG].description,
-            'You encounter ' + this.props.enemies.data[this.props.enemies.enemyRNG].name + '!') : this.props.playView.events[this.props.playView.eventRNG] === 'choiceEvent' ?
+            'You encounter ' + filteredEnemies[this.props.enemies.enemyRNG].name + '!') : this.props.playView.events[this.props.playView.eventRNG] === 'choiceEvent' ?
             this.props.playView.storyOutput.push(this.props.choiceEvents.data[this.props.choiceEvents.choiceEventRNG].description) : null
-        this.props.playView.events[this.props.playView.eventRNG] === 'fight' ? this.props.enemyStatsSetEnemy(this.props.enemies.data[this.props.enemies.enemyRNG].health, this.props.enemies.data[this.props.enemies.enemyRNG].maxHealth, this.props.enemies.data[this.props.enemies.enemyRNG].energy, this.props.enemies.data[this.props.enemies.enemyRNG].maxEnergy) : null
+        this.props.playView.events[this.props.playView.eventRNG] === 'fight' ? this.props.enemyStatsSetEnemy(filteredEnemies[this.props.enemies.enemyRNG].health, filteredEnemies[this.props.enemies.enemyRNG].maxHealth, filteredEnemies[this.props.enemies.enemyRNG].energy, filteredEnemies[this.props.enemies.enemyRNG].maxEnergy) : null
         this.setState({
           isDisabled: false
         })
@@ -234,7 +235,7 @@ class PlayView extends Component {
           }, 100)
           setTimeout(() => {
             if (this.props.enemyStats.health <= 0) {
-              this.props.playView.storyOutput.push(`You've killed ${this.props.enemies.data[this.props.enemies.enemyRNG].name}!`)
+              this.props.playView.storyOutput.push(`You've killed ${filteredEnemies[this.props.enemies.enemyRNG].name}!`)
               this.props.enemyStatsHideEnemy();
               let attackIndex = this.props.playView.possibleActions.indexOf('attack');
               attackIndex > -1 ? this.props.playView.possibleActions.splice(attackIndex, 1) : null;

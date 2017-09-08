@@ -28,7 +28,7 @@ export default (state = initialState, action) => {
     case 'enemies/SET_ENEMY_RNG':
       return {
           ...state,
-        enemyRNG: Math.floor(Math.random() * state.data.length)
+        enemyRNG: Math.floor(Math.random() * action.value)
       }
     case 'enemies/NEXT_ATT_PATTERN':
       return {
