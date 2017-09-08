@@ -38,6 +38,7 @@ export default connect(
       inputChange: value => dispatch({ type: 'playView/INPUT_CHANGE', value}),
       playViewSetEventRNG: () => dispatch({type: 'playView/SET_EVENT_RNG'}),
       playViewForceUpdate: () => dispatch({type: 'playView/FORCE_UPDATE'}),
+      playViewForwardTime: () => dispatch({type: 'playView/FORWARD_TIME'}),
       areasFetchBegin: () => dispatch({ type: 'areas/FETCH__BEGIN'}),
       areasFetchSuccess: data => dispatch({ type: 'areas/FETCH__SUCCESS', data}),
       areasFetchFailure: error => dispatch({ type: 'areas/FETCH__FAILURE', error}),
@@ -139,6 +140,14 @@ class PlayView extends Component {
     textAlign: 'center'
   }
 
+  timeOfDay = {
+    float: 'right'
+  }
+
+  day = {
+    float: 'left'
+  }
+
   state = {
     isDisabled: null
   }
@@ -174,6 +183,7 @@ class PlayView extends Component {
 
   handleStoryUpdate = () => {
     if (this.props.playView.inputValue === 'explore' && this.props.playView.possibleActions.includes('explore')) {
+      this.props.playViewForwardTime()
       this.setState({
         isDisabled: true,
       })
@@ -369,6 +379,8 @@ class PlayView extends Component {
                 (
                     <div>
                       <hr/>
+                      <p style={this.day}>Day: {this.props.playView.days}</p>
+                      <p style={this.timeOfDay}>Current time: {this.props.playView.timeOfDay}</p>
                       < textarea style={this.storyOutputStyle} readOnly
                                  value={this.props.playView.storyOutput.join('\n')}/>
                       <input style={this.playerInputStyle}
