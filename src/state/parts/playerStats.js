@@ -1,12 +1,14 @@
 const initialState = {
+  name: '',
+  isCreated: false,
   health: 100,
   maxHealth: 100,
   energy: 20,
   maxEnergy: 20,
-  strength: 10,
-  wisdom: 10,
-  agility: 10,
-  constitution: 10,
+  strength: 8,
+  wisdom: 8,
+  agility: 8,
+  constitution: 8,
   attackPowerMin: 2,
   attackPowerMax: 4,
   baseDodgeChance: 5,
@@ -127,6 +129,41 @@ export default (state = initialState, action) => {
       }
       return {
           ...state
+      }
+    case 'playerStats/STAT_ROLL':
+      let strength = 8;
+      let agility = 8;
+      let wisdom = 8;
+      let constitution = 8;
+      let arr = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21];
+      for (let i=20; i>=0; i--) {
+        let random = Math.random() * arr.length
+        let randomS = Math.floor(Math.random() * 4)
+        if (randomS === 0) {
+          strength = strength + arr.splice(random, random).length
+        }
+        if (randomS === 1) {
+          agility = agility + arr.splice(random, random).length
+        }
+        if (randomS === 2) {
+          wisdom = wisdom + arr.splice(random, random).length
+        }
+        if (randomS === 3) {
+          constitution = constitution + arr.splice(random, random).length
+        }
+      }
+      return {
+        ...state,
+        strength: strength,
+        agility: agility,
+        wisdom: wisdom,
+        constitution: constitution
+      }
+    case 'playerStats/CREATE_CHARACTER':
+      return {
+        ...state,
+        isCreated: true,
+        name: action.value
       }
     default:
       return state
