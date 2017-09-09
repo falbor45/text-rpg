@@ -81,7 +81,7 @@ export default connect (
         }
         return (
             <Col lg={3}>
-              <h1>Player</h1>
+              <h1>{this.props.playerStats.name}</h1>
               <h2>Health</h2>
               <div style={this.centerBarText}>
               <p style={this.barOverlap}>{`${this.props.playerStats.health}/${this.props.playerStats.maxHealth}`}</p>
