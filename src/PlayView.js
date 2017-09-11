@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Col } from 'react-bootstrap'
+import { Col, Button } from 'react-bootstrap'
 import { connect } from 'react-redux'
 
 export default connect(
@@ -143,7 +143,8 @@ class PlayView extends Component {
   }
 
   state = {
-    isDisabled: null
+    isDisabled: null,
+    viewedTab: 'exploration'
   }
 
   hitTrade = () => {
@@ -378,8 +379,10 @@ class PlayView extends Component {
                     <div>
                       <hr/>
                       <p>Day: {this.props.playView.days} ({this.props.playView.timeOfDay})</p>
+                      <Button onClick={() => this.setState({viewedTab: 'exploration'})}>Exploration</Button>
+                      <Button onClick={() => this.setState({viewedTab: 'battleLog'})}>Battle log</Button>
                       < textarea style={this.storyOutputStyle} readOnly
-                                 value={this.props.playView.storyOutput.join('\n')}/>
+                                 value={this.state.viewedTab === 'exploration' ? this.props.playView.storyOutput.join('\n') : ''}/>
                       <input style={this.playerInputStyle}
                              onChange={event => this.props.inputChange(event.target.value)}/>
                       <button disabled={this.state.isDisabled} style={this.playerButtonStyle}
