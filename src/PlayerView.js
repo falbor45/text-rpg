@@ -80,7 +80,7 @@ export default connect (
           }
         }
         return (
-            <Col lg={3}>
+            <Col style={{textAlign: 'center'}} lg={3}>
               <h1>{this.props.playerStats.name}</h1>
               <h2>Health</h2>
               <div style={this.centerBarText}>
@@ -106,18 +106,18 @@ export default connect (
               <p>Points undistributed: {this.props.blockMechanic.unusedBlockPoints}</p>
               <hr/>
               <h2>Attributes</h2>
-              <div style={this.attrStyleLeft}>
+              <Col xs={6} sm={6} md={6} lg={7}>
               <h3>Strength:</h3>
               <h3>Wisdom:</h3>
               <h3>Agility:</h3>
               <h3>Constitution:</h3>
-              </div>
-              <div style={this.attrStyleRight}>
+              </Col>
+              <Col xs={6} sm={6} md={6} lgPush={1} lg={4}>
               <h3>{this.props.playerStats.strength}</h3>
               <h3>{this.props.playerStats.wisdom}</h3>
               <h3>{this.props.playerStats.agility}</h3>
               <h3>{this.props.playerStats.constitution}</h3>
-              </div>
+              </Col>
             </Col>
         )
       }
