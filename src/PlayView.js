@@ -149,28 +149,36 @@ class PlayView extends Component {
 
   hitTrade = () => {
     let aPattern = this.props.enemies.data[this.props.enemies.enemyRNG].aPattern
+    let pHitCalc = Math.round(Math.random() * (this.props.playerStats.attackPowerMax - this.props.playerStats.attackPowerMin) + this.props.playerStats.attackPowerMin)
     let numberRoll1to100 = Math.ceil(Math.random() * 100)
     let dodgeThreshold = this.props.enemies.data[this.props.enemies.enemyRNG].accuracy - this.props.playerStats.baseDodgeChance
     if (numberRoll1to100 >= dodgeThreshold || numberRoll1to100 === 100) {
-      this.props.hitEnemy(Math.round(Math.random() * (this.props.playerStats.attackPowerMax - this.props.playerStats.attackPowerMin) + this.props.playerStats.attackPowerMin));
+      let dodgeMessage = aPattern[this.props.enemies.aPatternI] === 'f' ? 'front' : aPattern[this.props.enemies.aPatternI] === 'r' ? 'right side' : aPattern[this.props.enemies.aPatternI] === 'l' ? 'left side' : null
+      this.props.playView.battleLogOutput.push(`You dodged an attack from the ${dodgeMessage}!`)
+      this.props.playView.battleLogOutput.push(`You hit an enemy for ${pHitCalc} damage!`)
+      this.props.hitEnemy(pHitCalc);
       this.props.enemiesNextAttPattern()
     }
     if (numberRoll1to100 < dodgeThreshold || numberRoll1to100 === 1) {
-      this.props.hitEnemy(Math.round(Math.random() * (this.props.playerStats.attackPowerMax - this.props.playerStats.attackPowerMin) + this.props.playerStats.attackPowerMin));
+      this.props.hitEnemy(pHitCalc);
+      this.props.playView.battleLogOutput.push(`You hit an enemy for ${pHitCalc} damage!`)
       if (aPattern[this.props.enemies.aPatternI] === 'f') {
         let readBlockP = this.props.blockMechanic.frontBlockPoints
         let blockRed = readBlockP === 3 ? 50 : readBlockP === 2 ? 30 : readBlockP === 1 ? 15 : 0
         this.props.playerStatsLoseHealth(Math.round((Math.random() * (this.props.enemies.data[this.props.enemies.enemyRNG].attackPowerMax - this.props.enemies.data[this.props.enemies.enemyRNG].attackPowerMin) + this.props.enemies.data[this.props.enemies.enemyRNG].attackPowerMin) * (1 - (this.props.playerStats.damageReduction / 100)) * (1 - (blockRed / 100))))
+        this.props.playView.battleLogOutput.push(`Enemy attacks you head on!`)
       }
       if (aPattern[this.props.enemies.aPatternI] === 'l') {
         let readBlockP = this.props.blockMechanic.leftBlockPoints
         let blockRed = readBlockP === 3 ? 50 : readBlockP === 2 ? 30 : readBlockP === 1 ? 15 : 0
         this.props.playerStatsLoseHealth(Math.round((Math.random() * (this.props.enemies.data[this.props.enemies.enemyRNG].attackPowerMax - this.props.enemies.data[this.props.enemies.enemyRNG].attackPowerMin) + this.props.enemies.data[this.props.enemies.enemyRNG].attackPowerMin) * (1 - (this.props.playerStats.damageReduction / 100)) * (1 - (blockRed / 100))))
+        this.props.playView.battleLogOutput.push(`Enemy attacks you from the left side!`)
       }
       if (aPattern[this.props.enemies.aPatternI] === 'r') {
         let readBlockP = this.props.blockMechanic.rightBlockPoints
         let blockRed = readBlockP === 3 ? 50 : readBlockP === 2 ? 30 : readBlockP === 1 ? 15 : 0
         this.props.playerStatsLoseHealth(Math.round((Math.random() * (this.props.enemies.data[this.props.enemies.enemyRNG].attackPowerMax - this.props.enemies.data[this.props.enemies.enemyRNG].attackPowerMin) + this.props.enemies.data[this.props.enemies.enemyRNG].attackPowerMin) * (1 - (this.props.playerStats.damageReduction / 100)) * (1 - (blockRed / 100))))
+        this.props.playView.battleLogOutput.push(`Enemy attacks you from the right side!`)
       }
       this.props.enemiesNextAttPattern()
     }
@@ -192,6 +200,9 @@ class PlayView extends Component {
       this.props.playerStatsCalcDmgReduction()
       setTimeout(() => {
         if (this.props.playView.events[this.props.playView.eventRNG] === 'fight') {
+          this.setState({
+            viewedTab: 'battleLog'
+          })
           this.props.playerStatsCalcAttPowMin()
           this.props.playerStatsCalcAttPowMax()
           this.props.playerStatsCalcBaseDodgeChance()
@@ -214,8 +225,8 @@ class PlayView extends Component {
         }
         this.props.playView.events[this.props.playView.eventRNG] === 'fight' ? this.props.enemiesSetEnemyRNG(filteredEnemies.length) : null
         this.props.playView.events[this.props.playView.eventRNG] === 'choiceEvent' ? this.props.choiceEventsSetChoiceEventRNG() : null
-        this.props.playView.events[this.props.playView.eventRNG] === 'fight' ? this.props.playView.storyOutput.push(this.props.areas.data[this.props.areas.areaRNG].description,
-            'You encounter ' + filteredEnemies[this.props.enemies.enemyRNG].name + '!') : this.props.playView.events[this.props.playView.eventRNG] === 'choiceEvent' ?
+        this.props.playView.events[this.props.playView.eventRNG] === 'fight' ? (this.props.playView.battleLogOutput.push('You encounter ' + filteredEnemies[this.props.enemies.enemyRNG].name + '!')  && this.props.playView.storyOutput.push(this.props.areas.data[this.props.areas.areaRNG].description,
+            'You encounter ' + filteredEnemies[this.props.enemies.enemyRNG].name + '!')) : this.props.playView.events[this.props.playView.eventRNG] === 'choiceEvent' ?
             this.props.playView.storyOutput.push(this.props.choiceEvents.data[this.props.choiceEvents.choiceEventRNG].description) : null
         this.props.playView.events[this.props.playView.eventRNG] === 'fight' ? this.props.enemyStatsSetEnemy(filteredEnemies[this.props.enemies.enemyRNG].health, filteredEnemies[this.props.enemies.enemyRNG].maxHealth, filteredEnemies[this.props.enemies.enemyRNG].energy, filteredEnemies[this.props.enemies.enemyRNG].maxEnergy) : null
         this.setState({
@@ -234,10 +245,14 @@ class PlayView extends Component {
           setTimeout(() => {
             if (this.props.enemyStats.health <= 0) {
               this.props.playView.storyOutput.push(`You've killed ${filteredEnemies[this.props.enemies.enemyRNG].name}!`)
+              this.props.playView.battleLogOutput.push(`You've killed ${filteredEnemies[this.props.enemies.enemyRNG].name}!`)
               this.props.enemyStatsHideEnemy();
               let attackIndex = this.props.playView.possibleActions.indexOf('attack');
               attackIndex > -1 ? this.props.playView.possibleActions.splice(attackIndex, 1) : null;
               this.props.playView.possibleActions.push('explore')
+              this.setState({
+                viewedTab: 'exploration'
+              })
             }
           }, 0)
       }
@@ -382,7 +397,7 @@ class PlayView extends Component {
                       <Button onClick={() => this.setState({viewedTab: 'exploration'})}>Exploration</Button>
                       <Button onClick={() => this.setState({viewedTab: 'battleLog'})}>Battle log</Button>
                       < textarea style={this.storyOutputStyle} readOnly
-                                 value={this.state.viewedTab === 'exploration' ? this.props.playView.storyOutput.join('\n') : ''}/>
+                                 value={this.state.viewedTab === 'exploration' ? this.props.playView.storyOutput.join('\n') : this.props.playView.battleLogOutput.join('\n')}/>
                       <input style={this.playerInputStyle}
                              onChange={event => this.props.inputChange(event.target.value)}/>
                       <button disabled={this.state.isDisabled} style={this.playerButtonStyle}

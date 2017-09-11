@@ -1,6 +1,7 @@
 const initialState = {
   inputValue: '',
   storyOutput: [],
+  battleLogOutput: [],
   events: ['fight', 'choiceEvent'],
   eventRNG: 0,
   possibleActions: ['explore'],
