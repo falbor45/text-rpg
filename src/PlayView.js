@@ -142,14 +142,6 @@ class PlayView extends Component {
     textAlign: 'center'
   }
 
-  timeOfDay = {
-    float: 'right'
-  }
-
-  day = {
-    float: 'left'
-  }
-
   state = {
     isDisabled: null
   }
@@ -385,8 +377,7 @@ class PlayView extends Component {
                 (
                     <div>
                       <hr/>
-                      <p style={this.day}>Day: {this.props.playView.days}</p>
-                      <p style={this.timeOfDay}>Current time: {this.props.playView.timeOfDay}</p>
+                      <p>Day: {this.props.playView.days} ({this.props.playView.timeOfDay})</p>
                       < textarea style={this.storyOutputStyle} readOnly
                                  value={this.props.playView.storyOutput.join('\n')}/>
                       <input style={this.playerInputStyle}
