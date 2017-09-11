@@ -13,10 +13,31 @@ export default connect(
 )(
     class CharacterCreation extends Component {
 
+      state = {
+        errorMessage: ''
+      }
+
+      createCharacter = (value) => {
+        if (value.length <= 16 && value.length >= 3) {
+          this.props.playerStatsCreateCharacter(value)
+        }
+        if (value.length < 3) {
+          this.setState({
+            errorMessage: 'Your name is too short!'
+          })
+        }
+        if (value.length > 16) {
+          this.setState({
+            errorMessage: 'Your name is too long!'
+          })
+        }
+        return null
+      }
+
       render() {
         return (
             <div>
-            <Form horizontal style={{textAlign: 'center'}}>
+            <Form autoComplete="off" horizontal style={{textAlign: 'center'}}>
               <FormGroup>
                 <Col smOffset={3} sm={6} xsOffset={3} xs={6} mdOffset={3} md={6} lgOffset={3} lg={6}>
                   What is your name?
@@ -24,6 +45,7 @@ export default connect(
                 <br/>
                 <Col smOffset={3} sm={6} xsOffset={3} xs={6} mdOffset={3} md={6} lgOffset={3} lg={6}>
                   <FormControl type="text" id="name"/>
+                  <p style={this.state.errorMessage !== '' ? {color: "red"} : null}>{this.state.errorMessage !== '' ? this.state.errorMessage : 'Your name must be between 3 and 16 characters'}</p>
                 </Col>
               </FormGroup>
             </Form>
@@ -43,7 +65,7 @@ export default connect(
               <Button style={{marginTop: '12px'}} type="button" onClick={() => {this.props.playerStatsStatRoll()}}>Roll</Button>
               </Col>
               <Col style={{textAlign: 'center'}} xs={3} sm={3} md={3} lg={3}>
-                <Button onClick={() => this.props.playerStatsCreateCharacter(document.getElementById('name').value)} style={{marginTop: '12px'}}>Create character</Button>
+                <Button onClick={() => this.createCharacter(document.getElementById('name').value)} style={{marginTop: '12px'}}>Create character</Button>
               </Col>
             </div>
         )
