@@ -18,6 +18,8 @@ export default connect(
       playerStatsCalcBaseDodgeChance: () => dispatch({ type: 'playerStats/CALC_BASE_DODGE_CHANCE'}),
       playerStatsCalcDmgReduction: () => dispatch({ type: 'playerStats/CALC_DMG_REDUCTION'}),
       playerStatsCalcArmour: () => dispatch({ type: 'playerStats/CALC_ARMOUR'}),
+      playerStatsGainExperience: value => dispatch({ type: 'playerStats/GAIN_EXPERIENCE', value}),
+      playerStatsCalcMaxExperience: () => dispatch({ type: 'playerStats/CALC_MAX_EXPERIENCE'}),
       playerStatsGainAttack: value => dispatch({ type: 'playerStats/GAIN_ATTACK', value}),
       playerStatsGainStrength: value => dispatch({ type: 'playerStats/GAIN_STRENGTH', value}),
       playerStatsGainWisdom: value => dispatch({ type: 'playerStats/GAIN_WISDOM', value}),
@@ -102,6 +104,7 @@ class PlayView extends Component {
     this.props.playerStatsCalcBaseDodgeChance()
     this.props.playerStatsCalcArmour()
     this.props.playerStatsCalcDmgReduction()
+    this.props.playerStatsCalcMaxExperience()
   }
 
   storyOutputStyle = {
@@ -247,6 +250,13 @@ class PlayView extends Component {
               this.props.playView.storyOutput.push(`You've killed ${filteredEnemies[this.props.enemies.enemyRNG].name}!`)
               this.props.playView.battleLogOutput.push(`You've killed ${filteredEnemies[this.props.enemies.enemyRNG].name}!`)
               this.props.enemyStatsHideEnemy();
+              this.props.playerStatsGainExperience(filteredEnemies[this.props.enemies.enemyRNG].experience)
+              setTimeout(() => {
+                if (this.props.playerStats.experience > this.props.playerStats.maxExperience) {
+                  this.props.playerStatsGainExperience(0)
+                }
+              }, 0)
+              this.props.playerStatsCalcMaxExperience()
               let attackIndex = this.props.playView.possibleActions.indexOf('attack');
               attackIndex > -1 ? this.props.playView.possibleActions.splice(attackIndex, 1) : null;
               this.props.playView.possibleActions.push('explore')

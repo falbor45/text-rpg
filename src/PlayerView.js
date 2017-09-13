@@ -82,6 +82,7 @@ export default connect (
         return (
             <Col style={{textAlign: 'center'}} lg={3}>
               <h1>{this.props.playerStats.name}</h1>
+              <h4>Level: {this.props.playerStats.level}</h4>
               <h2>Health</h2>
               <div style={this.centerBarText}>
               <p style={this.barOverlap}>{`${this.props.playerStats.health}/${this.props.playerStats.maxHealth}`}</p>
@@ -92,6 +93,11 @@ export default connect (
               <p style={this.barOverlap}>{`${this.props.playerStats.energy}/${this.props.playerStats.maxEnergy}`}</p>
               </div>
               <ProgressBar bsStyle="info" now={Math.round((this.props.playerStats.energy / this.props.playerStats.maxEnergy) * 100)}/>
+              <h2>Experience</h2>
+              <div style={this.centerBarText}>
+                <p style={this.barOverlap}>{`${this.props.playerStats.experience}/${this.props.playerStats.maxExperience}`}</p>
+              </div>
+              <ProgressBar bsStyle="warning" now={Math.round((this.props.playerStats.experience / this.props.playerStats.maxExperience) * 100)}/>
               <h2>Attack power</h2>
               <h3>{this.props.playerStats.attackPowerMin} - {this.props.playerStats.attackPowerMax}</h3>
               <h2>Dodge chance</h2>

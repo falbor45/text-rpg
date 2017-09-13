@@ -1,10 +1,13 @@
 const initialState = {
   name: '',
   isCreated: false,
+  level: 1,
   health: 100,
   maxHealth: 100,
   energy: 20,
   maxEnergy: 20,
+  experience: 0,
+  maxExperience: null,
   strength: 8,
   wisdom: 8,
   agility: 8,
@@ -64,6 +67,12 @@ export default (state = initialState, action) => {
           ...state,
         maxEnergy: state.maxEnergy + action.value
       }
+    case 'playerStats/GAIN_EXPERIENCE':
+      return {
+        ...state,
+        experience: state.experience > state.maxExperience ? state.experience - state.maxExperience : state.experience + action.value,
+        level: state.experience > state.maxExperience ? state.level + 1 : state.level
+      }
     case 'playerStats/LOSE_HEALTH':
       return {
           ...state,
@@ -108,6 +117,11 @@ export default (state = initialState, action) => {
       return {
         ...state,
         damageReduction: Math.round(state.armour/(state.armour + 100) * 100)
+      }
+    case 'playerStats/CALC_MAX_EXPERIENCE':
+      return {
+        ...state,
+        maxExperience: Math.round(40 * Math.exp(0.9 + (state.level/10)))
       }
     case 'playerStats/KILL_PLAYER':
       return {
