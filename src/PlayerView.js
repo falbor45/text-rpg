@@ -20,7 +20,12 @@ export default connect (
     dispatch => ({
       blockMechanicChangeLeftBlock: (what) => dispatch({ type: 'blockMechanic/CHANGE_LEFT_BLOCK', what}),
       blockMechanicChangeFrontBlock: (what) => dispatch({ type: 'blockMechanic/CHANGE_FRONT_BLOCK', what}),
-      blockMechanicChangeRightBlock: (what) => dispatch({ type: 'blockMechanic/CHANGE_RIGHT_BLOCK', what})
+      blockMechanicChangeRightBlock: (what) => dispatch({ type: 'blockMechanic/CHANGE_RIGHT_BLOCK', what}),
+      playerStatsGainStrength: value => dispatch({ type: 'playerStats/GAIN_STRENGTH', value}),
+      playerStatsGainWisdom: value => dispatch({ type: 'playerStats/GAIN_WISDOM', value}),
+      playerStatsGainAgility: value => dispatch({ type: 'playerStats/GAIN_AGILITY', value}),
+      playerStatsGainConstitution: value => dispatch({ type: 'playerStats/GAIN_CONSTITUTION', value}),
+      playerStatsGainStatPoint: value => dispatch({ type: 'playerStats/GAIN_STAT_POINT', value})
     })
 )(
     class PlayerView extends Component {
@@ -52,11 +57,27 @@ export default connect (
         }
       }
 
-      attrStyleLeft = {
-        float: 'left'
+      handleStatDistribution = (attr) => {
+        if (attr === 'str') {
+          this.props.playerStatsGainStrength(1)
+        }
+        if (attr === 'agi') {
+          this.props.playerStatsGainAgility(1)
+        }
+        if (attr === 'wis') {
+          this.props.playerStatsGainWisdom(1)
+        }
+        if (attr === 'cons') {
+          this.props.playerStatsGainConstitution(1)
+        }
+        this.props.playerStatsGainStatPoint(-1)
       }
-      attrStyleRight = {
-        float: 'right'
+
+      addPoint = {
+        cursor: 'pointer',
+        border: '1px solid black',
+        borderRadius: '50%',
+        padding: '0 6px 0 6px'
       }
 
       imageBlockStyle = {
@@ -119,10 +140,10 @@ export default connect (
               <h3>Constitution:</h3>
               </Col>
               <Col xs={6} sm={6} md={6} lgPush={1} lg={4}>
-              <h3>{this.props.playerStats.strength}</h3>
-              <h3>{this.props.playerStats.wisdom}</h3>
-              <h3>{this.props.playerStats.agility}</h3>
-              <h3>{this.props.playerStats.constitution}</h3>
+                <h3>{this.props.playerStats.strength} {this.props.playerStats.statPoints !== 0 ? <span onClick={() => this.handleStatDistribution('str')} style={this.addPoint}>+</span> : null}</h3>
+              <h3>{this.props.playerStats.wisdom} {this.props.playerStats.statPoints !== 0 ? <span onClick={() => this.handleStatDistribution('wis')} style={this.addPoint}>+</span> : null}</h3>
+              <h3>{this.props.playerStats.agility} {this.props.playerStats.statPoints !== 0 ? <span onClick={() => this.handleStatDistribution('agi')} style={this.addPoint}>+</span> : null}</h3>
+              <h3>{this.props.playerStats.constitution} {this.props.playerStats.statPoints !== 0 ? <span onClick={() => this.handleStatDistribution('cons')} style={this.addPoint}>+</span> : null}</h3>
               </Col>
             </Col>
         )

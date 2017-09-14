@@ -8,6 +8,7 @@ const initialState = {
   maxEnergy: 20,
   experience: 0,
   maxExperience: null,
+  statPoints: 0,
   strength: 8,
   wisdom: 8,
   agility: 8,
@@ -71,7 +72,13 @@ export default (state = initialState, action) => {
       return {
         ...state,
         experience: state.experience > state.maxExperience ? state.experience - state.maxExperience : state.experience + action.value,
-        level: state.experience > state.maxExperience ? state.level + 1 : state.level
+        level: state.experience > state.maxExperience ? state.level + 1 : state.level,
+        statPoints: state.experience > state.maxExperience ? state.statPoints + 1 : state.statPoints
+      }
+    case 'playerStats/GAIN_STAT_POINT':
+      return {
+        ...state,
+        statPoints: state.statPoints + action.value
       }
     case 'playerStats/LOSE_HEALTH':
       return {
