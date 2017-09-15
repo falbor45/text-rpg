@@ -20,6 +20,8 @@ export default connect(
                             <h1>{this.props.enemies.data[this.props.enemies.enemyRNG].name.charAt(0).toUpperCase() + this.props.enemies.data[this.props.enemies.enemyRNG].name.slice(1)}</h1>
                             <h2>Health</h2>
                             <p>{this.props.enemyStats.health}/{this.props.enemyStats.maxHealth}</p>
+                            <h3>Speed</h3>
+                            <p>{this.props.enemyStats.speed}</p>
                         </div> : <div></div>
                 }
             </Col>

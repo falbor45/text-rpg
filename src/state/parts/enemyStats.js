@@ -3,6 +3,7 @@ const initialState = {
   maxHealth: null,
   energy: null,
   maxEnergy: null,
+  speed: null,
   isAlive: false
 }
 
@@ -20,6 +21,7 @@ export default (state = initialState, action) => {
         maxHealth: action.maxHealth,
         energy: action.energy,
         maxEnergy: action.maxEnergy,
+        speed: action.speed,
         isAlive: true
       }
       case 'enemyStats/HIDE_ENEMY' :

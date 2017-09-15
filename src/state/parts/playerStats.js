@@ -9,13 +9,14 @@ const initialState = {
   experience: 0,
   maxExperience: null,
   statPoints: 0,
-  strength: 8,
-  wisdom: 8,
-  agility: 8,
-  constitution: 8,
+  strength: 10,
+  wisdom: 10,
+  agility: 10,
+  constitution: 10,
   attackPowerMin: 2,
   attackPowerMax: 4,
   baseDodgeChance: 5,
+  speed: 3,
   armour: 0,
   damageReduction: 0,
   isAlive: true
@@ -109,6 +110,7 @@ export default (state = initialState, action) => {
         armour: initialState.armour + Math.floor((state.constitution - 10) / 3),
         damageReduction: Math.round(state.armour/(state.armour + 100) * 100),
         maxExperience: Math.round(40 * Math.exp(0.9 + (state.level/10))),
+        speed: Math.round(state.agility / 3)
       }
     case 'playerStats/KILL_PLAYER':
       return {
@@ -132,10 +134,10 @@ export default (state = initialState, action) => {
           ...state
       }
     case 'playerStats/STAT_ROLL':
-      let strength = 8;
-      let agility = 8;
-      let wisdom = 8;
-      let constitution = 8;
+      let strength = 10;
+      let agility = 10;
+      let wisdom = 10;
+      let constitution = 10;
       let arr = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21];
       for (let i=20; i>=0; i--) {
         let random = Math.random() * arr.length

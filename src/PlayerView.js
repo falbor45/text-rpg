@@ -153,6 +153,7 @@ export default connect (
                   <h3>{this.props.playerStats.attackPowerMin} - {this.props.playerStats.attackPowerMax}</h3>
                   <h2>Dodge chance</h2>
                   <h3>{this.props.playerStats.baseDodgeChance}%</h3>
+                  <h3>Speed: {this.props.playerStats.speed}</h3>
                   <h2>Armour</h2>
                   <h3>{this.props.playerStats.armour}</h3>
                   <p>Damage reduction: {this.props.playerStats.damageReduction}%</p>

@@ -31,7 +31,7 @@ export default connect(
       playerStatsKillPlayer: () => dispatch({ type: 'playerStats/KILL_PLAYER'}),
       playerStatsEqualize: what => dispatch({ type: 'playerStats/EQUALIZE', what}),
       hitEnemy: value => dispatch({ type: 'enemyStats/HIT_ENEMY', value}),
-      enemyStatsSetEnemy: (health, maxHealth, energy, maxEnergy) => dispatch({ type: 'enemyStats/SET_ENEMY', health, maxHealth, energy, maxEnergy}),
+      enemyStatsSetEnemy: (health, maxHealth, energy, maxEnergy, speed) => dispatch({ type: 'enemyStats/SET_ENEMY', health, maxHealth, energy, maxEnergy, speed}),
       enemyStatsHideEnemy: () => dispatch({ type: 'enemyStats/HIDE_ENEMY'}),
       inputChange: value => dispatch({ type: 'playView/INPUT_CHANGE', value}),
       playViewSetEventRNG: () => dispatch({type: 'playView/SET_EVENT_RNG'}),
@@ -145,33 +145,57 @@ class PlayView extends Component {
     let pHitCalc = Math.round(Math.random() * (this.props.playerStats.attackPowerMax - this.props.playerStats.attackPowerMin) + this.props.playerStats.attackPowerMin)
     let numberRoll1to100 = Math.ceil(Math.random() * 100)
     let dodgeThreshold = this.props.enemies.data[this.props.enemies.enemyRNG].accuracy - this.props.playerStats.baseDodgeChance
+    let doesDoubleAttack = this.props.playerStats.speed >= this.props.enemies.data[this.props.enemies.enemyRNG].speed + 5
+    let enemyDoubleAttack = this.props.enemyStats.speed >= this.props.playerStats.speed + 5
     if (numberRoll1to100 >= dodgeThreshold || numberRoll1to100 === 100) {
       let dodgeMessage = aPattern[this.props.enemies.aPatternI] === 'f' ? 'front' : aPattern[this.props.enemies.aPatternI] === 'r' ? 'right side' : aPattern[this.props.enemies.aPatternI] === 'l' ? 'left side' : null
       this.props.playView.battleLogOutput.push(`You dodged an attack from the ${dodgeMessage}!`)
       this.props.playView.battleLogOutput.push(`You hit an enemy for ${pHitCalc} damage!`)
       this.props.hitEnemy(pHitCalc);
+      if (doesDoubleAttack === true) {
+        let pHitCalc = Math.round(Math.random() * (this.props.playerStats.attackPowerMax - this.props.playerStats.attackPowerMin) + this.props.playerStats.attackPowerMin)
+        this.props.playView.battleLogOutput.push(`Your excess speed allows you to hit an enemy second time for ${pHitCalc} damage!`)
+        this.props.hitEnemy(pHitCalc)
+      }
       this.props.enemiesNextAttPattern()
     }
     if (numberRoll1to100 < dodgeThreshold || numberRoll1to100 === 1) {
       this.props.hitEnemy(pHitCalc);
+      if (doesDoubleAttack === true) {
+        let pHitCalc = Math.round(Math.random() * (this.props.playerStats.attackPowerMax - this.props.playerStats.attackPowerMin) + this.props.playerStats.attackPowerMin)
+        this.props.playView.battleLogOutput.push(`Your excess speed allows you to hit an enemy second time for ${pHitCalc} damage!`)
+        this.props.hitEnemy(pHitCalc)
+      }
       this.props.playView.battleLogOutput.push(`You hit an enemy for ${pHitCalc} damage!`)
       if (aPattern[this.props.enemies.aPatternI] === 'f') {
         let readBlockP = this.props.blockMechanic.frontBlockPoints
         let blockRed = readBlockP === 3 ? 50 : readBlockP === 2 ? 30 : readBlockP === 1 ? 15 : 0
         this.props.playerStatsLoseHealth(Math.round((Math.random() * (this.props.enemies.data[this.props.enemies.enemyRNG].attackPowerMax - this.props.enemies.data[this.props.enemies.enemyRNG].attackPowerMin) + this.props.enemies.data[this.props.enemies.enemyRNG].attackPowerMin) * (1 - (this.props.playerStats.damageReduction / 100)) * (1 - (blockRed / 100))))
         this.props.playView.battleLogOutput.push(`Enemy attacks you head on!`)
+        if (enemyDoubleAttack === true) {
+          this.props.playerStatsLoseHealth(Math.round((Math.random() * (this.props.enemies.data[this.props.enemies.enemyRNG].attackPowerMax - this.props.enemies.data[this.props.enemies.enemyRNG].attackPowerMin) + this.props.enemies.data[this.props.enemies.enemyRNG].attackPowerMin) * (1 - (this.props.playerStats.damageReduction / 100)) * (1 - (blockRed / 100))))
+          this.props.playView.battleLogOutput.push(`Enemy strikes you second time!`)
+        }
       }
       if (aPattern[this.props.enemies.aPatternI] === 'l') {
         let readBlockP = this.props.blockMechanic.leftBlockPoints
         let blockRed = readBlockP === 3 ? 50 : readBlockP === 2 ? 30 : readBlockP === 1 ? 15 : 0
         this.props.playerStatsLoseHealth(Math.round((Math.random() * (this.props.enemies.data[this.props.enemies.enemyRNG].attackPowerMax - this.props.enemies.data[this.props.enemies.enemyRNG].attackPowerMin) + this.props.enemies.data[this.props.enemies.enemyRNG].attackPowerMin) * (1 - (this.props.playerStats.damageReduction / 100)) * (1 - (blockRed / 100))))
         this.props.playView.battleLogOutput.push(`Enemy attacks you from the left side!`)
+        if (enemyDoubleAttack === true) {
+          this.props.playerStatsLoseHealth(Math.round((Math.random() * (this.props.enemies.data[this.props.enemies.enemyRNG].attackPowerMax - this.props.enemies.data[this.props.enemies.enemyRNG].attackPowerMin) + this.props.enemies.data[this.props.enemies.enemyRNG].attackPowerMin) * (1 - (this.props.playerStats.damageReduction / 100)) * (1 - (blockRed / 100))))
+          this.props.playView.battleLogOutput.push(`Enemy strikes you second time!`)
+        }
       }
       if (aPattern[this.props.enemies.aPatternI] === 'r') {
         let readBlockP = this.props.blockMechanic.rightBlockPoints
         let blockRed = readBlockP === 3 ? 50 : readBlockP === 2 ? 30 : readBlockP === 1 ? 15 : 0
         this.props.playerStatsLoseHealth(Math.round((Math.random() * (this.props.enemies.data[this.props.enemies.enemyRNG].attackPowerMax - this.props.enemies.data[this.props.enemies.enemyRNG].attackPowerMin) + this.props.enemies.data[this.props.enemies.enemyRNG].attackPowerMin) * (1 - (this.props.playerStats.damageReduction / 100)) * (1 - (blockRed / 100))))
         this.props.playView.battleLogOutput.push(`Enemy attacks you from the right side!`)
+        if (enemyDoubleAttack === true) {
+          this.props.playerStatsLoseHealth(Math.round((Math.random() * (this.props.enemies.data[this.props.enemies.enemyRNG].attackPowerMax - this.props.enemies.data[this.props.enemies.enemyRNG].attackPowerMin) + this.props.enemies.data[this.props.enemies.enemyRNG].attackPowerMin) * (1 - (this.props.playerStats.damageReduction / 100)) * (1 - (blockRed / 100))))
+          this.props.playView.battleLogOutput.push(`Enemy strikes you second time!`)
+        }
       }
       this.props.enemiesNextAttPattern()
     }
@@ -209,7 +233,7 @@ class PlayView extends Component {
         this.props.playView.events[this.props.playView.eventRNG] === 'fight' ? (this.props.playView.battleLogOutput.push('You encounter ' + filteredEnemies[this.props.enemies.enemyRNG].name + '!')  && this.props.playView.storyOutput.push(this.props.areas.data[this.props.areas.areaRNG].description,
             'You encounter ' + filteredEnemies[this.props.enemies.enemyRNG].name + '!')) : this.props.playView.events[this.props.playView.eventRNG] === 'choiceEvent' ?
             this.props.playView.storyOutput.push(this.props.choiceEvents.data[this.props.choiceEvents.choiceEventRNG].description) : null
-        this.props.playView.events[this.props.playView.eventRNG] === 'fight' ? this.props.enemyStatsSetEnemy(filteredEnemies[this.props.enemies.enemyRNG].health, filteredEnemies[this.props.enemies.enemyRNG].maxHealth, filteredEnemies[this.props.enemies.enemyRNG].energy, filteredEnemies[this.props.enemies.enemyRNG].maxEnergy) : null
+        this.props.playView.events[this.props.playView.eventRNG] === 'fight' ? this.props.enemyStatsSetEnemy(filteredEnemies[this.props.enemies.enemyRNG].health, filteredEnemies[this.props.enemies.enemyRNG].maxHealth, filteredEnemies[this.props.enemies.enemyRNG].energy, filteredEnemies[this.props.enemies.enemyRNG].maxEnergy, filteredEnemies[this.props.enemies.enemyRNG].speed) : null
         this.setState({
           isDisabled: false
         })
