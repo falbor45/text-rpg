@@ -404,8 +404,8 @@ class PlayView extends Component {
                     <div>
                       <hr/>
                       <p>Day: {this.props.playView.days} ({this.props.playView.timeOfDay})</p>
-                      <Button onClick={() => this.setState({viewedTab: 'exploration'})}>Exploration</Button>
-                      <Button onClick={() => this.setState({viewedTab: 'battleLog'})}>Battle log</Button>
+                      <Button style={this.state.viewedTab === 'exploration' ? {fontWeight: 'bold'} : null} onClick={() => this.setState({viewedTab: 'exploration'})}>Exploration</Button>
+                      <Button style={this.state.viewedTab === 'battleLog' ? {fontWeight: 'bold'} : null} onClick={() => this.setState({viewedTab: 'battleLog'})}>Battle log</Button>
                       < textarea style={this.storyOutputStyle} readOnly
                                  value={this.state.viewedTab === 'exploration' ? this.props.playView.storyOutput.join('\n') : this.props.playView.battleLogOutput.join('\n')}/>
                       <input style={this.playerInputStyle}

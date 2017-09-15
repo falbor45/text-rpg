@@ -129,8 +129,8 @@ export default connect (
               <img onMouseDown={(e) => this.handleRightBlockClick(e)} src={this.props.blockMechanic.rightBlockPoints === 1 ? blockRight1 : this.props.blockMechanic.rightBlockPoints === 2 ? blockRight2 : this.props.blockMechanic.rightBlockPoints === 3 ? blockRight3 : blockPlaceholder} style={this.imageBlockStyle}/>
               <p>Points undistributed: {this.props.blockMechanic.unusedBlockPoints}</p>
               <hr/>
-              <Button onClick={() => this.setState({viewedTab: 'attributes'})}>Attributes</Button>
-              <Button onClick={() => this.setState({viewedTab: 'details'})}>Details</Button>
+              <Button style={this.state.viewedTab === 'attributes' ? {fontWeight: 'bold'} : null} onClick={() => this.setState({viewedTab: 'attributes'})}>Attributes</Button>
+              <Button style={this.state.viewedTab === 'details' ? {fontWeight: 'bold'} : null} onClick={() => this.setState({viewedTab: 'details'})}>Details</Button>
               {this.state.viewedTab === 'attributes' ? (
                 <div>
                   <h2>Attributes</h2>
