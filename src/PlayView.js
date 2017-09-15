@@ -13,13 +13,8 @@ export default connect(
       blockMechanic: state.blockMechanic
     }),
     dispatch => ({
-      playerStatsCalcAttPowMin: () => dispatch({ type: 'playerStats/CALC_ATT_POW_MIN'}),
-      playerStatsCalcAttPowMax: () => dispatch({ type: 'playerStats/CALC_ATT_POW_MAX'}),
-      playerStatsCalcBaseDodgeChance: () => dispatch({ type: 'playerStats/CALC_BASE_DODGE_CHANCE'}),
-      playerStatsCalcDmgReduction: () => dispatch({ type: 'playerStats/CALC_DMG_REDUCTION'}),
-      playerStatsCalcArmour: () => dispatch({ type: 'playerStats/CALC_ARMOUR'}),
+      playerStatsCalculateStats: () => dispatch({ type: 'playerStats/CALCULATE_STATS'}),
       playerStatsGainExperience: value => dispatch({ type: 'playerStats/GAIN_EXPERIENCE', value}),
-      playerStatsCalcMaxExperience: () => dispatch({ type: 'playerStats/CALC_MAX_EXPERIENCE'}),
       playerStatsGainAttack: value => dispatch({ type: 'playerStats/GAIN_ATTACK', value}),
       playerStatsGainStrength: value => dispatch({ type: 'playerStats/GAIN_STRENGTH', value}),
       playerStatsGainWisdom: value => dispatch({ type: 'playerStats/GAIN_WISDOM', value}),
@@ -99,12 +94,7 @@ class PlayView extends Component {
         error => this.props.choiceEventsFetchFailure('Connection error.')
     )
 
-    this.props.playerStatsCalcAttPowMin()
-    this.props.playerStatsCalcAttPowMax()
-    this.props.playerStatsCalcBaseDodgeChance()
-    this.props.playerStatsCalcArmour()
-    this.props.playerStatsCalcDmgReduction()
-    this.props.playerStatsCalcMaxExperience()
+    this.props.playerStatsCalculateStats()
   }
 
   storyOutputStyle = {
@@ -196,32 +186,20 @@ class PlayView extends Component {
       })
       this.props.areasSetAreaRNG()
       this.props.playViewSetEventRNG()
-      this.props.playerStatsCalcAttPowMin()
-      this.props.playerStatsCalcAttPowMax()
-      this.props.playerStatsCalcBaseDodgeChance()
-      this.props.playerStatsCalcArmour()
-      this.props.playerStatsCalcDmgReduction()
+      this.props.playerStatsCalculateStats()
       setTimeout(() => {
         if (this.props.playView.events[this.props.playView.eventRNG] === 'fight') {
           this.setState({
             viewedTab: 'battleLog'
           })
-          this.props.playerStatsCalcAttPowMin()
-          this.props.playerStatsCalcAttPowMax()
-          this.props.playerStatsCalcBaseDodgeChance()
-          this.props.playerStatsCalcArmour()
-          this.props.playerStatsCalcDmgReduction()
+          this.props.playerStatsCalculateStats()
           let exploreIndex = this.props.playView.possibleActions.indexOf('explore');
           exploreIndex > -1 ? this.props.playView.possibleActions.splice(exploreIndex, 1) : null
           this.props.playView.possibleActions.push('attack')
           this.props.playView.possibleActions.push('dodge')
         }
         if (this.props.playView.events[this.props.playView.eventRNG] === 'choiceEvent') {
-          this.props.playerStatsCalcAttPowMin()
-          this.props.playerStatsCalcAttPowMax()
-          this.props.playerStatsCalcBaseDodgeChance()
-          this.props.playerStatsCalcDmgReduction()
-          this.props.playerStatsCalcArmour()
+          this.props.playerStatsCalculateStats()
           let exploreIndex = this.props.playView.possibleActions.indexOf('explore');
           exploreIndex > -1 ? this.props.playView.possibleActions.splice(exploreIndex, 1) : null
           this.props.playView.possibleActions.push('choose')
@@ -256,7 +234,7 @@ class PlayView extends Component {
                   this.props.playerStatsGainExperience(0)
                 }
               }, 0)
-              this.props.playerStatsCalcMaxExperience()
+              this.props.playerStatsCalculateStats()
               let attackIndex = this.props.playView.possibleActions.indexOf('attack');
               attackIndex > -1 ? this.props.playView.possibleActions.splice(attackIndex, 1) : null;
               this.props.playView.possibleActions.push('explore')

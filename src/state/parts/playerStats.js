@@ -100,35 +100,15 @@ export default (state = initialState, action) => {
         ...state,
         maxEnergy: state.maxEnergy - action.value
       }
-    case 'playerStats/CALC_ATT_POW_MIN':
-      return {
-          ...state,
-        attackPowerMin: initialState.attackPowerMin + Math.floor((state.strength - 10) / 2)
-      }
-    case 'playerStats/CALC_ATT_POW_MAX':
-      return {
-          ...state,
-        attackPowerMax: initialState.attackPowerMax + (state.strength - 10)
-      }
-    case 'playerStats/CALC_BASE_DODGE_CHANCE':
-      return {
-          ...state,
-        baseDodgeChance: state.agility / 2
-      }
-    case 'playerStats/CALC_ARMOUR':
+    case 'playerStats/CALCULATE_STATS':
       return {
         ...state,
-        armour: state.armour + Math.floor((state.constitution - 10) / 3)
-      }
-    case 'playerStats/CALC_DMG_REDUCTION':
-      return {
-        ...state,
-        damageReduction: Math.round(state.armour/(state.armour + 100) * 100)
-      }
-    case 'playerStats/CALC_MAX_EXPERIENCE':
-      return {
-        ...state,
-        maxExperience: Math.round(40 * Math.exp(0.9 + (state.level/10)))
+        attackPowerMin: initialState.attackPowerMin + Math.floor((state.strength - 10) / 2),
+        attackPowerMax: initialState.attackPowerMax + (state.strength - 10),
+        baseDodgeChance: state.agility / 2,
+        armour: initialState.armour + Math.floor((state.constitution - 10) / 3),
+        damageReduction: Math.round(state.armour/(state.armour + 100) * 100),
+        maxExperience: Math.round(40 * Math.exp(0.9 + (state.level/10))),
       }
     case 'playerStats/KILL_PLAYER':
       return {
