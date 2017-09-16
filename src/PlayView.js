@@ -210,7 +210,7 @@ class PlayView extends Component {
 
   handleStoryUpdate = () => {
     let filteredEnemies = this.props.enemies.data.filter((i) => i.difficulty <= Math.sqrt(this.props.playView.days))
-    if (this.props.playView.inputValue === 'explore' && this.props.playView.possibleActions.includes('explore')) {
+    if ((this.props.playView.inputValue === 'explore' && this.props.playView.possibleActions.includes('explore')) || (this.props.playView.inputValue === 'e' && this.props.playView.possibleActions.includes('explore'))) {
       this.props.playViewForwardTime()
       this.setState({
         isDisabled: true,
@@ -246,7 +246,7 @@ class PlayView extends Component {
         })
       }, 0)
     }
-    if(this.props.playView.inputValue === 'attack' && this.props.playView.possibleActions.includes('attack')) {
+    if((this.props.playView.inputValue === 'attack' && this.props.playView.possibleActions.includes('attack')) || (this.props.playView.inputValue === 'a' && this.props.playView.possibleActions.includes('attack'))) {
       if (this.props.enemyStats.health > 0) {
         this.hitTrade()
         setTimeout(() => {
