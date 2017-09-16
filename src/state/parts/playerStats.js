@@ -4,6 +4,7 @@ const initialState = {
   level: 1,
   health: 100,
   maxHealth: 100,
+  maxHealthBonus: 0,
   energy: 20,
   maxEnergy: 20,
   experience: 0,
@@ -57,7 +58,7 @@ export default (state = initialState, action) => {
     case 'playerStats/GAIN_MAX_HEALTH':
       return {
           ...state,
-        maxHealth: state.maxHealth + action.value
+        maxHealth: state.maxHealthBonus + action.value
       }
     case 'playerStats/GAIN_ENERGY':
       return {
@@ -89,7 +90,7 @@ export default (state = initialState, action) => {
     case 'playerStats/LOSE_MAX_HEALTH':
       return {
           ...state,
-        maxHealth: state.maxHealth - action.value
+        maxHealth: state.maxHealthBonus - action.value
       }
     case 'playerStats/LOSE_ENERGY':
       return {
@@ -110,7 +111,8 @@ export default (state = initialState, action) => {
         armour: initialState.armour + Math.floor((state.constitution - 10) / 3),
         damageReduction: Math.round(state.armour/(state.armour + 100) * 100),
         maxExperience: Math.round(40 * Math.exp(0.9 + (state.level/10))),
-        speed: Math.round(state.agility / 3)
+        speed: Math.round(state.agility / 3),
+        maxHealth: initialState.maxHealth + state.maxHealthBonus + ((state.constitution - 10) * 5)
       }
     case 'playerStats/KILL_PLAYER':
       return {
