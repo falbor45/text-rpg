@@ -96,6 +96,7 @@ class PlayView extends Component {
 
     this.props.playerStatsCalculateStats()
     this.props.playerStatsEqualize('health')
+    this.props.playerStatsEqualize('energy')
   }
 
   storyOutputStyle = {
