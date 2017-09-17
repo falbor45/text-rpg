@@ -10,6 +10,7 @@ export default connect(
       areas: state.areas,
       enemies: state.enemies,
       choiceEvents: state.choiceEvents,
+      abilities: state.abilities,
       blockMechanic: state.blockMechanic
     }),
     dispatch => ({
@@ -49,7 +50,10 @@ export default connect(
       choiceEventsFetchBegin: () => dispatch({ type: 'choiceEvents/FETCH__BEGIN'}),
       choiceEventsFetchSuccess: data => dispatch({ type: 'choiceEvents/FETCH__SUCCESS', data}),
       choiceEventsFetchFailure: error => dispatch({ type: 'choiceEvents/FETCH__FAILURE', error}),
-      choiceEventsSetChoiceEventRNG: () => dispatch({ type: 'choiceEvents/SET_CHOICE_EVENT_RNG'})
+      choiceEventsSetChoiceEventRNG: () => dispatch({ type: 'choiceEvents/SET_CHOICE_EVENT_RNG'}),
+      abilitiesFetchBegin: () => dispatch({ type: 'abilities/FETCH__BEGIN'}),
+      abilitiesFetchSuccess: data => dispatch({ type: 'abilities/FETCH__SUCCESS', data}),
+      abilitiesFetchFailure: error => dispatch({ type: 'abilities/FETCH__FAILURE', error})
     })
 )(
 class PlayView extends Component {
@@ -92,6 +96,19 @@ class PlayView extends Component {
         )
     ).catch(
         error => this.props.choiceEventsFetchFailure('Connection error.')
+    )
+
+    this.props.abilitiesFetchBegin()
+    fetch(
+      `${process.env.PUBLIC_URL}/data/abilities.json`
+    ).then(
+      response => response.json().then(
+        data => this.props.abilitiesFetchSuccess(data)
+      ).catch(
+        error => this.props.abilitiesFetchFailure('Malformed JSON.')
+      )
+    ).catch(
+      error => this.props.abilitiesFetchFailure('Connection error.')
     )
 
     this.props.playerStatsCalculateStats()
