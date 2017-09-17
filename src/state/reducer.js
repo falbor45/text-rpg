@@ -5,6 +5,7 @@ import areas from './parts/areas'
 import enemies from './parts/enemies'
 import choiceEvents from './parts/choiceEvents'
 import blockMechanic from './parts/blockMechanic'
+import abilities from './parts/abilities'
 
 export default (state = {}, action) => {
   return {
@@ -14,6 +15,7 @@ export default (state = {}, action) => {
     areas: areas(state.areas, action),
     enemies: enemies(state.enemies, action),
     choiceEvents: choiceEvents(state.choiceEvents, action),
-    blockMechanic: blockMechanic(state.blockMechanic, action)
+    blockMechanic: blockMechanic(state.blockMechanic, action),
+    abilities: abilities(state.abiilities, action)
   }
 }
