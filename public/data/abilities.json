@@ -1,0 +1,56 @@
+[
+  {
+    "warrior": {
+      "heavyAttack": {
+        "id": 1,
+        "description": "Deals higher damage to an opponent than a usual attack. (2 turn cooldown)",
+        "dmgMod": 1.2,
+        "cooldown": 2,
+        "energyCost": 6,
+        "type": "physical",
+        "req": {
+        },
+        "passive": false
+      },
+      "healthRegen": {
+        "id": 2,
+        "description": "Increase your health regeneration by 1 per action",
+        "dmgMod": 0,
+        "cooldown": 0,
+        "energyCost": 0,
+        "type": null,
+        "req": {
+          "strength": 12,
+          "constitution": 16
+        },
+        "passive": true
+      }
+    },
+    "elementalist": {
+      "fireball": {
+        "id": 3,
+        "description": "Conjure fireball and deal low fire damage to your opponent. (no cooldown)",
+        "dmgMod": 0.5,
+        "cooldown": 0,
+        "energyCost": 12,
+        "type": "fire",
+        "req": {
+
+        },
+        "passive": false
+      },
+      "manaRegen": {
+        "id": 4,
+        "description": "Increase your mana regeneration by 1 per action",
+        "dmgMod": 0,
+        "cooldown": 0,
+        "energyCost": 0,
+        "type": null,
+        "req": {
+          "wisdom": 16
+        },
+        "passive": true
+      }
+    }
+  }
+]
