@@ -29,7 +29,8 @@ export default (state = initialState, action) => {
     case 'playerStats/GAIN_ATTACK':
       return {
           ...state,
-        attackPower: state.attackPower + action.value
+        attackPowerMin: state.attackPowerMin + action.value,
+        attackPowerMax: state.attackPowerMax + action.value
       }
     case 'playerStats/GAIN_STRENGTH':
       return {
