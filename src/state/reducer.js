@@ -16,6 +16,6 @@ export default (state = {}, action) => {
     enemies: enemies(state.enemies, action),
     choiceEvents: choiceEvents(state.choiceEvents, action),
     blockMechanic: blockMechanic(state.blockMechanic, action),
-    abilities: abilities(state.abiilities, action)
+    abilities: abilities(state.abilities, action)
   }
 }
