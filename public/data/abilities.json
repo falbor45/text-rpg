@@ -9,6 +9,7 @@
     "type": "physical",
     "req": {
     },
+    "command": ["heavy attack", "HA"],
     "passive": false
   },
   {
@@ -23,6 +24,7 @@
       "strength": 12,
       "constitution": 16
     },
+    "command": null,
     "passive": true
   },
   {
@@ -35,6 +37,7 @@
     "type": "fire",
     "req": {
     },
+    "command": ["fireball", "Fb"],
     "passive": false
   },
   {
@@ -48,6 +51,7 @@
     "req": {
       "wisdom": 16
     },
+    "command": null,
     "passive": true
   }
 ]
