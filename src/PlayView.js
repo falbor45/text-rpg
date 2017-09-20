@@ -156,7 +156,8 @@ class PlayView extends Component {
 
   state = {
     isDisabled: null,
-    viewedTab: 'exploration'
+    viewedTab: 'exploration',
+    turnCounter: 1
   }
 
   hitTrade = () => {
@@ -175,6 +176,7 @@ class PlayView extends Component {
     let readBlockR = this.props.blockMechanic.rightBlockPoints
     let blockRedR = readBlockR === 3 ? 50 : readBlockF === 2 ? 30 : readBlockR === 1 ? 15 : 0
     let eHitCalcR = Math.round((Math.random() * (this.props.enemies.data[this.props.enemies.enemyRNG].attackPowerMax - this.props.enemies.data[this.props.enemies.enemyRNG].attackPowerMin) + this.props.enemies.data[this.props.enemies.enemyRNG].attackPowerMin) * (1 - (this.props.playerStats.damageReduction / 100)) * (1 - (blockRedR / 100)))
+    this.props.playView.battleLogOutput.push(`Turn ${this.state.turnCounter}:`)
     if (numberRoll1to100 >= dodgeThreshold || numberRoll1to100 === 100) {
       let dodgeMessage = aPattern[this.props.enemies.aPatternI] === 'f' ? 'front' : aPattern[this.props.enemies.aPatternI] === 'r' ? 'right side' : aPattern[this.props.enemies.aPatternI] === 'l' ? 'left side' : null
       this.props.playView.battleLogOutput.push(`You dodged an attack from the ${dodgeMessage}!`)
@@ -224,6 +226,9 @@ class PlayView extends Component {
       }
       this.props.enemiesNextAttPattern()
     }
+    this.setState({
+      turnCounter: this.state.turnCounter + 1
+    })
   }
 
   handleStoryUpdate = () => {
@@ -288,7 +293,8 @@ class PlayView extends Component {
               attackIndex > -1 ? this.props.playView.possibleActions.splice(attackIndex, 1) : null;
               this.props.playView.possibleActions.push('explore')
               this.setState({
-                viewedTab: 'exploration'
+                viewedTab: 'exploration',
+                turnCounter: 1
               })
             }
           }, 0)
