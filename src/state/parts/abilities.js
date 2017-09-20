@@ -1,7 +1,8 @@
 const initialState = {
   data: null,
   fetching: false,
-  error: null
+  error: null,
+  usableAbilities: null
 }
 
 export default (state = initialState, action) => {
@@ -22,6 +23,11 @@ export default (state = initialState, action) => {
         ...state,
         fetching: false,
         error: action.error
+      }
+    case 'abilities/FILTER_USABLE_ABILITIES':
+      return {
+        ...state,
+        usableAbilities: action.data
       }
     default:
       return {
