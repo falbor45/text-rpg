@@ -54,7 +54,7 @@ export default connect(
       abilitiesFetchBegin: () => dispatch({ type: 'abilities/FETCH__BEGIN'}),
       abilitiesFetchSuccess: data => dispatch({ type: 'abilities/FETCH__SUCCESS', data}),
       abilitiesFetchFailure: error => dispatch({ type: 'abilities/FETCH__FAILURE', error}),
-      abilitiesFilterAbilities: data => dispatch({ type: 'abilities/FILTER_USABLE_ABILITIES', data})
+      abilitiesFilterAbilities: (data, commands) => dispatch({ type: 'abilities/FILTER_USABLE_ABILITIES', data, commands})
     })
 )(
 class PlayView extends Component {
@@ -169,6 +169,8 @@ class PlayView extends Component {
     i.req.constitution <= this.props.playerStats.constitution
   )
 
+  usableCommands = () => [].concat.apply([], (this.usableAbilities().map(i => i["command"]))).filter(i => i !== null)
+
   hitTrade = () => {
     let aPattern = this.props.enemies.data[this.props.enemies.enemyRNG].aPattern
     let pHitCalc = Math.round(Math.random() * (this.props.playerStats.attackPowerMax - this.props.playerStats.attackPowerMin) + this.props.playerStats.attackPowerMin)
@@ -250,14 +252,14 @@ class PlayView extends Component {
       this.props.areasSetAreaRNG()
       this.props.playViewSetEventRNG()
       this.props.playerStatsCalculateStats()
-      this.props.abilitiesFilterAbilities(this.usableAbilities())
+      this.props.abilitiesFilterAbilities(this.usableAbilities(), this.usableCommands())
       setTimeout(() => {
         if (this.props.playView.events[this.props.playView.eventRNG] === 'fight') {
           this.setState({
             viewedTab: 'battleLog'
           })
           this.props.playerStatsCalculateStats()
-          this.props.abilitiesFilterAbilities(this.usableAbilities())
+          this.props.abilitiesFilterAbilities(this.usableAbilities(), this.usableCommands())
           let exploreIndex = this.props.playView.possibleActions.indexOf('explore');
           exploreIndex > -1 ? this.props.playView.possibleActions.splice(exploreIndex, 1) : null
           this.props.playView.possibleActions.push('attack')
@@ -265,7 +267,7 @@ class PlayView extends Component {
         }
         if (this.props.playView.events[this.props.playView.eventRNG] === 'choiceEvent') {
           this.props.playerStatsCalculateStats()
-          this.props.abilitiesFilterAbilities(this.usableAbilities())
+          this.props.abilitiesFilterAbilities(this.usableAbilities(), this.usableCommands())
           let exploreIndex = this.props.playView.possibleActions.indexOf('explore');
           exploreIndex > -1 ? this.props.playView.possibleActions.splice(exploreIndex, 1) : null
           this.props.playView.possibleActions.push('choose')
@@ -301,7 +303,7 @@ class PlayView extends Component {
                 }
               }, 0)
               this.props.playerStatsCalculateStats()
-              this.props.abilitiesFilterAbilities(this.usableAbilities())
+              this.props.abilitiesFilterAbilities(this.usableAbilities(), this.usableCommands())
               let attackIndex = this.props.playView.possibleActions.indexOf('attack');
               attackIndex > -1 ? this.props.playView.possibleActions.splice(attackIndex, 1) : null;
               this.props.playView.possibleActions.push('explore')
@@ -345,7 +347,7 @@ class PlayView extends Component {
       if (this.props.choiceEvents.data[this.props.choiceEvents.choiceEventRNG].choiceOneEffects.hasOwnProperty('pMaxHealthGain') === true) {
         this.props.playerStatsGainMaxHealth(this.props.choiceEvents.data[this.props.choiceEvents.choiceEventRNG].choiceOneEffects.pMaxHealthGain)
         this.props.playerStatsCalculateStats()
-        this.props.abilitiesFilterAbilities(this.usableAbilities())
+        this.props.abilitiesFilterAbilities(this.usableAbilities(), this.usableCommands())
       }
       if (this.props.choiceEvents.data[this.props.choiceEvents.choiceEventRNG].choiceOneEffects.hasOwnProperty('pEnergyGain') === true) {
         this.props.playerStatsGainEnergy(this.props.choiceEvents.data[this.props.choiceEvents.choiceEventRNG].choiceOneEffects.pEnergyGain)
@@ -408,7 +410,7 @@ class PlayView extends Component {
       if (this.props.choiceEvents.data[this.props.choiceEvents.choiceEventRNG].choiceTwoEffects.hasOwnProperty('pMaxHealthGain') === true) {
         this.props.playerStatsGainMaxHealth(this.props.choiceEvents.data[this.props.choiceEvents.choiceEventRNG].choiceTwoEffects.pMaxHealthGain)
         this.props.playerStatsCalculateStats()
-        this.props.abilitiesFilterAbilities(this.usableAbilities())
+        this.props.abilitiesFilterAbilities(this.usableAbilities(), this.usableCommands())
       }
       if (this.props.choiceEvents.data[this.props.choiceEvents.choiceEventRNG].choiceTwoEffects.hasOwnProperty('pEnergyGain') === true) {
         this.props.playerStatsGainEnergy(this.props.choiceEvents.data[this.props.choiceEvents.choiceEventRNG].choiceTwoEffects.pEnergyGain)
@@ -446,6 +448,7 @@ class PlayView extends Component {
   }
 
   render() {
+    this.props.abilities.data !== null ? console.log() : null
     return (
         <Col lg={6}>
           {
