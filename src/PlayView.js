@@ -147,11 +147,11 @@ class PlayView extends Component {
   }
 
   usableAbilities = () => this.props.abilities.data.filter(i =>
-    Object.keys(i.req).length === 0 ||
-    i.req.strength <= this.props.playerStats.strength ||
-    i.req.wisdom <= this.props.playerStats.wisdom ||
-    i.req.agility <= this.props.playerStats.agility ||
-    i.req.constitution <= this.props.playerStats.constitution
+    i.req.strength <= this.props.playerStats.strength &&
+    i.req.wisdom <= this.props.playerStats.wisdom &&
+    i.req.agility <= this.props.playerStats.agility &&
+    i.req.constitution <= this.props.playerStats.constitution &&
+    i.energyCost <= this.props.playerStats.energy
   )
 
   usableCommands = () => [].concat.apply([], (this.usableAbilities().map(i => i["command"]))).filter(i => i !== null)
@@ -168,6 +168,7 @@ class PlayView extends Component {
     let aPattern = this.props.enemies.data[this.props.enemies.enemyRNG].aPattern
     let pHitCalc = Math.round(Math.random() * (isSpell === false ? pDmgMod : 1) * (this.props.playerStats.attackPowerMax - this.props.playerStats.attackPowerMin) + this.props.playerStats.attackPowerMin)
     let pSpellCalc = this.props.playerStats.magicDamage * pDmgMod
+    console.log(pHitCalc, pSpellCalc)
     let numberRoll1to100 = Math.ceil(Math.random() * 100)
     let dodgeThreshold = this.props.enemies.data[this.props.enemies.enemyRNG].accuracy - this.props.playerStats.baseDodgeChance
     let doesDoubleAttack = this.props.playerStats.speed >= this.props.enemies.data[this.props.enemies.enemyRNG].speed + 5
@@ -185,23 +186,23 @@ class PlayView extends Component {
     if (numberRoll1to100 >= dodgeThreshold || numberRoll1to100 === 100) {
       let dodgeMessage = aPattern[this.props.enemies.aPatternI] === 'f' ? 'front' : aPattern[this.props.enemies.aPatternI] === 'r' ? 'right side' : aPattern[this.props.enemies.aPatternI] === 'l' ? 'left side' : null
       this.props.playView.battleLogOutput.push(`You dodged an attack from the ${dodgeMessage}!`)
-      this.props.playView.battleLogOutput.push(`You hit an enemy for ${isSpell === false ? pHitCalc : isSpell === true ? pSpellCalc : null} damage!`)
-      this.props.hitEnemy(isSpell === false ? pHitCalc : isSpell === true ? pSpellCalc : null);
+      this.props.playView.battleLogOutput.push(`You hit an enemy for ${isSpell === false || isSpell === null ? pHitCalc : isSpell === true ? pSpellCalc : null} damage!`)
+      this.props.hitEnemy(isSpell === false || isSpell === null ? pHitCalc : isSpell === true ? pSpellCalc : null);
       if (doesDoubleAttack === true) {
         let pHitCalc = Math.round(Math.random() * (this.props.playerStats.attackPowerMax - this.props.playerStats.attackPowerMin) + this.props.playerStats.attackPowerMin)
-        this.props.playView.battleLogOutput.push(`Your excess speed allows you to hit an enemy second time for ${isSpell === false ? pHitCalc : isSpell === true ? pSpellCalc : null} damage!`)
-        this.props.hitEnemy(isSpell === false ? pHitCalc : isSpell === true ? pSpellCalc : null)
+        this.props.playView.battleLogOutput.push(`Your excess speed allows you to hit an enemy second time for ${isSpell === false || isSpell === null ? pHitCalc : isSpell === true ? pSpellCalc : null} damage!`)
+        this.props.hitEnemy(isSpell === false || isSpell === null ? pHitCalc : isSpell === true ? pSpellCalc : null)
       }
       this.props.enemiesNextAttPattern()
     }
     if (numberRoll1to100 < dodgeThreshold || numberRoll1to100 === 1) {
-      this.props.hitEnemy(isSpell === false ? pHitCalc : isSpell === true ? pSpellCalc : null);
+      this.props.hitEnemy(isSpell === false || isSpell === null ? pHitCalc : isSpell === true ? pSpellCalc : null);
       if (doesDoubleAttack === true) {
         let pHitCalc = Math.round(Math.random() * (this.props.playerStats.attackPowerMax - this.props.playerStats.attackPowerMin) + this.props.playerStats.attackPowerMin)
         this.props.playView.battleLogOutput.push(`Your excess speed allows you to hit an enemy second time for ${isSpell === false ? pHitCalc : isSpell === true ? pSpellCalc : null} damage!`)
-        this.props.hitEnemy(isSpell === false ? pHitCalc : isSpell === true ? pSpellCalc : null)
+        this.props.hitEnemy(isSpell === false || isSpell === null ? pHitCalc : isSpell === true ? pSpellCalc : null)
       }
-      this.props.playView.battleLogOutput.push(`You hit an enemy for ${isSpell === false ? pHitCalc : isSpell === true ? pSpellCalc : null} damage!`)
+      this.props.playView.battleLogOutput.push(`You hit an enemy for ${isSpell === false || isSpell === null ? pHitCalc : isSpell === true ? pSpellCalc : null} damage!`)
       if (aPattern[this.props.enemies.aPatternI] === 'f') {
         this.props.playerStatsLoseHealth(eHitCalcF)
         this.props.playView.battleLogOutput.push(`Enemy attacks you head on and deals ${eHitCalcF} damage!`)
@@ -277,8 +278,9 @@ class PlayView extends Component {
         })
       }, 0)
     }
-    if(["attack", "a"].concat(this.props.abilities.usableCommands.includes(this.props.playView.inputValue && this.props.playView.possibleActions.includes('attack')))) {
+    if(["attack", "a"].concat(this.props.abilities.usableCommands).includes(this.props.playView.inputValue) && this.props.playView.possibleActions.includes('attack')) {
       if (this.props.enemyStats.health > 0) {
+        console.log(["attack", "a"].concat(this.props.abilities.usableCommands))
         this.hitTrade()
         setTimeout(() => {
             if (this.props.playerStats.health <= 0) {
