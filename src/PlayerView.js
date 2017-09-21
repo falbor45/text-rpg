@@ -151,6 +151,8 @@ export default connect (
                 <div>
                   <h2>Attack power</h2>
                   <h3>{this.props.playerStats.attackPowerMin} - {this.props.playerStats.attackPowerMax}</h3>
+                  <h2>Magic damage</h2>
+                  <h3>{this.props.playerStats.magicDamage}</h3>
                   <h2>Dodge chance</h2>
                   <h3>{this.props.playerStats.baseDodgeChance}%</h3>
                   <h3>Speed: {this.props.playerStats.speed}</h3>

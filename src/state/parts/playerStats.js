@@ -17,6 +17,7 @@ const initialState = {
   constitution: 10,
   attackPowerMin: 2,
   attackPowerMax: 4,
+  magicDamage: 0,
   baseDodgeChance: 5,
   speed: 3,
   armour: 0,
@@ -97,7 +98,7 @@ export default (state = initialState, action) => {
     case 'playerStats/LOSE_ENERGY':
       return {
         ...state,
-        maxEnergy: state.maxEnergy - action.value
+        energy: state.energy - action.value
       }
     case 'playerStats/LOSE_MAX_ENERGY':
       return {
@@ -115,7 +116,8 @@ export default (state = initialState, action) => {
         maxExperience: Math.round(40 * Math.exp(0.9 + (state.level/10))),
         speed: Math.round(state.agility / 3),
         maxHealth: initialState.maxHealth + state.maxHealthBonus + ((state.constitution - 10) * 5),
-        maxEnergy: initialState.maxEnergy + state.maxEnergyBonus + ((state.wisdom - 10) * 2)
+        maxEnergy: initialState.maxEnergy + state.maxEnergyBonus + ((state.wisdom - 10) * 2),
+        magicDamage: initialState.magicDamage + (state.wisdom * 2.5)
       }
     case 'playerStats/KILL_PLAYER':
       return {
