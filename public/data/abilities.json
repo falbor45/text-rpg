@@ -7,6 +7,7 @@
     "cooldown": 2,
     "energyCost": 6,
     "type": "physical",
+    "spell": false,
     "req": {
     },
     "command": ["heavy attack", "HA"],
@@ -35,6 +36,7 @@
     "cooldown": 0,
     "energyCost": 12,
     "type": "fire",
+    "spell": true,
     "req": {
     },
     "command": ["fireball", "Fb"],

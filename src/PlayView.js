@@ -157,9 +157,15 @@ class PlayView extends Component {
   usableCommands = () => [].concat.apply([], (this.usableAbilities().map(i => i["command"]))).filter(i => i !== null)
 
   hitTrade = () => {
-    let usedAbility = this.usableAbilities().filter(i => i.command !== null).filter(i => i.command.includes(this.props.playView.inputValue))
+    let pHitDmgMod = 1
+    let isSpell = null
+    if (this.props.playView.inputValue !== 'a' && this.props.playView.inputValue !== 'attack') {
+      let usedAbility = this.usableAbilities().filter(i => i.command !== null).filter(i => i.command.includes(this.props.playView.inputValue))
+      pHitDmgMod = usedAbility[0].dmgMod
+      usedAbility[0].spell === true ? isSpell = true : isSpell = false
+    }
     let aPattern = this.props.enemies.data[this.props.enemies.enemyRNG].aPattern
-    let pHitCalc = Math.round(Math.random() * (this.props.playerStats.attackPowerMax - this.props.playerStats.attackPowerMin) + this.props.playerStats.attackPowerMin)
+    let pHitCalc = Math.round(Math.random() * (isSpell === false ? pHitDmgMod : 1) * (this.props.playerStats.attackPowerMax - this.props.playerStats.attackPowerMin) + this.props.playerStats.attackPowerMin)
     let numberRoll1to100 = Math.ceil(Math.random() * 100)
     let dodgeThreshold = this.props.enemies.data[this.props.enemies.enemyRNG].accuracy - this.props.playerStats.baseDodgeChance
     let doesDoubleAttack = this.props.playerStats.speed >= this.props.enemies.data[this.props.enemies.enemyRNG].speed + 5
