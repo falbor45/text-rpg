@@ -168,7 +168,6 @@ class PlayView extends Component {
     let aPattern = this.props.enemies.data[this.props.enemies.enemyRNG].aPattern
     let pHitCalc = Math.round(Math.random() * (isSpell === false ? pDmgMod : 1) * (this.props.playerStats.attackPowerMax - this.props.playerStats.attackPowerMin) + this.props.playerStats.attackPowerMin)
     let pSpellCalc = this.props.playerStats.magicDamage * pDmgMod
-    console.log(pHitCalc, pSpellCalc)
     let numberRoll1to100 = Math.ceil(Math.random() * 100)
     let dodgeThreshold = this.props.enemies.data[this.props.enemies.enemyRNG].accuracy - this.props.playerStats.baseDodgeChance
     let doesDoubleAttack = this.props.playerStats.speed >= this.props.enemies.data[this.props.enemies.enemyRNG].speed + 5
@@ -280,7 +279,6 @@ class PlayView extends Component {
     }
     if(["attack", "a"].concat(this.props.abilities.usableCommands).includes(this.props.playView.inputValue) && this.props.playView.possibleActions.includes('attack')) {
       if (this.props.enemyStats.health > 0) {
-        console.log(["attack", "a"].concat(this.props.abilities.usableCommands))
         this.hitTrade()
         setTimeout(() => {
             if (this.props.playerStats.health <= 0) {
