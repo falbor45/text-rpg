@@ -51,9 +51,6 @@ export default connect(
       choiceEventsFetchSuccess: data => dispatch({ type: 'choiceEvents/FETCH__SUCCESS', data}),
       choiceEventsFetchFailure: error => dispatch({ type: 'choiceEvents/FETCH__FAILURE', error}),
       choiceEventsSetChoiceEventRNG: () => dispatch({ type: 'choiceEvents/SET_CHOICE_EVENT_RNG'}),
-      abilitiesFetchBegin: () => dispatch({ type: 'abilities/FETCH__BEGIN'}),
-      abilitiesFetchSuccess: data => dispatch({ type: 'abilities/FETCH__SUCCESS', data}),
-      abilitiesFetchFailure: error => dispatch({ type: 'abilities/FETCH__FAILURE', error}),
       abilitiesFilterAbilities: (data, commands) => dispatch({ type: 'abilities/FILTER_USABLE_ABILITIES', data, commands})
     })
 )(
@@ -99,19 +96,7 @@ class PlayView extends Component {
         error => this.props.choiceEventsFetchFailure('Connection error.')
     )
 
-    this.props.abilitiesFetchBegin()
-    fetch(
-      `${process.env.PUBLIC_URL}/data/abilities.json`
-    ).then(
-      response => response.json().then(
-        data => this.props.abilitiesFetchSuccess(data)
-      ).catch(
-        error => this.props.abilitiesFetchFailure('Malformed JSON.')
-      )
-    ).catch(
-      error => this.props.abilitiesFetchFailure('Connection error.')
-    )
-
+    this.props.abilitiesFilterAbilities(this.usableAbilities(), this.usableCommands())
     this.props.playerStatsCalculateStats()
     this.props.playerStatsEqualize('health')
     this.props.playerStatsEqualize('energy')
@@ -172,6 +157,7 @@ class PlayView extends Component {
   usableCommands = () => [].concat.apply([], (this.usableAbilities().map(i => i["command"]))).filter(i => i !== null)
 
   hitTrade = () => {
+    let usedAbility = this.usableAbilities().filter(i => i.command !== null).filter(i => i.command.includes(this.props.playView.inputValue))
     let aPattern = this.props.enemies.data[this.props.enemies.enemyRNG].aPattern
     let pHitCalc = Math.round(Math.random() * (this.props.playerStats.attackPowerMax - this.props.playerStats.attackPowerMin) + this.props.playerStats.attackPowerMin)
     let numberRoll1to100 = Math.ceil(Math.random() * 100)
@@ -283,7 +269,7 @@ class PlayView extends Component {
         })
       }, 0)
     }
-    if((this.props.playView.inputValue === 'attack' && this.props.playView.possibleActions.includes('attack')) || (this.props.playView.inputValue === 'a' && this.props.playView.possibleActions.includes('attack'))) {
+    if(["attack", "a"].concat(this.props.abilities.usableCommands.includes(this.props.playView.inputValue && this.props.playView.possibleActions.includes('attack')))) {
       if (this.props.enemyStats.health > 0) {
         this.hitTrade()
         setTimeout(() => {
@@ -448,7 +434,6 @@ class PlayView extends Component {
   }
 
   render() {
-    this.props.abilities.data !== null ? console.log() : null
     return (
         <Col lg={6}>
           {
