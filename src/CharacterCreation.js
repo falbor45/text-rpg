@@ -4,14 +4,33 @@ import { connect } from 'react-redux'
 
 export default connect(
     state => ({
-      playerStats: state.playerStats
+      playerStats: state.playerStats,
+      abilities: state.abilities
     }),
     dispatch => ({
       playerStatsCreateCharacter: (value) => dispatch({ type: 'playerStats/CREATE_CHARACTER', value}),
-      playerStatsStatRoll: () => dispatch({ type: 'playerStats/STAT_ROLL'})
+      playerStatsStatRoll: () => dispatch({ type: 'playerStats/STAT_ROLL'}),
+      abilitiesFetchBegin: () => dispatch({ type: 'abilities/FETCH__BEGIN'}),
+      abilitiesFetchSuccess: data => dispatch({ type: 'abilities/FETCH__SUCCESS', data}),
+      abilitiesFetchFailure: error => dispatch({ type: 'abilities/FETCH__FAILURE', error})
     })
 )(
     class CharacterCreation extends Component {
+
+      componentWillMount() {
+        this.props.abilitiesFetchBegin()
+        fetch(
+          `${process.env.PUBLIC_URL}/data/abilities.json`
+        ).then(
+          response => response.json().then(
+            data => this.props.abilitiesFetchSuccess(data)
+          ).catch(
+            error => this.props.abilitiesFetchFailure('Malformed JSON.')
+          )
+        ).catch(
+          error => this.props.abilitiesFetchFailure('Connection error.')
+        )
+      }
 
       state = {
         errorMessage: ''
