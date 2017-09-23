@@ -32,7 +32,7 @@ export default connect(
       playerStatsKillPlayer: () => dispatch({ type: 'playerStats/KILL_PLAYER'}),
       playerStatsEqualize: what => dispatch({ type: 'playerStats/EQUALIZE', what}),
       hitEnemy: value => dispatch({ type: 'enemyStats/HIT_ENEMY', value}),
-      enemyStatsSetEnemy: (health, maxHealth, energy, maxEnergy, speed) => dispatch({ type: 'enemyStats/SET_ENEMY', health, maxHealth, energy, maxEnergy, speed}),
+      enemyStatsSetEnemy: (health, maxHealth, energy, maxEnergy, speed) => dispatch({ type: 'enemyStats/SET_ENEMY', eHealth: health, eMaxHealth: maxHealth, eEnergy: energy, eMaxEnergy: maxEnergy, eSpeed: speed}),
       enemyStatsHideEnemy: () => dispatch({ type: 'enemyStats/HIDE_ENEMY'}),
       inputChange: value => dispatch({ type: 'playView/INPUT_CHANGE', value}),
       playViewSetEventRNG: () => dispatch({type: 'playView/SET_EVENT_RNG'}),
@@ -98,8 +98,8 @@ class PlayView extends Component {
 
     this.props.abilitiesFilterAbilities(this.usableAbilities(), this.usableCommands())
     this.props.playerStatsCalculateStats()
-    this.props.playerStatsEqualize('health')
-    this.props.playerStatsEqualize('energy')
+    this.props.playerStatsEqualize('eHealth')
+    this.props.playerStatsEqualize('eEnergy')
   }
 
   storyOutputStyle = {
@@ -170,8 +170,8 @@ class PlayView extends Component {
     let pSpellCalc = this.props.playerStats.pMagicDamage * pDmgMod
     let numberRoll1to100 = Math.ceil(Math.random() * 100)
     let dodgeThreshold = this.props.enemies.data[this.props.enemies.enemyRNG].accuracy - this.props.playerStats.pBaseDodgeChance
-    let doesDoubleAttack = this.props.playerStats.pSpeed >= this.props.enemies.data[this.props.enemies.enemyRNG].speed + 5
-    let enemyDoubleAttack = this.props.enemyStats.speed >= this.props.playerStats.pSpeed + 5
+    let doesDoubleAttack = this.props.playerStats.pSpeed >= this.props.enemies.data[this.props.enemies.enemyRNG].eSpeed + 5
+    let enemyDoubleAttack = this.props.enemyStats.eSpeed >= this.props.playerStats.pSpeed + 5
     let readBlockL = this.props.blockMechanic.leftBlockPoints
     let blockRedL = readBlockL === 3 ? 50 : readBlockL === 2 ? 30 : readBlockL === 1 ? 15 : 0
     let eHitCalcL = Math.round((Math.random() * (this.props.enemies.data[this.props.enemies.enemyRNG].attackPowerMax - this.props.enemies.data[this.props.enemies.enemyRNG].attackPowerMin) + this.props.enemies.data[this.props.enemies.enemyRNG].attackPowerMin) * (1 - (this.props.playerStats.pDamageReduction / 100)) * (1 - (blockRedL / 100)))
@@ -271,14 +271,14 @@ class PlayView extends Component {
         this.props.playView.events[this.props.playView.eventRNG] === 'fight' ? (this.props.playView.battleLogOutput.push('You encounter ' + filteredEnemies[this.props.enemies.enemyRNG].name + '!')  && this.props.playView.storyOutput.push(this.props.areas.data[this.props.areas.areaRNG].description,
             'You encounter ' + filteredEnemies[this.props.enemies.enemyRNG].name + '!')) : this.props.playView.events[this.props.playView.eventRNG] === 'choiceEvent' ?
             this.props.playView.storyOutput.push(this.props.choiceEvents.data[this.props.choiceEvents.choiceEventRNG].description) : null
-        this.props.playView.events[this.props.playView.eventRNG] === 'fight' ? this.props.enemyStatsSetEnemy(filteredEnemies[this.props.enemies.enemyRNG].health, filteredEnemies[this.props.enemies.enemyRNG].maxHealth, filteredEnemies[this.props.enemies.enemyRNG].energy, filteredEnemies[this.props.enemies.enemyRNG].maxEnergy, filteredEnemies[this.props.enemies.enemyRNG].speed) : null
+        this.props.playView.events[this.props.playView.eventRNG] === 'fight' ? this.props.enemyStatsSetEnemy(filteredEnemies[this.props.enemies.enemyRNG].eHealth, filteredEnemies[this.props.enemies.enemyRNG].eMaxHealth, filteredEnemies[this.props.enemies.enemyRNG].eEnergy, filteredEnemies[this.props.enemies.enemyRNG].eMaxEnergy, filteredEnemies[this.props.enemies.enemyRNG].eSpeed) : null
         this.setState({
           isDisabled: false
         })
       }, 0)
     }
     if(["attack", "a"].concat(this.props.abilities.usableCommands).includes(this.props.playView.inputValue) && this.props.playView.possibleActions.includes('attack')) {
-      if (this.props.enemyStats.health > 0) {
+      if (this.props.enemyStats.eHealth > 0) {
         this.hitTrade()
         setTimeout(() => {
             if (this.props.playerStats.pHealth <= 0) {
@@ -286,7 +286,7 @@ class PlayView extends Component {
            }
           }, 100)
           setTimeout(() => {
-            if (this.props.enemyStats.health <= 0) {
+            if (this.props.enemyStats.eHealth <= 0) {
               this.props.playView.storyOutput.push(`You've killed ${filteredEnemies[this.props.enemies.enemyRNG].name}!`)
               this.props.playView.battleLogOutput.push(`You've killed ${filteredEnemies[this.props.enemies.enemyRNG].name}!`)
               this.props.enemyStatsHideEnemy();
@@ -334,7 +334,7 @@ class PlayView extends Component {
         this.props.playerStatsGainHealth(this.props.choiceEvents.data[this.props.choiceEvents.choiceEventRNG].choiceOneEffects.pHealthGain)
         setTimeout(() => {
           if (this.props.playerStats.pHealth > this.props.playerStats.pMaxHealth) {
-            this.props.playerStatsEqualize('health')
+            this.props.playerStatsEqualize('eHealth')
           }
         }, 0)
       }
@@ -347,7 +347,7 @@ class PlayView extends Component {
         this.props.playerStatsGainEnergy(this.props.choiceEvents.data[this.props.choiceEvents.choiceEventRNG].choiceOneEffects.pEnergyGain)
         setTimeout(() => {
           if (this.props.playerStats.pEnergy > this.props.playerStats.pMaxEnergy) {
-            this.props.playerStatsEqualize('energy')
+            this.props.playerStatsEqualize('eEnergy')
           }
         }, 0)
       }
@@ -397,7 +397,7 @@ class PlayView extends Component {
         this.props.playerStatsGainHealth(this.props.choiceEvents.data[this.props.choiceEvents.choiceEventRNG].choiceTwoEffects.pHealthGain)
         setTimeout(() => {
           if (this.props.playerStats.pHealth > this.props.playerStats.pMaxHealth) {
-            this.props.playerStatsEqualize('health')
+            this.props.playerStatsEqualize('eHealth')
           }
         }, 0)
       }
@@ -410,7 +410,7 @@ class PlayView extends Component {
         this.props.playerStatsGainEnergy(this.props.choiceEvents.data[this.props.choiceEvents.choiceEventRNG].choiceTwoEffects.pEnergyGain)
         setTimeout(() => {
           if (this.props.playerStats.pEnergy > this.props.playerStats.pMaxEnergy) {
-            this.props.playerStatsEqualize('energy')
+            this.props.playerStatsEqualize('eEnergy')
           }
         }, 0)
       }
