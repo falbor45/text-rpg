@@ -75,10 +75,10 @@ export default connect(
                 <h2>Constitution</h2>
               </Col>
               <Col xs={2} xsPull={1} md={3} mdPull={1} lg={2} lgPull={2}>
-                <h2>{this.props.playerStats.strength}</h2>
-                <h2>{this.props.playerStats.agility}</h2>
-                <h2>{this.props.playerStats.wisdom}</h2>
-                <h2>{this.props.playerStats.constitution}</h2>
+                <h2>{this.props.playerStats.pStrength}</h2>
+                <h2>{this.props.playerStats.pAgility}</h2>
+                <h2>{this.props.playerStats.pWisdom}</h2>
+                <h2>{this.props.playerStats.pConstitution}</h2>
               </Col>
               <Col style={{textAlign: 'center'}} xsOffset={3} xs={3} sm={3} md={3} lg={3}>
               <Button style={{marginTop: '12px'}} type="button" onClick={() => {this.props.playerStatsStatRoll()}}>Roll</Button>

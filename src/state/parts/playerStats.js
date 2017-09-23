@@ -1,28 +1,28 @@
 const initialState = {
-  name: '',
-  isCreated: false,
-  level: 1,
-  health: 100,
-  maxHealth: 100,
-  maxHealthBonus: 0,
-  energy: 20,
-  maxEnergy: 20,
-  maxEnergyBonus: 0,
-  experience: 0,
-  maxExperience: null,
-  statPoints: 0,
-  strength: 10,
-  wisdom: 10,
-  agility: 10,
-  constitution: 10,
-  attackPowerMin: 2,
-  attackPowerMax: 4,
-  magicDamage: 0,
-  baseDodgeChance: 5,
-  speed: 3,
-  armour: 0,
-  damageReduction: 0,
-  isAlive: true
+  pName: '',
+  pIsCreated: false,
+  pLevel: 1,
+  pHealth: 100,
+  pMaxHealth: 100,
+  pMaxHealthBonus: 0,
+  pEnergy: 20,
+  pMaxEnergy: 20,
+  pMaxEnergyBonus: 0,
+  pExperience: 0,
+  pMaxExperience: null,
+  pStatPoints: 0,
+  pStrength: 10,
+  pWisdom: 10,
+  pAgility: 10,
+  pConstitution: 10,
+  pAttackPowerMin: 2,
+  pAttackPowerMax: 4,
+  pMagicDamage: 0,
+  pBaseDodgeChance: 5,
+  pSpeed: 3,
+  pArmour: 0,
+  pDamageReduction: 0,
+  pIsAlive: true
 }
 
 export default (state = initialState, action) => {
@@ -30,111 +30,111 @@ export default (state = initialState, action) => {
     case 'playerStats/GAIN_ATTACK':
       return {
           ...state,
-        attackPowerMin: state.attackPowerMin + action.value,
-        attackPowerMax: state.attackPowerMax + action.value
+        pAttackPowerMin: state.pAttackPowerMin + action.value,
+        pAttackPowerMax: state.pAttackPowerMax + action.value
       }
     case 'playerStats/GAIN_STRENGTH':
       return {
           ...state,
-        strength: state.strength + action.value
+        pStrength: state.pStrength + action.value
       }
     case 'playerStats/GAIN_WISDOM':
       return {
           ...state,
-        wisdom: state.wisdom + action.value
+        pWisdom: state.pWisdom + action.value
       }
     case 'playerStats/GAIN_AGILITY':
       return {
           ...state,
-        agility: state.agility + action.value
+        pAgility: state.pAgility + action.value
       }
     case 'playerStats/GAIN_CONSTITUTION':
       return {
           ...state,
-        constitution: state.constitution + action.value
+        pConstitution: state.pConstitution + action.value
       }
     case 'playerStats/GAIN_HEALTH':
       return {
           ...state,
-        health: state.health + action.value
+        pHealth: state.pHealth + action.value
       }
     case 'playerStats/GAIN_MAX_HEALTH':
       return {
           ...state,
-        maxHealth: state.maxHealthBonus + action.value
+        pMaxHealth: state.pMaxHealthBonus + action.value
       }
     case 'playerStats/GAIN_ENERGY':
       return {
           ...state,
-        energy: state.energy + action.value
+        pEnergy: state.pEnergy + action.value
       }
     case 'playerStats/GAIN_MAX_ENERGY':
       return {
           ...state,
-        maxEnergy: state.maxEnergyBonus + action.value
+        pMaxEnergy: state.pMaxEnergyBonus + action.value
       }
     case 'playerStats/GAIN_EXPERIENCE':
       return {
         ...state,
-        experience: state.experience > state.maxExperience ? state.experience - state.maxExperience : state.experience + action.value,
-        level: state.experience > state.maxExperience ? state.level + 1 : state.level,
-        statPoints: state.experience > state.maxExperience ? state.statPoints + 1 : state.statPoints
+        pExperience: state.pExperience > state.pMaxExperience ? state.pExperience - state.pMaxExperience : state.pExperience + action.value,
+        pLevel: state.pExperience > state.pMaxExperience ? state.pLevel + 1 : state.pLevel,
+        pStatPoints: state.pExperience > state.pMaxExperience ? state.pStatPoints + 1 : state.pStatPoints
       }
     case 'playerStats/GAIN_STAT_POINT':
       return {
         ...state,
-        statPoints: state.statPoints + action.value
+        pStatPoints: state.pStatPoints + action.value
       }
     case 'playerStats/LOSE_HEALTH':
       return {
           ...state,
-        health: state.health - action.value
+        pHealth: state.pHealth - action.value
       }
     case 'playerStats/LOSE_MAX_HEALTH':
       return {
           ...state,
-        maxHealth: state.maxHealthBonus - action.value
+        pMaxHealth: state.pMaxHealthBonus - action.value
       }
     case 'playerStats/LOSE_ENERGY':
       return {
         ...state,
-        energy: state.energy - action.value
+        pEnergy: state.pEnergy - action.value
       }
     case 'playerStats/LOSE_MAX_ENERGY':
       return {
         ...state,
-        maxEnergy: state.maxEnergy - action.value
+        pMaxEnergy: state.pMaxEnergy - action.value
       }
     case 'playerStats/CALCULATE_STATS':
       return {
         ...state,
-        attackPowerMin: initialState.attackPowerMin + Math.floor((state.strength - 10) / 2),
-        attackPowerMax: initialState.attackPowerMax + (state.strength - 10),
-        baseDodgeChance: state.agility / 2,
-        armour: initialState.armour + Math.floor((state.constitution - 10) / 3),
-        damageReduction: Math.round(state.armour/(state.armour + 100) * 100),
-        maxExperience: Math.round(40 * Math.exp(0.9 + (state.level/10))),
-        speed: Math.round(state.agility / 3),
-        maxHealth: initialState.maxHealth + state.maxHealthBonus + ((state.constitution - 10) * 5),
-        maxEnergy: initialState.maxEnergy + state.maxEnergyBonus + ((state.wisdom - 10) * 2),
-        magicDamage: initialState.magicDamage + (state.wisdom * 2.5)
+        pAttackPowerMin: initialState.pAttackPowerMin + Math.floor((state.pStrength - 10) / 2),
+        pAttackPowerMax: initialState.pAttackPowerMax + (state.pStrength - 10),
+        pBaseDodgeChance: state.pAgility / 2,
+        pArmour: initialState.pArmour + Math.floor((state.pConstitution - 10) / 3),
+        pDamageReduction: Math.round(state.pArmour/(state.pArmour + 100) * 100),
+        pMaxExperience: Math.round(40 * Math.exp(0.9 + (state.pLevel/10))),
+        pSpeed: Math.round(state.pAgility / 3),
+        pMaxHealth: initialState.pMaxHealth + state.pMaxHealthBonus + ((state.pConstitution - 10) * 5),
+        pMaxEnergy: initialState.pMaxEnergy + state.pMaxEnergyBonus + ((state.pWisdom - 10) * 2),
+        pMagicDamage: initialState.pMagicDamage + (state.pWisdom * 2.5)
       }
     case 'playerStats/KILL_PLAYER':
       return {
           ...state,
-        isAlive: false
+        pIsAlive: false
       }
     case 'playerStats/EQUALIZE' :
       if (action.what === 'health') {
         return {
             ...state,
-          health: state.maxHealth
+          pHealth: state.pMaxHealth
         }
       }
       if (action.what === 'energy') {
         return {
             ...state,
-          energy: state.maxEnergy
+          pEnergy: state.pMaxEnergy
         }
       }
       return {
@@ -164,16 +164,16 @@ export default (state = initialState, action) => {
       }
       return {
         ...state,
-        strength: strength,
-        agility: agility,
-        wisdom: wisdom,
-        constitution: constitution
+        pStrength: strength,
+        pAgility: agility,
+        pWisdom: wisdom,
+        pConstitution: constitution
       }
     case 'playerStats/CREATE_CHARACTER':
       return {
         ...state,
-        isCreated: true,
-        name: action.value
+        pIsCreated: true,
+        pName: action.value
       }
     default:
       return state

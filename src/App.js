@@ -18,7 +18,7 @@ export default connect(
       render() {
         return (
             <div className="App">
-              { this.props.playerStats.isCreated === false ? (
+              { this.props.playerStats.pIsCreated === false ? (
                   <Grid>
                     <CharacterCreation/>
                   </Grid>

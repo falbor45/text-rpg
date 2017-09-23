@@ -106,23 +106,23 @@ export default connect (
         }
         return (
             <Col style={{textAlign: 'center'}} lg={3}>
-              <h1>{this.props.playerStats.name}</h1>
-              <h4>Level: {this.props.playerStats.level}</h4>
+              <h1>{this.props.playerStats.pName}</h1>
+              <h4>Level: {this.props.playerStats.pLevel}</h4>
               <h2>Health</h2>
               <div style={this.centerBarText}>
-              <p style={this.barOverlap}>{`${this.props.playerStats.health}/${this.props.playerStats.maxHealth}`}</p>
+              <p style={this.barOverlap}>{`${this.props.playerStats.pHealth}/${this.props.playerStats.pMaxHealth}`}</p>
               </div>
-              <ProgressBar bsStyle="success" now={Math.round((this.props.playerStats.health / this.props.playerStats.maxHealth) * 100)}/>
+              <ProgressBar bsStyle="success" now={Math.round((this.props.playerStats.pHealth / this.props.playerStats.pMaxHealth) * 100)}/>
               <h2>Energy</h2>
               <div style={this.centerBarText}>
-              <p style={this.barOverlap}>{`${this.props.playerStats.energy}/${this.props.playerStats.maxEnergy}`}</p>
+              <p style={this.barOverlap}>{`${this.props.playerStats.pEnergy}/${this.props.playerStats.pMaxEnergy}`}</p>
               </div>
-              <ProgressBar bsStyle="info" now={Math.round((this.props.playerStats.energy / this.props.playerStats.maxEnergy) * 100)}/>
+              <ProgressBar bsStyle="info" now={Math.round((this.props.playerStats.pEnergy / this.props.playerStats.pMaxEnergy) * 100)}/>
               <h2>Experience</h2>
               <div style={this.centerBarText}>
-                <p style={this.barOverlap}>{`${this.props.playerStats.experience}/${this.props.playerStats.maxExperience}`}</p>
+                <p style={this.barOverlap}>{`${this.props.playerStats.pExperience}/${this.props.playerStats.pMaxExperience}`}</p>
               </div>
-              <ProgressBar bsStyle="warning" now={Math.round((this.props.playerStats.experience / this.props.playerStats.maxExperience) * 100)}/>
+              <ProgressBar bsStyle="warning" now={Math.round((this.props.playerStats.pExperience / this.props.playerStats.pMaxExperience) * 100)}/>
               <h2>Block setup </h2>
               <img onMouseDown={(e) => this.handleLeftBlockClick(e)} src={this.props.blockMechanic.leftBlockPoints === 1 ? blockLeft1 : this.props.blockMechanic.leftBlockPoints === 2 ? blockLeft2 : this.props.blockMechanic.leftBlockPoints === 3 ? blockLeft3 : blockPlaceholder} style={this.imageBlockStyle}/>
               <img onMouseDown={(e) => this.handleFrontBlockClick(e)} src={this.props.blockMechanic.frontBlockPoints === 1 ? blockFront1 : this.props.blockMechanic.frontBlockPoints === 2 ? blockFront2 : this.props.blockMechanic.frontBlockPoints === 3 ? blockFront3 : blockPlaceholder} style={this.imageBlockStyle}/>
@@ -141,24 +141,24 @@ export default connect (
                     <h3>Constitution:</h3>
                   </Col>
                   <Col xs={6} sm={6} md={6} lgPush={1} lg={4}>
-                    <h3>{this.props.playerStats.strength} {this.props.playerStats.statPoints !== 0 ? <span onClick={() => this.handleStatDistribution('str')} style={this.addPoint}>+</span> : null}</h3>
-                    <h3>{this.props.playerStats.wisdom} {this.props.playerStats.statPoints !== 0 ? <span onClick={() => this.handleStatDistribution('wis')} style={this.addPoint}>+</span> : null}</h3>
-                    <h3>{this.props.playerStats.agility} {this.props.playerStats.statPoints !== 0 ? <span onClick={() => this.handleStatDistribution('agi')} style={this.addPoint}>+</span> : null}</h3>
-                    <h3>{this.props.playerStats.constitution} {this.props.playerStats.statPoints !== 0 ? <span onClick={() => this.handleStatDistribution('cons')} style={this.addPoint}>+</span> : null}</h3>
+                    <h3>{this.props.playerStats.pStrength} {this.props.playerStats.pStatPoints !== 0 ? <span onClick={() => this.handleStatDistribution('str')} style={this.addPoint}>+</span> : null}</h3>
+                    <h3>{this.props.playerStats.pWisdom} {this.props.playerStats.pStatPoints !== 0 ? <span onClick={() => this.handleStatDistribution('wis')} style={this.addPoint}>+</span> : null}</h3>
+                    <h3>{this.props.playerStats.pAgility} {this.props.playerStats.pStatPoints !== 0 ? <span onClick={() => this.handleStatDistribution('agi')} style={this.addPoint}>+</span> : null}</h3>
+                    <h3>{this.props.playerStats.pConstitution} {this.props.playerStats.pStatPoints !== 0 ? <span onClick={() => this.handleStatDistribution('cons')} style={this.addPoint}>+</span> : null}</h3>
                   </Col>
                 </div>
               ) : this.state.viewedTab === 'details' ? (
                 <div>
                   <h2>Attack power</h2>
-                  <h3>{this.props.playerStats.attackPowerMin} - {this.props.playerStats.attackPowerMax}</h3>
+                  <h3>{this.props.playerStats.pAttackPowerMin} - {this.props.playerStats.pAttackPowerMax}</h3>
                   <h2>Magic damage</h2>
-                  <h3>{this.props.playerStats.magicDamage}</h3>
+                  <h3>{this.props.playerStats.pMagicDamage}</h3>
                   <h2>Dodge chance</h2>
-                  <h3>{this.props.playerStats.baseDodgeChance}%</h3>
-                  <h3>Speed: {this.props.playerStats.speed}</h3>
+                  <h3>{this.props.playerStats.pBaseDodgeChance}%</h3>
+                  <h3>Speed: {this.props.playerStats.pSpeed}</h3>
                   <h2>Armour</h2>
-                  <h3>{this.props.playerStats.armour}</h3>
-                  <p>Damage reduction: {this.props.playerStats.damageReduction}%</p>
+                  <h3>{this.props.playerStats.pArmour}</h3>
+                  <p>Damage reduction: {this.props.playerStats.pDamageReduction}%</p>
                 </div>
               ) : null}
 
