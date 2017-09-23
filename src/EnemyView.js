@@ -17,7 +17,7 @@ export default connect(
                 {
                     this.props.enemyStats.eIsAlive ?
                         <div>
-                            <h1>{this.props.enemies.data[this.props.enemies.enemyRNG].name.charAt(0).toUpperCase() + this.props.enemies.data[this.props.enemies.enemyRNG].name.slice(1)}</h1>
+                            <h1>{this.props.enemyStats.eName.charAt(0).toUpperCase() + this.props.enemyStats.eName.slice(1)}</h1>
                             <h2>Health</h2>
                             <p>{this.props.enemyStats.eHealth}/{this.props.enemyStats.eMaxHealth}</p>
                             <h3>Speed</h3>
