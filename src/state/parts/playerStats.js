@@ -125,13 +125,13 @@ export default (state = initialState, action) => {
         pIsAlive: false
       }
     case 'playerStats/EQUALIZE' :
-      if (action.what === 'eHealth') {
+      if (action.what === 'health') {
         return {
             ...state,
           pHealth: state.pMaxHealth
         }
       }
-      if (action.what === 'eEnergy') {
+      if (action.what === 'energy') {
         return {
             ...state,
           pEnergy: state.pMaxEnergy

@@ -50,8 +50,8 @@ class PlayView extends Component {
   componentWillMount() {
     this.props.abilitiesFilterAbilities(this.usableAbilities(), this.usableCommands())
     this.props.playerStatsCalculateStats()
-    this.props.playerStatsEqualize('eHealth')
-    this.props.playerStatsEqualize('eEnergy')
+    this.props.playerStatsEqualize('health')
+    this.props.playerStatsEqualize('energy')
   }
 
   storyOutputStyle = {
@@ -192,6 +192,7 @@ class PlayView extends Component {
     let filteredEnemies = this.props.enemies.data.filter((i) => i.difficulty <= Math.sqrt(this.props.playView.days))
     if ((this.props.playView.inputValue === 'explore' && this.props.playView.possibleActions.includes('explore')) || (this.props.playView.inputValue === 'e' && this.props.playView.possibleActions.includes('explore'))) {
       this.props.playViewForwardTime()
+      this.passiveEffects()
       this.setState({
         isDisabled: true,
       })
@@ -232,6 +233,7 @@ class PlayView extends Component {
     if(["attack", "a"].concat(this.props.abilities.usableCommands).includes(this.props.playView.inputValue) && this.props.playView.possibleActions.includes('attack')) {
       if (this.props.enemyStats.eHealth > 0) {
         this.hitTrade()
+        this.passiveEffects()
         setTimeout(() => {
             if (this.props.playerStats.pHealth <= 0) {
              this.props.playerStatsKillPlayer()
@@ -265,6 +267,7 @@ class PlayView extends Component {
   }
 
   handleChoice = (choice) =>  {
+    this.passiveEffects()
     if (choice === 1) {
       this.props.playView.storyOutput.push(this.props.choiceEvents.data[this.props.choiceEvents.choiceEventRNG].choiceOne)
       if (this.props.choiceEvents.data[this.props.choiceEvents.choiceEventRNG].choiceOneEffects.hasOwnProperty('pAttGain') === true) {
@@ -286,7 +289,7 @@ class PlayView extends Component {
         this.props.playerStatsGainHealth(this.props.choiceEvents.data[this.props.choiceEvents.choiceEventRNG].choiceOneEffects.pHealthGain)
         setTimeout(() => {
           if (this.props.playerStats.pHealth > this.props.playerStats.pMaxHealth) {
-            this.props.playerStatsEqualize('eHealth')
+            this.props.playerStatsEqualize('health')
           }
         }, 0)
       }
@@ -299,7 +302,7 @@ class PlayView extends Component {
         this.props.playerStatsGainEnergy(this.props.choiceEvents.data[this.props.choiceEvents.choiceEventRNG].choiceOneEffects.pEnergyGain)
         setTimeout(() => {
           if (this.props.playerStats.pEnergy > this.props.playerStats.pMaxEnergy) {
-            this.props.playerStatsEqualize('eEnergy')
+            this.props.playerStatsEqualize('energy')
           }
         }, 0)
       }
@@ -349,7 +352,7 @@ class PlayView extends Component {
         this.props.playerStatsGainHealth(this.props.choiceEvents.data[this.props.choiceEvents.choiceEventRNG].choiceTwoEffects.pHealthGain)
         setTimeout(() => {
           if (this.props.playerStats.pHealth > this.props.playerStats.pMaxHealth) {
-            this.props.playerStatsEqualize('eHealth')
+            this.props.playerStatsEqualize('health')
           }
         }, 0)
       }
@@ -362,7 +365,7 @@ class PlayView extends Component {
         this.props.playerStatsGainEnergy(this.props.choiceEvents.data[this.props.choiceEvents.choiceEventRNG].choiceTwoEffects.pEnergyGain)
         setTimeout(() => {
           if (this.props.playerStats.pEnergy > this.props.playerStats.pMaxEnergy) {
-            this.props.playerStatsEqualize('eEnergy')
+            this.props.playerStatsEqualize('energy')
           }
         }, 0)
       }
@@ -390,6 +393,34 @@ class PlayView extends Component {
       chooseIndex > -1 ? this.props.playView.possibleActions.splice(chooseIndex, 1) : null
       this.props.playView.possibleActions.push('explore')
       this.props.playViewForceUpdate()
+    }
+  }
+
+  passiveEffects = () => {
+    let usableAbilities = this.props.abilities.usableAbilities
+    for (let i = 0; i < usableAbilities.length; i++) {
+      if (usableAbilities[i].name === 'Health Regeneration') {
+        this.props.playerStatsGainHealth(1)
+        setTimeout(() => {
+          if (this.props.playerStats.pHealth > this.props.playerStats.pMaxHealth) {
+            this.props.playerStatsEqualize('health')
+          }
+          if (this.props.playerStats.pEnergy > this.props.playerStats.pMaxEnergy) {
+            this.props.playerStatsEqualize('energy')
+          }
+        }, 0)
+      }
+      if (usableAbilities[i].name === 'Mana Regeneration') {
+        this.props.playerStatsGainEnergy(1)
+        setTimeout(() => {
+          if (this.props.playerStats.pHealth > this.props.playerStats.pMaxHealth) {
+            this.props.playerStatsEqualize('health')
+          }
+          if (this.props.playerStats.pEnergy > this.props.playerStats.pMaxEnergy) {
+            this.props.playerStatsEqualize('energy')
+          }
+        }, 0)
+      }
     }
   }
 
