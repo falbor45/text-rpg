@@ -220,8 +220,8 @@ class PlayView extends Component {
         }
         this.props.playView.events[this.props.playView.eventRNG] === 'fight' ? this.props.enemiesSetEnemyRNG(filteredEnemies.length) : null
         this.props.playView.events[this.props.playView.eventRNG] === 'choiceEvent' ? this.props.choiceEventsSetChoiceEventRNG() : null
-        this.props.playView.events[this.props.playView.eventRNG] === 'fight' ? (this.props.playView.battleLogOutput.push('You encounter ' + filteredEnemies[this.props.enemies.enemyRNG].name + '!')  && this.props.playView.storyOutput.push(this.props.areas.data[this.props.areas.areaRNG].description,
-            'You encounter ' + filteredEnemies[this.props.enemies.enemyRNG].name + '!')) : this.props.playView.events[this.props.playView.eventRNG] === 'choiceEvent' ?
+        this.props.playView.events[this.props.playView.eventRNG] === 'fight' ? (this.props.playView.battleLogOutput.push('You encounter ' + filteredEnemies[this.props.enemies.enemyRNG].eName + '!')  && this.props.playView.storyOutput.push(this.props.areas.data[this.props.areas.areaRNG].description,
+            'You encounter ' + filteredEnemies[this.props.enemies.enemyRNG].eName + '!')) : this.props.playView.events[this.props.playView.eventRNG] === 'choiceEvent' ?
             this.props.playView.storyOutput.push(this.props.choiceEvents.data[this.props.choiceEvents.choiceEventRNG].description) : null
         this.props.playView.events[this.props.playView.eventRNG] === 'fight' ? this.props.enemyStatsSetEnemy(filteredEnemies[this.props.enemies.enemyRNG].eName, filteredEnemies[this.props.enemies.enemyRNG].eHealth, filteredEnemies[this.props.enemies.enemyRNG].eMaxHealth, filteredEnemies[this.props.enemies.enemyRNG].eSpeed, filteredEnemies[this.props.enemies.enemyRNG].eAttackPowerMin, filteredEnemies[this.props.enemies.enemyRNG].eAttackPowerMax, filteredEnemies[this.props.enemies.enemyRNG].eAccuracy, filteredEnemies[this.props.enemies.enemyRNG].aPattern, filteredEnemies[this.props.enemies.enemyRNG].eExperience) : null
         this.setState({
@@ -239,10 +239,10 @@ class PlayView extends Component {
           }, 100)
           setTimeout(() => {
             if (this.props.enemyStats.eHealth <= 0) {
-              this.props.playView.storyOutput.push(`You've killed ${filteredEnemies[this.props.enemies.enemyRNG].name}!`)
-              this.props.playView.battleLogOutput.push(`You've killed ${filteredEnemies[this.props.enemies.enemyRNG].name}!`)
+              this.props.playView.storyOutput.push(`You've killed ${filteredEnemies[this.props.enemies.enemyRNG].eName}!`)
+              this.props.playView.battleLogOutput.push(`You've killed ${filteredEnemies[this.props.enemies.enemyRNG].eName}!`)
               this.props.enemyStatsHideEnemy();
-              this.props.playerStatsGainExperience(filteredEnemies[this.props.enemies.enemyRNG].experience)
+              this.props.playerStatsGainExperience(filteredEnemies[this.props.enemies.enemyRNG].eExperience)
               setTimeout(() => {
                 if (this.props.playerStats.pExperience > this.props.playerStats.pMaxExperience) {
                   this.props.playerStatsGainExperience(0)
