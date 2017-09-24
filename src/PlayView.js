@@ -119,7 +119,7 @@ class PlayView extends Component {
     }
     let aPattern = this.props.enemyStats.aPattern
     let pHitCalc = Math.round(Math.random() * (isSpell === false ? pDmgMod : 1) * (this.props.playerStats.pAttackPowerMax - this.props.playerStats.pAttackPowerMin) + this.props.playerStats.pAttackPowerMin)
-    let pSpellCalc = this.props.playerStats.pMagicDamage * pDmgMod
+    let pSpellCalc = Math.round(this.props.playerStats.pMagicDamage * pDmgMod)
     let numberRoll1to100 = Math.ceil(Math.random() * 100)
     let dodgeThreshold = this.props.enemyStats.eAccuracy - this.props.playerStats.pBaseDodgeChance
     let doesDoubleAttack = this.props.playerStats.pSpeed >= this.props.enemyStats.eSpeed + 5
