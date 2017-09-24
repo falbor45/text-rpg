@@ -10,14 +10,62 @@ export default connect(
     dispatch => ({
       playerStatsCreateCharacter: (value) => dispatch({ type: 'playerStats/CREATE_CHARACTER', value}),
       playerStatsStatRoll: () => dispatch({ type: 'playerStats/STAT_ROLL'}),
+      areasFetchBegin: () => dispatch({ type: 'areas/FETCH__BEGIN'}),
+      areasFetchSuccess: data => dispatch({ type: 'areas/FETCH__SUCCESS', data}),
+      areasFetchFailure: error => dispatch({ type: 'areas/FETCH__FAILURE', error}),
+      enemiesFetchBegin: () => dispatch({ type: 'enemies/FETCH__BEGIN'}),
+      enemiesFetchSuccess: data => dispatch({ type: 'enemies/FETCH__SUCCESS', data}),
+      enemiesFetchFailure: error => dispatch({ type: 'enemies/FETCH__FAILURE', error}),
+      choiceEventsFetchBegin: () => dispatch({ type: 'choiceEvents/FETCH__BEGIN'}),
+      choiceEventsFetchSuccess: data => dispatch({ type: 'choiceEvents/FETCH__SUCCESS', data}),
+      choiceEventsFetchFailure: error => dispatch({ type: 'choiceEvents/FETCH__FAILURE', error}),
       abilitiesFetchBegin: () => dispatch({ type: 'abilities/FETCH__BEGIN'}),
       abilitiesFetchSuccess: data => dispatch({ type: 'abilities/FETCH__SUCCESS', data}),
-      abilitiesFetchFailure: error => dispatch({ type: 'abilities/FETCH__FAILURE', error})
+      abilitiesFetchFailure: error => dispatch({ type: 'abilities/FETCH__FAILURE', error}),
     })
 )(
     class CharacterCreation extends Component {
 
       componentWillMount() {
+        this.props.areasFetchBegin()
+        fetch(
+          `${process.env.PUBLIC_URL}/data/areas.json`
+        ).then(
+          response => response.json().then(
+            data => this.props.areasFetchSuccess(data)
+          ).catch(
+            error => this.props.areasFetchFailure('Malformed JSON.')
+          )
+        ).catch(
+          error => this.props.areasFetchFailure('Connection error.')
+        )
+
+        this.props.enemiesFetchBegin()
+        fetch(
+          `${process.env.PUBLIC_URL}/data/enemies.json`
+        ).then(
+          response => response.json().then(
+            data => this.props.enemiesFetchSuccess(data)
+          ).catch(
+            error => this.props.enemiesFetchFailure('Malformed JSON.')
+          )
+        ).catch(
+          error => this.props.enemiesFetchFailure('Connection error.')
+        )
+
+        this.props.choiceEventsFetchBegin()
+        fetch(
+          `${process.env.PUBLIC_URL}/data/choiceEvents.json`
+        ).then(
+          response => response.json().then(
+            data => this.props.choiceEventsFetchSuccess(data)
+          ).catch(
+            error => this.props.choiceEventsFetchFailure('Malformed JSON.')
+          )
+        ).catch(
+          error => this.props.choiceEventsFetchFailure('Connection error.')
+        )
+
         this.props.abilitiesFetchBegin()
         fetch(
           `${process.env.PUBLIC_URL}/data/abilities.json`

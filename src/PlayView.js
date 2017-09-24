@@ -38,18 +38,9 @@ export default connect(
       playViewSetEventRNG: () => dispatch({type: 'playView/SET_EVENT_RNG'}),
       playViewForceUpdate: () => dispatch({type: 'playView/FORCE_UPDATE'}),
       playViewForwardTime: () => dispatch({type: 'playView/FORWARD_TIME'}),
-      areasFetchBegin: () => dispatch({ type: 'areas/FETCH__BEGIN'}),
-      areasFetchSuccess: data => dispatch({ type: 'areas/FETCH__SUCCESS', data}),
-      areasFetchFailure: error => dispatch({ type: 'areas/FETCH__FAILURE', error}),
       areasSetAreaRNG: () => dispatch({ type: 'areas/SET_AREA_RNG'}),
-      enemiesFetchBegin: () => dispatch({ type: 'enemies/FETCH__BEGIN'}),
-      enemiesFetchSuccess: data => dispatch({ type: 'enemies/FETCH__SUCCESS', data}),
-      enemiesFetchFailure: error => dispatch({ type: 'enemies/FETCH__FAILURE', error}),
       enemiesSetEnemyRNG: (value) => dispatch({ type: 'enemies/SET_ENEMY_RNG', value}),
       enemiesNextAttPattern: () => dispatch({ type: 'enemies/NEXT_ATT_PATTERN'}),
-      choiceEventsFetchBegin: () => dispatch({ type: 'choiceEvents/FETCH__BEGIN'}),
-      choiceEventsFetchSuccess: data => dispatch({ type: 'choiceEvents/FETCH__SUCCESS', data}),
-      choiceEventsFetchFailure: error => dispatch({ type: 'choiceEvents/FETCH__FAILURE', error}),
       choiceEventsSetChoiceEventRNG: () => dispatch({ type: 'choiceEvents/SET_CHOICE_EVENT_RNG'}),
       abilitiesFilterAbilities: (data, commands) => dispatch({ type: 'abilities/FILTER_USABLE_ABILITIES', data, commands})
     })
@@ -57,45 +48,6 @@ export default connect(
 class PlayView extends Component {
 
   componentWillMount() {
-    this.props.areasFetchBegin()
-    fetch(
-        `${process.env.PUBLIC_URL}/data/areas.json`
-    ).then(
-        response => response.json().then(
-            data => this.props.areasFetchSuccess(data)
-        ).catch(
-            error => this.props.areasFetchFailure('Malformed JSON.')
-        )
-    ).catch(
-        error => this.props.areasFetchFailure('Connection error.')
-    )
-
-    this.props.enemiesFetchBegin()
-    fetch(
-        `${process.env.PUBLIC_URL}/data/enemies.json`
-    ).then(
-        response => response.json().then(
-            data => this.props.enemiesFetchSuccess(data)
-        ).catch(
-            error => this.props.enemiesFetchFailure('Malformed JSON.')
-        )
-    ).catch(
-        error => this.props.enemiesFetchFailure('Connection error.')
-    )
-
-    this.props.choiceEventsFetchBegin()
-    fetch(
-        `${process.env.PUBLIC_URL}/data/choiceEvents.json`
-    ).then(
-        response => response.json().then(
-            data => this.props.choiceEventsFetchSuccess(data)
-        ).catch(
-            error => this.props.choiceEventsFetchFailure('Malformed JSON.')
-        )
-    ).catch(
-        error => this.props.choiceEventsFetchFailure('Connection error.')
-    )
-
     this.props.abilitiesFilterAbilities(this.usableAbilities(), this.usableCommands())
     this.props.playerStatsCalculateStats()
     this.props.playerStatsEqualize('eHealth')
