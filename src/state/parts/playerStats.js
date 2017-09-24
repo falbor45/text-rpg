@@ -61,7 +61,7 @@ export default (state = initialState, action) => {
     case 'playerStats/GAIN_MAX_HEALTH':
       return {
           ...state,
-        pMaxHealth: state.pMaxHealthBonus + action.value
+        pMaxHealthBonus: state.pMaxHealthBonus + action.value
       }
     case 'playerStats/GAIN_ENERGY':
       return {
@@ -71,7 +71,7 @@ export default (state = initialState, action) => {
     case 'playerStats/GAIN_MAX_ENERGY':
       return {
           ...state,
-        pMaxEnergy: state.pMaxEnergyBonus + action.value
+        pMaxEnergyBonus: state.pMaxEnergyBonus + action.value
       }
     case 'playerStats/GAIN_EXPERIENCE':
       return {
