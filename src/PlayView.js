@@ -397,29 +397,23 @@ class PlayView extends Component {
   }
 
   passiveEffects = () => {
+    const equalizeCheck = () => setTimeout(() => {
+      if (this.props.playerStats.pHealth > this.props.playerStats.pMaxHealth) {
+        this.props.playerStatsEqualize('health')
+      }
+      if (this.props.playerStats.pEnergy > this.props.playerStats.pMaxEnergy) {
+        this.props.playerStatsEqualize('energy')
+      }
+    }, 0)
     let usableAbilities = this.props.abilities.usableAbilities
     for (let i = 0; i < usableAbilities.length; i++) {
       if (usableAbilities[i].name === 'Health Regeneration') {
         this.props.playerStatsGainHealth(1)
-        setTimeout(() => {
-          if (this.props.playerStats.pHealth > this.props.playerStats.pMaxHealth) {
-            this.props.playerStatsEqualize('health')
-          }
-          if (this.props.playerStats.pEnergy > this.props.playerStats.pMaxEnergy) {
-            this.props.playerStatsEqualize('energy')
-          }
-        }, 0)
+        equalizeCheck()
       }
       if (usableAbilities[i].name === 'Mana Regeneration') {
         this.props.playerStatsGainEnergy(1)
-        setTimeout(() => {
-          if (this.props.playerStats.pHealth > this.props.playerStats.pMaxHealth) {
-            this.props.playerStatsEqualize('health')
-          }
-          if (this.props.playerStats.pEnergy > this.props.playerStats.pMaxEnergy) {
-            this.props.playerStatsEqualize('energy')
-          }
-        }, 0)
+        equalizeCheck()
       }
     }
   }
