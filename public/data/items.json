@@ -1,0 +1,231 @@
+[
+  {
+    "helms": [
+      {
+        "name": "Leather Cap",
+        "armour": 1,
+        "difficulty": 0
+      },
+      {
+        "name": "Bronze Helm",
+        "armour": 2,
+        "difficulty": 1.4
+      },
+      {
+        "name": "Iron Helm",
+        "armour": 3,
+        "difficulty": 2
+      },
+      {
+        "name": "Steel Helm",
+        "armour": 4,
+        "difficulty": 4
+      }
+    ],
+    "bodyArmours": [
+      {
+        "name": "Leather Armour",
+        "armour": 2,
+        "difficulty": 0
+      },
+      {
+        "name": "Bronze Armour",
+        "armour": 3,
+        "difficulty": 1.4
+      },
+      {
+        "name": "Iron Armour",
+        "armour": 4,
+        "difficulty": 2
+      },
+      {
+        "name": "Steel Armour",
+        "armour": 5,
+        "difficulty": 4
+      }
+    ],
+    "leggings": [
+      {
+        "name": "Leather Leggings",
+        "armour": 1,
+        "difficulty": 0
+      },
+      {
+        "name": "Bronze Leggings",
+        "armour": 2,
+        "difficulty": 1.4
+      },
+      {
+        "name": "Iron Leggings",
+        "armour": 3,
+        "difficulty": 2
+      },
+      {
+        "name": "Steel Leggings",
+        "armour": 4,
+        "difficulty": 4
+      }
+    ],
+    "boots": [
+      {
+        "name": "Leather Boots",
+        "armour": 0,
+        "difficulty": 0
+      },
+      {
+        "name": "Bronze Boots",
+        "armour": 1,
+        "difficulty": 1.4
+      },
+      {
+        "name": "Iron Boots",
+        "armour": 2,
+        "difficulty": 2
+      },
+      {
+        "name": "Steel Boots",
+        "armour": 3,
+        "difficulty": 4
+      }
+    ],
+    "amulets": [
+      {
+        "name": "Amber Amulet",
+        "armour": 0,
+        "difficulty": 0,
+        "attrBonus": {
+          "strength": 1
+        }
+      },
+      {
+        "name": "Agate Amulet",
+        "armour": 0,
+        "difficulty": 0,
+        "attrBonus": {
+          "wisdom": 1
+        }
+      },
+      {
+        "name": "Amethyst Amulet",
+        "armour": 0,
+        "difficulty": 0,
+        "attrBonus": {
+          "agility": 1
+        }
+      },
+      {
+        "name": "Amazonite Amulet",
+        "armour": 0,
+        "difficulty": 0,
+        "attrBonus": {
+          "constitution": 1
+        }
+      }
+    ],
+    "rings": [
+      {
+        "name": "Amber Ring",
+        "armour": 0,
+        "difficulty": 0,
+        "attrBonus": {
+          "strength": 1
+        }
+      },
+      {
+        "name": "Agate Ring",
+        "armour": 0,
+        "difficulty": 0,
+        "attrBonus": {
+          "wisdom": 1
+        }
+      },
+      {
+        "name": "Amethyst Ring",
+        "armour": 0,
+        "difficulty": 0,
+        "attrBonus": {
+          "agility": 1
+        }
+      },
+      {
+        "name": "Amazonite Ring",
+        "armour": 0,
+        "difficulty": 0,
+        "attrBonus": {
+          "constitution": 1
+        }
+      }
+    ],
+    "belts": [
+      {
+        "name": "Leather Belt",
+        "armour": 0,
+        "difficulty": 2,
+        "attrBonus": {
+          "strength": 1,
+          "constitution": 1
+        }
+      },
+      {
+        "name": "Light Belt",
+        "armour": 0,
+        "difficulty": 2,
+        "attrBonus": {
+          "wisdom": 3
+        }
+      }
+    ],
+    "swords": [
+      {
+        "name": "Rusty Sword",
+        "attackPowerMin": 2,
+        "attackPowerMax": 5,
+        "difficulty": 0
+      },
+      {
+        "name": "Bronze Sword",
+        "attackPowerMin": 3,
+        "attackPowerMax": 5,
+        "difficulty": 1.4
+      },
+      {
+        "name": "Iron Sword",
+        "attackPowerMin": 4,
+        "attackPowerMax": 6,
+        "difficulty": 2
+      },
+      {
+        "name": "Steel Sword",
+        "attackPowerMin": 5,
+        "attackPowerMax": 6,
+        "difficulty": 4
+      }
+    ],
+    "bows": [
+      {
+        "name": "Cast-off Bow",
+        "attackPowerMin": 1,
+        "attackPowerMax": 7,
+        "difficulty": 0
+      },
+      {
+        "name": "Short Bow",
+        "attackPowerMin": 2,
+        "attackPowerMax": 9,
+        "difficulty": 1.4
+      },
+      {
+        "name": "Long Bow",
+        "attackPowerMin": 2,
+        "attackPowerMax": 11,
+        "difficulty": 2
+      },
+      {
+        "name": "Elven Bow",
+        "attackPowerMin": 4,
+        "attackPowerMax": 12,
+        "difficulty": 4
+      }
+    ]
+  }
+]
