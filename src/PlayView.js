@@ -109,6 +109,8 @@ class PlayView extends Component {
   usableCommands = () => [].concat.apply([], (this.usableAbilities().map(i => i["command"]))).filter(i => i !== null)
 
   hitTrade = () => {
+    let {pMagicDamage, pSpeed, pBaseDodgeChance, pAttackPowerMax, pAttackPowerMin, pDamageReduction} = this.props.playerStats
+    let {aPattern, eAccuracy, eSpeed, eAttackPowerMax, eAttackPowerMin} = this.props.enemyStats
     let pDmgMod = 1
     let isSpell = null
     if (this.props.playView.inputValue !== 'a' && this.props.playView.inputValue !== 'attack') {
@@ -117,22 +119,21 @@ class PlayView extends Component {
       usedAbility[0].spell === true ? isSpell = true : isSpell = false
       this.props.playerStatsLoseEnergy(usedAbility[0].energyCost)
     }
-    let aPattern = this.props.enemyStats.aPattern
-    let pHitCalc = Math.round(Math.random() * (isSpell === false ? pDmgMod : 1) * (this.props.playerStats.pAttackPowerMax - this.props.playerStats.pAttackPowerMin) + this.props.playerStats.pAttackPowerMin)
-    let pSpellCalc = Math.round(this.props.playerStats.pMagicDamage * pDmgMod)
+    let pHitCalc = Math.round(Math.random() * (isSpell === false ? pDmgMod : 1) * (pAttackPowerMax - pAttackPowerMin) + pAttackPowerMin)
+    let pSpellCalc = Math.round(pMagicDamage * pDmgMod)
     let numberRoll1to100 = Math.ceil(Math.random() * 100)
-    let dodgeThreshold = this.props.enemyStats.eAccuracy - this.props.playerStats.pBaseDodgeChance
-    let doesDoubleAttack = this.props.playerStats.pSpeed >= this.props.enemyStats.eSpeed + 5
-    let enemyDoubleAttack = this.props.enemyStats.eSpeed >= this.props.playerStats.pSpeed + 5
+    let dodgeThreshold = eAccuracy - pBaseDodgeChance
+    let doesDoubleAttack = pSpeed >= eSpeed + 5
+    let enemyDoubleAttack = eSpeed >= pSpeed + 5
     let readBlockL = this.props.blockMechanic.leftBlockPoints
     let blockRedL = readBlockL === 3 ? 50 : readBlockL === 2 ? 30 : readBlockL === 1 ? 15 : 0
-    let eHitCalcL = Math.round((Math.random() * (this.props.enemyStats.eAttackPowerMax - this.props.enemyStats.eAttackPowerMin) + this.props.enemyStats.eAttackPowerMin) * (1 - (this.props.playerStats.pDamageReduction / 100)) * (1 - (blockRedL / 100)))
+    let eHitCalcL = Math.round((Math.random() * (eAttackPowerMax - eAttackPowerMin) + eAttackPowerMin) * (1 - (pDamageReduction / 100)) * (1 - (blockRedL / 100)))
     let readBlockF = this.props.blockMechanic.frontBlockPoints
     let blockRedF = readBlockF === 3 ? 50 : readBlockF === 2 ? 30 : readBlockF === 1 ? 15 : 0
-    let eHitCalcF = Math.round((Math.random() * (this.props.enemyStats.eAttackPowerMax - this.props.enemyStats.eAttackPowerMin) + this.props.enemyStats.eAttackPowerMin) * (1 - (this.props.playerStats.pDamageReduction / 100)) * (1 - (blockRedF / 100)))
+    let eHitCalcF = Math.round((Math.random() * (eAttackPowerMax - eAttackPowerMin) + eAttackPowerMin) * (1 - (pDamageReduction / 100)) * (1 - (blockRedF / 100)))
     let readBlockR = this.props.blockMechanic.rightBlockPoints
     let blockRedR = readBlockR === 3 ? 50 : readBlockF === 2 ? 30 : readBlockR === 1 ? 15 : 0
-    let eHitCalcR = Math.round((Math.random() * (this.props.enemyStats.eAttackPowerMax - this.props.enemyStats.eAttackPowerMin) + this.props.enemyStats.eAttackPowerMin) * (1 - (this.props.playerStats.pDamageReduction / 100)) * (1 - (blockRedR / 100)))
+    let eHitCalcR = Math.round((Math.random() * (eAttackPowerMax - eAttackPowerMin) + eAttackPowerMin) * (1 - (pDamageReduction / 100)) * (1 - (blockRedR / 100)))
     this.props.playView.battleLogOutput.push(`Turn ${this.state.turnCounter}:`)
     if (numberRoll1to100 >= dodgeThreshold || numberRoll1to100 === 100) {
       let dodgeMessage = aPattern[this.props.enemies.aPatternI] === 'f' ? 'front' : aPattern[this.props.enemies.aPatternI] === 'r' ? 'right side' : aPattern[this.props.enemies.aPatternI] === 'l' ? 'left side' : null
@@ -140,7 +141,7 @@ class PlayView extends Component {
       this.props.playView.battleLogOutput.push(`You hit an enemy for ${isSpell === false || isSpell === null ? pHitCalc : isSpell === true ? pSpellCalc : null} damage!`)
       this.props.hitEnemy(isSpell === false || isSpell === null ? pHitCalc : isSpell === true ? pSpellCalc : null);
       if (doesDoubleAttack === true) {
-        let pHitCalc = Math.round(Math.random() * (this.props.playerStats.pAttackPowerMax - this.props.playerStats.pAttackPowerMin) + this.props.playerStats.pAttackPowerMin)
+        let pHitCalc = Math.round(Math.random() * (pAttackPowerMax - pAttackPowerMin) + pAttackPowerMin)
         this.props.playView.battleLogOutput.push(`Your excess speed allows you to hit an enemy second time for ${isSpell === false || isSpell === null ? pHitCalc : isSpell === true ? pSpellCalc : null} damage!`)
         this.props.hitEnemy(isSpell === false || isSpell === null ? pHitCalc : isSpell === true ? pSpellCalc : null)
       }
@@ -149,7 +150,7 @@ class PlayView extends Component {
     if (numberRoll1to100 < dodgeThreshold || numberRoll1to100 === 1) {
       this.props.hitEnemy(isSpell === false || isSpell === null ? pHitCalc : isSpell === true ? pSpellCalc : null);
       if (doesDoubleAttack === true) {
-        let pHitCalc = Math.round(Math.random() * (this.props.playerStats.pAttackPowerMax - this.props.playerStats.pAttackPowerMin) + this.props.playerStats.pAttackPowerMin)
+        let pHitCalc = Math.round(Math.random() * (pAttackPowerMax - pAttackPowerMin) + pAttackPowerMin)
         this.props.playView.battleLogOutput.push(`Your excess speed allows you to hit an enemy second time for ${isSpell === false ? pHitCalc : isSpell === true ? pSpellCalc : null} damage!`)
         this.props.hitEnemy(isSpell === false || isSpell === null ? pHitCalc : isSpell === true ? pSpellCalc : null)
       }
@@ -158,7 +159,7 @@ class PlayView extends Component {
         this.props.playerStatsLoseHealth(eHitCalcF)
         this.props.playView.battleLogOutput.push(`Enemy attacks you head on and deals ${eHitCalcF} damage!`)
         if (enemyDoubleAttack === true) {
-          let eHitCalcF = Math.round((Math.random() * (this.props.enemyStats.eAttackPowerMax - this.props.enemyStats.eAttackPowerMin) + this.props.enemyStats.eAttackPowerMin) * (1 - (this.props.playerStats.pDamageReduction / 100)) * (1 - (blockRedF / 100)))
+          let eHitCalcF = Math.round((Math.random() * (eAttackPowerMax - eAttackPowerMin) + eAttackPowerMin) * (1 - (pDamageReduction / 100)) * (1 - (blockRedF / 100)))
           this.props.playerStatsLoseHealth(eHitCalcF)
           this.props.playView.battleLogOutput.push(`Enemy strikes you second time for ${eHitCalcF} damage!`)
         }
@@ -167,7 +168,7 @@ class PlayView extends Component {
         this.props.playerStatsLoseHealth(eHitCalcL)
         this.props.playView.battleLogOutput.push(`Enemy attacks you from the left side and deals ${eHitCalcL} damage!`)
         if (enemyDoubleAttack === true) {
-          let eHitCalcL = Math.round((Math.random() * (this.props.enemyStats.eAttackPowerMax - this.props.enemyStats.eAttackPowerMin) + this.props.enemyStats.eAttackPowerMin) * (1 - (this.props.playerStats.pDamageReduction / 100)) * (1 - (blockRedL / 100)))
+          let eHitCalcL = Math.round((Math.random() * (eAttackPowerMax - eAttackPowerMin) + eAttackPowerMin) * (1 - (pDamageReduction / 100)) * (1 - (blockRedL / 100)))
           this.props.playerStatsLoseHealth(eHitCalcL)
           this.props.playView.battleLogOutput.push(`Enemy strikes you second time for ${eHitCalcL} damage!`)
         }
@@ -176,7 +177,7 @@ class PlayView extends Component {
         this.props.playerStatsLoseHealth(eHitCalcR)
         this.props.playView.battleLogOutput.push(`Enemy attacks you from the right side and deals ${eHitCalcR} damage!`)
         if (enemyDoubleAttack === true) {
-          let eHitCalcR = Math.round((Math.random() * (this.props.enemyStats.eAttackPowerMax - this.props.enemyStats.eAttackPowerMin) + this.props.enemyStats.eAttackPowerMin) * (1 - (this.props.playerStats.pDamageReduction / 100)) * (1 - (blockRedR / 100)))
+          let eHitCalcR = Math.round((Math.random() * (eAttackPowerMax - eAttackPowerMin) + eAttackPowerMin) * (1 - (pDamageReduction / 100)) * (1 - (blockRedR / 100)))
           this.props.playerStatsLoseHealth(eHitCalcR)
           this.props.playView.battleLogOutput.push(`Enemy strikes you second time for ${eHitCalcR} damage!`)
         }
