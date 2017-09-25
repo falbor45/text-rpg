@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Col, ProgressBar, Button } from 'react-bootstrap'
+import { Col, ProgressBar, Button, OverlayTrigger, Tooltip } from 'react-bootstrap'
 import { connect } from 'react-redux'
 import blockFront1 from './assets/images/blockfront1.png'
 import blockFront2 from './assets/images/blockfront2.png'
@@ -15,7 +15,8 @@ import blockPlaceholder from './assets/images/blockplaceholder.png'
 export default connect (
     state => ({
       playerStats: state.playerStats,
-      blockMechanic: state.blockMechanic
+      blockMechanic: state.blockMechanic,
+      abilities: state.abilities
     }),
     dispatch => ({
       blockMechanicChangeLeftBlock: (what) => dispatch({ type: 'blockMechanic/CHANGE_LEFT_BLOCK', what}),
@@ -129,8 +130,11 @@ export default connect (
               <img onMouseDown={(e) => this.handleRightBlockClick(e)} src={this.props.blockMechanic.rightBlockPoints === 1 ? blockRight1 : this.props.blockMechanic.rightBlockPoints === 2 ? blockRight2 : this.props.blockMechanic.rightBlockPoints === 3 ? blockRight3 : blockPlaceholder} style={this.imageBlockStyle}/>
               <p>Points undistributed: {this.props.blockMechanic.unusedBlockPoints}</p>
               <hr/>
-              <Button style={this.state.viewedTab === 'attributes' ? {fontWeight: 'bold'} : null} onClick={() => this.setState({viewedTab: 'attributes'})}>Attributes</Button>
-              <Button style={this.state.viewedTab === 'details' ? {fontWeight: 'bold'} : null} onClick={() => this.setState({viewedTab: 'details'})}>Details</Button>
+              <div style={{marginBottom: '12px'}}>
+                <Button style={this.state.viewedTab === 'attributes' ? {fontWeight: 'bold'} : null} onClick={() => this.setState({viewedTab: 'attributes'})}>Attributes</Button>
+                <Button style={this.state.viewedTab === 'details' ? {fontWeight: 'bold'} : null} onClick={() => this.setState({viewedTab: 'details'})}>Details</Button>
+                <Button style={this.state.viewedTab === 'abilities' ? {fontWeight: 'bold'} : null} onClick={() => this.setState({viewedTab: 'abilities'})}>Abilities</Button>
+              </div>
               {this.state.viewedTab === 'attributes' ? (
                 <div>
                   <h2>Attributes</h2>
@@ -159,6 +163,79 @@ export default connect (
                   <h2>Armour</h2>
                   <h3>{this.props.playerStats.pArmour}</h3>
                   <p>Damage reduction: {this.props.playerStats.pDamageReduction}%</p>
+                </div>
+              ) : this.state.viewedTab === 'abilities' ? (
+                <div>
+                  <div>
+                    Active abilities
+                    <br/>
+                    {
+                      this.props.abilities.data.filter(e =>
+                        e.req.strength <= this.props.playerStats.pStrength &&
+                        e.req.wisdom <= this.props.playerStats.pWisdom &&
+                        e.req.agility <= this.props.playerStats.pAgility &&
+                        e.req.constitution <= this.props.playerStats.pConstitution &&
+                        e.passive === false
+                      ).map(i => (
+                        <OverlayTrigger placement="right" overlay={
+                          <Tooltip id="tooltip">
+                            <div style={{fontWeight: 'bolder', color: "#c48323"}}>
+                              {i.name}
+                            </div>
+                            <div>{i.energyCost} Energy</div>
+                            <div>
+                              Commands: {i.command.join(', ')}
+                            </div>
+                            <br/>
+                            <div>
+                              {i.description}
+                            </div>
+                            <br/>
+                            <div>
+                            Requirements:
+                            <br/>
+                            {i.req.strength !== 0 ? <div>Strength: {i.req.strength}</div> : null}
+                            {i.req.wisdom !== 0 ? <div>Wisdom: {i.req.wisdom}</div> : null}
+                            {i.req.agility !== 0 ? <div>Agility: {i.req.agility}</div> : null}
+                            {i.req.constitution !== 0 ? <div>Constitution: {i.req.constitution}</div> : null}
+                            </div>
+                          </Tooltip>
+                        }>
+                          <img src={i.icon32} style={{margin: '4px'}}/>
+                        </OverlayTrigger>
+                      ))
+                    }
+                  </div>
+                  <div>
+                    Passive abilities
+                    <br/>
+                    {
+                      this.props.abilities.usableAbilities.filter(i => i.passive === true).map(i => (
+                        <OverlayTrigger placement="right" overlay={
+                          <Tooltip>
+                            <div style={{fontWeight: 'bolder', color: "#c48323"}}>
+                              {i.name}
+                            </div>
+                            <br/>
+                            <div>
+                            {i.description}
+                            </div>
+                            <br/>
+                            <div>
+                              Requirements:
+                              <br/>
+                              {i.req.strength !== 0 ? <div>Strength: {i.req.strength}</div> : null}
+                              {i.req.wisdom !== 0 ? <div>Wisdom: {i.req.wisdom}</div> : null}
+                              {i.req.agility !== 0 ? <div>Agility: {i.req.agility}</div> : null}
+                              {i.req.constitution !== 0 ? <div>Constitution: {i.req.constitution}</div> : null}
+                            </div>
+                          </Tooltip>
+                        }>
+                          <img src={i.icon32} style={{margin: '4px'}}/>
+                        </OverlayTrigger>
+                      ))
+                    }
+                  </div>
                 </div>
               ) : null}
 
