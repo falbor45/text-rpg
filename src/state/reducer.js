@@ -6,6 +6,8 @@ import enemies from './parts/enemies'
 import choiceEvents from './parts/choiceEvents'
 import blockMechanic from './parts/blockMechanic'
 import abilities from './parts/abilities'
+import items from './parts/items'
+import itemsAff from './parts/itemsAff'
 
 export default (state = {}, action) => {
   return {
@@ -16,6 +18,8 @@ export default (state = {}, action) => {
     enemies: enemies(state.enemies, action),
     choiceEvents: choiceEvents(state.choiceEvents, action),
     blockMechanic: blockMechanic(state.blockMechanic, action),
-    abilities: abilities(state.abilities, action)
+    abilities: abilities(state.abilities, action),
+    items: items(state.items, action),
+    itemsAff: itemsAff(state.itemsAff, action)
   }
 }
