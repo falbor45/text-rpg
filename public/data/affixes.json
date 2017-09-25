@@ -1,0 +1,40 @@
+[
+  {
+    "prefixes": [
+      {
+        "id": 1,
+        "name": "Omniscient ",
+        "difficulty": 2,
+        "attrBonus": {
+          "wisdom": 1
+        }
+      },
+      {
+        "id": 2,
+        "name": "Stubborn ",
+        "difficulty": 2,
+        "attrBonus": {
+          "constitution": 1
+        }
+      }
+    ],
+    "suffixes": [
+      {
+        "id": 3,
+        "name": " of Fox",
+        "difficulty": 2,
+        "attrBonus": {
+          "agility": 1
+        }
+      },
+      {
+        "id": 4,
+        "name": " of Bear",
+        "difficulty": 2,
+        "attrBonus": {
+          "strength": 1
+        }
+      }
+    ]
+  }
+]
