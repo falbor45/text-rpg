@@ -2,7 +2,7 @@
   {
     "id": 1,
     "name": "Heavy Attack",
-    "description": "Deals higher damage to an opponent than a usual attack. (2 turn cooldown)",
+    "description": "Deals higher damage to an opponent than a usual attack.",
     "dmgMod": 1.2,
     "cooldown": 2,
     "energyCost": 6,
@@ -15,7 +15,8 @@
       "constitution": 0
     },
     "command": ["heavy attack", "HA"],
-    "passive": false
+    "passive": false,
+    "icon32": "http://lorempizza.com/32/32"
   },
   {
     "id": 2,
@@ -32,12 +33,13 @@
       "constitution": 16
     },
     "command": null,
-    "passive": true
+    "passive": true,
+    "icon32": "http://lorempizza.com/32/32"
   },
   {
     "id": 3,
     "name": "Fireball",
-    "description": "Conjure fireball and deal low fire damage to your opponent. (no cooldown)",
+    "description": "Conjure fireball and deal low fire damage to your opponent.",
     "dmgMod": 0.5,
     "cooldown": 0,
     "energyCost": 12,
@@ -50,7 +52,8 @@
       "constitution": 0
     },
     "command": ["fireball", "Fb"],
-    "passive": false
+    "passive": false,
+    "icon32": "http://lorempizza.com/32/32"
   },
   {
     "id": 4,
@@ -67,6 +70,7 @@
       "constitution": 0
     },
     "command": null,
-    "passive": true
+    "passive": true,
+    "icon32": "http://lorempizza.com/32/32"
   }
 ]
