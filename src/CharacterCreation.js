@@ -22,6 +22,13 @@ export default connect(
       abilitiesFetchBegin: () => dispatch({ type: 'abilities/FETCH__BEGIN'}),
       abilitiesFetchSuccess: data => dispatch({ type: 'abilities/FETCH__SUCCESS', data}),
       abilitiesFetchFailure: error => dispatch({ type: 'abilities/FETCH__FAILURE', error}),
+      itemsFetchBegin: () => dispatch({ type: 'items/FETCH__BEGIN'}),
+      itemsFetchSuccess: data => dispatch({ type: 'items/FETCH__SUCCESS', data}),
+      itemsFetchFailure: error => dispatch({ type: 'items/FETCH__FAILURE', error}),
+      itemsAffFetchBegin: () => dispatch({ type: 'itemsAff/FETCH__BEGIN'}),
+      itemsAffFetchSuccess: data => dispatch({ type: 'itemsAff/FETCH__SUCCESS', data}),
+      itemsAffFetchFailure: error => dispatch({ type: 'itemsAff/FETCH__FAILURE', error}),
+
     })
 )(
     class CharacterCreation extends Component {
@@ -77,6 +84,32 @@ export default connect(
           )
         ).catch(
           error => this.props.abilitiesFetchFailure('Connection error.')
+        )
+
+        this.props.itemsFetchBegin()
+        fetch(
+          `${process.env.PUBLIC_URL}/data/items.json`
+        ).then(
+          response => response.json().then(
+            data => this.props.itemsFetchSuccess(data)
+          ).catch(
+            error => this.props.itemsFetchFailure('Malformed JSON.')
+          )
+        ).catch(
+          error => this.props.itemsFetchFailure('Connection error.')
+        )
+
+        this.props.itemsAffFetchBegin()
+        fetch(
+          `${process.env.PUBLIC_URL}/data/affixes.json`
+        ).then(
+          response => response.json().then(
+            data => this.props.itemsAffFetchSuccess(data)
+          ).catch(
+            error => this.props.itemsAffFetchFailure('Malformed JSON.')
+          )
+        ).catch(
+          error => this.props.itemsAffFetchFailure('Connection error.')
         )
       }
 
