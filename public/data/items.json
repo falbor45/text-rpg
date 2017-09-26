@@ -93,33 +93,25 @@
         "name": "Amber Amulet",
         "armour": 0,
         "difficulty": 0,
-        "attrBonus": {
-          "strength": 1
-        }
+        "strength": 1
       },
       {
         "name": "Agate Amulet",
         "armour": 0,
         "difficulty": 0,
-        "attrBonus": {
-          "wisdom": 1
-        }
+        "wisdom": 1
       },
       {
         "name": "Amethyst Amulet",
         "armour": 0,
         "difficulty": 0,
-        "attrBonus": {
-          "agility": 1
-        }
+        "agility": 1
       },
       {
         "name": "Amazonite Amulet",
         "armour": 0,
         "difficulty": 0,
-        "attrBonus": {
-          "constitution": 1
-        }
+        "constitution": 1
       }
     ],
     "rings": [
@@ -127,33 +119,25 @@
         "name": "Amber Ring",
         "armour": 0,
         "difficulty": 0,
-        "attrBonus": {
-          "strength": 1
-        }
+        "strength": 1
       },
       {
         "name": "Agate Ring",
         "armour": 0,
         "difficulty": 0,
-        "attrBonus": {
-          "wisdom": 1
-        }
+        "wisdom": 1
       },
       {
         "name": "Amethyst Ring",
         "armour": 0,
         "difficulty": 0,
-        "attrBonus": {
-          "agility": 1
-        }
+        "agility": 1
       },
       {
         "name": "Amazonite Ring",
         "armour": 0,
         "difficulty": 0,
-        "attrBonus": {
-          "constitution": 1
-        }
+        "constitution": 1
       }
     ],
     "belts": [
@@ -161,18 +145,14 @@
         "name": "Leather Belt",
         "armour": 0,
         "difficulty": 2,
-        "attrBonus": {
-          "strength": 1,
-          "constitution": 1
-        }
+        "strength": 1,
+        "constitution": 1
       },
       {
         "name": "Light Belt",
         "armour": 0,
         "difficulty": 2,
-        "attrBonus": {
-          "wisdom": 3
-        }
+        "wisdom": 3
       }
     ],
     "swords": [
