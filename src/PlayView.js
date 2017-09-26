@@ -11,7 +11,9 @@ export default connect(
       enemies: state.enemies,
       choiceEvents: state.choiceEvents,
       abilities: state.abilities,
-      blockMechanic: state.blockMechanic
+      blockMechanic: state.blockMechanic,
+      items: state.items,
+      itemsAff: state.itemsAff
     }),
     dispatch => ({
       playerStatsCalculateStats: () => dispatch({ type: 'playerStats/CALCULATE_STATS'}),
@@ -417,6 +419,55 @@ class PlayView extends Component {
         equalizeCheck()
       }
     }
+  }
+
+  createItem = () => {
+    let createdItem = {}
+    let wearableItems = () => {
+      let iterations = ["helms", "bodyArmours", "leggings", "boots", "amulets", "rings", "belts", "swords", "bows"]
+      let result = {}
+      for (let i = 0; i < iterations.length; i++) {
+        if (this.props.items.data[0][iterations[i]].filter(i => i.difficulty <= Math.sqrt(this.props.playView.days)).length !== 0) {
+          result[iterations[i]] = this.props.items.data[0][iterations[i]].filter(i => i.difficulty <= Math.sqrt(this.props.playView.days))
+        }
+      }
+      return result
+    }
+    let chooseItemType = () => {
+      let result;
+      let count = 0;
+      for (let prop in wearableItems())
+        if (Math.random() < 1/++count)
+          result = prop;
+      return result;
+    }
+    let chooseItemBase = () => {
+      let itemType = chooseItemType()
+      return wearableItems()[itemType][Math.floor(Math.random() * wearableItems()[itemType].length)]
+    }
+    let chosenItemBase = chooseItemBase()
+    let itemComplexity = Math.floor(Math.random() * 3)
+    let prefixOrSuffix = itemComplexity === 1 ? Math.floor(Math.random() * 2) : null
+    let filterPrefixes = prefixOrSuffix === 0 || itemComplexity === 2 ? this.props.itemsAff.data[0].prefixes.filter((i) => i.difficulty <= Math.sqrt(this.props.playView.days)) : null
+    let filterSuffixes = prefixOrSuffix === 1 || itemComplexity === 2 ? this.props.itemsAff.data[0].suffixes.filter((i) => i.difficulty <= Math.sqrt(this.props.playView.days)) : null
+    let pickPrefix = filterPrefixes !== null ? filterPrefixes[Math.floor(Math.random() * filterPrefixes.length)] : null
+    let pickSuffix = filterSuffixes !== null ? filterSuffixes[Math.floor(Math.random() * filterSuffixes.length)] : null
+    let constructItem = () => {
+      createdItem.name = chosenItemBase.name !== undefined ? (pickPrefix !== null && pickPrefix !== undefined ? pickPrefix.name : '') + chosenItemBase.name + (pickSuffix !== null && pickSuffix !== undefined ? pickSuffix.name : '') : null
+      createdItem.armour = (pickPrefix !== null && pickPrefix !== undefined ? pickPrefix.hasOwnProperty("armour") ? pickPrefix.armour : 0 : 0) + (chosenItemBase.armour !== undefined ? chosenItemBase.armour : 0) + (pickSuffix !== null && pickSuffix !== undefined ? (pickSuffix.hasOwnProperty("armour") ? pickSuffix.armour : 0) : 0)
+      createdItem.attackPowerMin = (pickPrefix !== null && pickPrefix !== undefined ? pickPrefix.hasOwnProperty("attackPowerMin") ? pickPrefix.attackPowerMin : 0 : 0) + (chosenItemBase.attackPowerMin !== undefined ? chosenItemBase.attackPowerMin : 0) + (pickSuffix !== null && pickSuffix !== undefined ? (pickSuffix.hasOwnProperty("attackPowerMin") ? pickSuffix.attackPowerMin : 0) : 0)
+      createdItem.attackPowerMax = (pickPrefix !== null && pickPrefix !== undefined ? pickPrefix.hasOwnProperty("attackPowerMax") ? pickPrefix.attackPowerMax : 0 : 0) + (chosenItemBase.attackPowerMax !== undefined ? chosenItemBase.attackPowerMax : 0) + (pickSuffix !== null && pickSuffix !== undefined ? (pickSuffix.hasOwnProperty("attackPowerMax") ? pickSuffix.attackPowerMax : 0) : 0)
+      createdItem.strength = (pickPrefix !== null && pickPrefix !== undefined ? pickPrefix.hasOwnProperty("strength") ? pickPrefix.strength : 0 : 0) + (chosenItemBase.strength !== undefined ? chosenItemBase.strength : 0) + (pickSuffix !== null && pickSuffix !== undefined ? (pickSuffix.hasOwnProperty("strength") ? pickSuffix.strength :0) : 0)
+      createdItem.wisdom = (pickPrefix !== null && pickPrefix !== undefined ? pickPrefix.hasOwnProperty("wisdom") ? pickPrefix.wisdom : 0 : 0) + (chosenItemBase.wisdom ? chosenItemBase.wisdom : 0) + (pickSuffix !== null && pickSuffix !== undefined ?  pickSuffix.hasOwnProperty("wisdom") ? pickSuffix.wisdom : 0 : 0)
+      createdItem.agility = (pickPrefix !== null && pickPrefix !== undefined ? pickPrefix.hasOwnProperty("agility") ? pickPrefix.agility : 0 : 0) + (chosenItemBase.agility ? chosenItemBase.agility : 0) + (pickSuffix !== null && pickSuffix !== undefined ? pickSuffix.hasOwnProperty("agility") ? pickSuffix.agility : 0 : 0)
+      createdItem.constitution = (pickPrefix !== null && pickPrefix !== undefined ? pickPrefix.hasOwnProperty("constitution") ? pickPrefix.constitution : 0 : 0) + (chosenItemBase.constitution ? chosenItemBase.constitution : 0) + (pickSuffix !== null && pickSuffix !== undefined ? pickSuffix.hasOwnProperty("constitution") ? pickSuffix.constitution : 0 : 0)
+      createdItem.magicDamage = (pickPrefix !== null && pickPrefix !== undefined ? pickPrefix.hasOwnProperty("magicDamage") ? pickPrefix.magicDamage : 0 : 0) + (chosenItemBase.magicDamage !== undefined ? chosenItemBase.magicDamage : 0) + (pickSuffix !== null && pickSuffix !== undefined ? (pickSuffix.hasOwnProperty("magicDamage") ? pickSuffix.magicDamage : 0) : 0)
+      createdItem.speed = (pickPrefix !== null && pickPrefix !== undefined ? pickPrefix.hasOwnProperty("speed") ? pickPrefix.speed : 0 : 0) + (chosenItemBase.speed !== undefined ? chosenItemBase.speed : 0) + (pickSuffix !== null && pickSuffix !== undefined ? (pickSuffix.hasOwnProperty("speed") ? pickSuffix.speed : 0) : 0)
+      createdItem.maxHealthBonus = (pickPrefix !== null && pickPrefix !== undefined ? pickPrefix.hasOwnProperty("maxHealthBonus") ? pickPrefix.maxHealthBonus : 0 : 0) + (chosenItemBase.maxHealthBonus !== undefined ? chosenItemBase.maxHealthBonus : 0) + (pickSuffix !== null && pickSuffix !== undefined ? (pickSuffix.hasOwnProperty("maxHealthBonus") ? pickSuffix.maxHealthBonus : 0) : 0)
+      createdItem.maxEnergyBonus = (pickPrefix !== null && pickPrefix !== undefined ? pickPrefix.hasOwnProperty("maxEnergyBonus") ? pickPrefix.maxEnergyBonus : 0 : 0) + (chosenItemBase.maxEnergyBonus !== undefined ? chosenItemBase.maxEnergyBonus : 0) + (pickSuffix !== null && pickSuffix !== undefined ? (pickSuffix.hasOwnProperty("maxEnergyBonus") ? pickSuffix.maxEnergyBonus : 0) : 0)
+    }
+    constructItem()
+    return createdItem
   }
 
   render() {
