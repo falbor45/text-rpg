@@ -44,7 +44,9 @@ export default connect(
       enemiesSetEnemyRNG: (value) => dispatch({ type: 'enemies/SET_ENEMY_RNG', value}),
       enemiesNextAttPattern: () => dispatch({ type: 'enemies/NEXT_ATT_PATTERN'}),
       choiceEventsSetChoiceEventRNG: () => dispatch({ type: 'choiceEvents/SET_CHOICE_EVENT_RNG'}),
-      abilitiesFilterAbilities: (data, commands) => dispatch({ type: 'abilities/FILTER_USABLE_ABILITIES', data, commands})
+      abilitiesFilterAbilities: (data, commands) => dispatch({ type: 'abilities/FILTER_USABLE_ABILITIES', data, commands}),
+      itemsChangeItemPending: () => dispatch({ type: 'items/ITEM_PENDING'}),
+      itemsSetCreatedItem: item => dispatch({ type: 'items/CREATE_ITEM', item})
     })
 )(
 class PlayView extends Component {
@@ -246,7 +248,9 @@ class PlayView extends Component {
             if (this.props.enemyStats.eHealth <= 0) {
               this.props.playView.storyOutput.push(`You've killed ${filteredEnemies[this.props.enemies.enemyRNG].eName}!`)
               this.props.playView.battleLogOutput.push(`You've killed ${filteredEnemies[this.props.enemies.enemyRNG].eName}!`)
-              this.props.enemyStatsHideEnemy();
+              this.props.itemsChangeItemPending()
+              this.props.itemsSetCreatedItem(this.createItem())
+              this.props.enemyStatsHideEnemy()
               this.props.playerStatsGainExperience(filteredEnemies[this.props.enemies.enemyRNG].eExperience)
               setTimeout(() => {
                 if (this.props.playerStats.pExperience > this.props.playerStats.pMaxExperience) {
