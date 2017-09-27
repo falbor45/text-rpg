@@ -22,6 +22,16 @@ const initialState = {
   pSpeed: 3,
   pArmour: 0,
   pDamageReduction: 0,
+  equipment: {
+    helm: null,
+    bodyArmour: null,
+    leggings: null,
+    boots: null,
+    amulet: null,
+    ring: null,
+    belt: null,
+    weapon: null
+  },
   pIsAlive: true
 }
 
