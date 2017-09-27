@@ -1,7 +1,9 @@
 const initialState = {
   data: null,
   fetching: false,
-  error: null
+  error: null,
+  createdItem: {},
+  itemPending: false
 }
 
 export default (state = initialState, action) => {
@@ -22,6 +24,16 @@ export default (state = initialState, action) => {
         ...state,
         fetching: false,
         error: action.error
+      }
+    case 'items/ITEM_PENDING':
+      return {
+        ...state,
+        itemPending: state.itemPending === false
+      }
+    case 'items/CREATE_ITEM':
+      return {
+        ...state,
+        createdItem: action.item
       }
     default:
       return {
