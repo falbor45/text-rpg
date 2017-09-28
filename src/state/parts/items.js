@@ -28,7 +28,8 @@ export default (state = initialState, action) => {
     case 'items/ITEM_PENDING':
       return {
         ...state,
-        itemPending: state.itemPending === false
+        itemPending: state.itemPending === false,
+        createdItem: state.itemPending === true ? {} : state.itemPending
       }
     case 'items/CREATE_ITEM':
       return {
