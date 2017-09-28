@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Col, Button } from 'react-bootstrap'
+import { Col, Button, OverlayTrigger, Tooltip } from 'react-bootstrap'
 import { connect } from 'react-redux'
 
 export default connect(
@@ -510,6 +510,59 @@ class PlayView extends Component {
                               onClick={() => this.handleChoice(2)}>{this.props.choiceEvents.data[this.props.choiceEvents.choiceEventRNG].choiceTwoB}</button>
                     </div>
                 ) : null
+          }
+          {
+            this.props.items.itemPending === true ?
+              (
+              <div style={{textAlign: 'center'}}>
+                <div style={{margin: '12px'}}>
+                  <OverlayTrigger placement="top" overlay={
+                    <Tooltip id="tooltip" style={{textAlign: "center"}}>
+                      <div style={{color: "#d3d3d3"}}>
+                        {this.props.items.createdItem.name}
+                      </div>
+                      <div>
+                        {this.props.items.createdItem.attackPowerMin !== 0 ? `+${this.props.items.createdItem.attackPowerMin} to minimum attack damage` : null}
+                      </div>
+                      <div>
+                        {this.props.items.createdItem.attackPowerMax !== 0 ? `+${this.props.items.createdItem.attackPowerMax} to maximum attack damage` : null}
+                      </div>
+                      <div>
+                        {this.props.items.createdItem.magicDamage !== 0 ? `+${this.props.items.createdItem.magicDamage} to magic damage` : null}
+                      </div>
+                      <div>
+                        {this.props.items.createdItem.armour !== 0 ? `+${this.props.items.createdItem.armour} to armour` : null}
+                      </div>
+                      <div>
+                        {this.props.items.createdItem.speed !== 0 ? `+${this.props.items.createdItem.speed} to speed` : null}
+                      </div>
+                      <div>
+                        {this.props.items.createdItem.maxHealthBonus !== 0 ? `+${this.props.items.createdItem.maxHealthBonus} to maximum health` : null}
+                      </div>
+                      <div>
+                        {this.props.items.createdItem.maxEnergyBonus !== 0 ? `+${this.props.items.createdItem.maxEnergyBonus} to maximum energy` : null}
+                      </div>
+                      <div>
+                        {this.props.items.createdItem.strength !== 0 ? `+${this.props.items.createdItem.strength} to strength` : null}
+                      </div>
+                      <div>
+                        {this.props.items.createdItem.wisdom !== 0 ? `+${this.props.items.createdItem.wisdom} to wisdom` : null}
+                      </div>
+                      <div>
+                        {this.props.items.createdItem.agility !== 0 ? `+${this.props.items.createdItem.agility} to agility` : null}
+                      </div>
+                      <div>
+                        {this.props.items.createdItem.constitution !== 0 ? `+${this.props.items.createdItem.constitution} to constitution` : null}
+                      </div>
+                    </Tooltip>
+                  }>
+                    <img src="http://lorempizza.com/32/32"/>
+                  </OverlayTrigger>
+                </div>
+                <Button style={{margin: '4px'}}>Equip</Button>
+                <Button style={{margin: '4px'}}>Discard</Button>
+              </div>
+            ) : null
           }
         </Col>
     )
