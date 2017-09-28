@@ -33,6 +33,7 @@ export default connect(
       playerStatsLoseMaxEnergy: value => dispatch({ type: 'playerStats/LOSE_MAX_ENERGY', value}),
       playerStatsKillPlayer: () => dispatch({ type: 'playerStats/KILL_PLAYER'}),
       playerStatsEqualize: what => dispatch({ type: 'playerStats/EQUALIZE', what}),
+      playerStatsEquipItem: (createdItem, itemType) => dispatch({ type: 'playerStats/EQUIP_ITEM', createdItem, itemType}),
       hitEnemy: value => dispatch({ type: 'enemyStats/HIT_ENEMY', value}),
       enemyStatsSetEnemy: (eName, eHealth, eMaxHealth, eSpeed, eAttackPowerMin, eAttackPowerMax, eAccuracy, aPattern, eExperience) => dispatch({ type: 'enemyStats/SET_ENEMY', eName, eHealth, eMaxHealth, eSpeed, eAttackPowerMin, eAttackPowerMax, eAccuracy, aPattern, eExperience}),
       enemyStatsHideEnemy: () => dispatch({ type: 'enemyStats/HIDE_ENEMY'}),
@@ -561,8 +562,8 @@ class PlayView extends Component {
                     <img src="http://lorempizza.com/32/32"/>
                   </OverlayTrigger>
                 </div>
-                <Button style={{margin: '4px'}}>Equip</Button>
-                <Button style={{margin: '4px'}}>Discard</Button>
+                <Button style={{margin: '4px'}} onClick={() => {this.props.playerStatsEquipItem(this.props.items.createdItem, this.props.items.createdItem.type); this.props.itemsChangeItemPending()}}>Equip</Button>
+                <Button style={{margin: '4px'}} onClick={() => this.props.itemsChangeItemPending()}>Discard</Button>
               </div>
             ) : null
           }
