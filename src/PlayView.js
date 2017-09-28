@@ -445,8 +445,9 @@ class PlayView extends Component {
           result = prop;
       return result;
     }
+    let chosenItemType = chooseItemType()
     let chooseItemBase = () => {
-      let itemType = chooseItemType()
+      let itemType = chosenItemType
       return wearableItems()[itemType][Math.floor(Math.random() * wearableItems()[itemType].length)]
     }
     let chosenItemBase = chooseItemBase()
@@ -469,6 +470,7 @@ class PlayView extends Component {
       createdItem.speed = (pickPrefix !== null && pickPrefix !== undefined ? pickPrefix.hasOwnProperty("speed") ? pickPrefix.speed : 0 : 0) + (chosenItemBase.speed !== undefined ? chosenItemBase.speed : 0) + (pickSuffix !== null && pickSuffix !== undefined ? (pickSuffix.hasOwnProperty("speed") ? pickSuffix.speed : 0) : 0)
       createdItem.maxHealthBonus = (pickPrefix !== null && pickPrefix !== undefined ? pickPrefix.hasOwnProperty("maxHealthBonus") ? pickPrefix.maxHealthBonus : 0 : 0) + (chosenItemBase.maxHealthBonus !== undefined ? chosenItemBase.maxHealthBonus : 0) + (pickSuffix !== null && pickSuffix !== undefined ? (pickSuffix.hasOwnProperty("maxHealthBonus") ? pickSuffix.maxHealthBonus : 0) : 0)
       createdItem.maxEnergyBonus = (pickPrefix !== null && pickPrefix !== undefined ? pickPrefix.hasOwnProperty("maxEnergyBonus") ? pickPrefix.maxEnergyBonus : 0 : 0) + (chosenItemBase.maxEnergyBonus !== undefined ? chosenItemBase.maxEnergyBonus : 0) + (pickSuffix !== null && pickSuffix !== undefined ? (pickSuffix.hasOwnProperty("maxEnergyBonus") ? pickSuffix.maxEnergyBonus : 0) : 0)
+      createdItem.type = chosenItemType
     }
     constructItem()
     return createdItem
