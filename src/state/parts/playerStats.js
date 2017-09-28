@@ -22,7 +22,6 @@ const initialState = {
   pSpeed: 3,
   pArmour: 0,
   pDamageReduction: 0,
-  equipment: {
     helm: null,
     bodyArmour: null,
     leggings: null,
@@ -30,8 +29,7 @@ const initialState = {
     amulet: null,
     ring: null,
     belt: null,
-    weapon: null
-  },
+    weapon: null,
   pIsAlive: true
 }
 
@@ -128,6 +126,27 @@ export default (state = initialState, action) => {
         pMaxHealth: initialState.pMaxHealth + state.pMaxHealthBonus + ((state.pConstitution - 10) * 5),
         pMaxEnergy: initialState.pMaxEnergy + state.pMaxEnergyBonus + ((state.pWisdom - 10) * 2),
         pMagicDamage: initialState.pMagicDamage + (state.pWisdom * 2.5)
+      }
+    case 'playerStats/EQUIP_ITEM':
+      let itemType = action.itemType === 'helms' ? 'helm' :
+        action.itemType === 'bodyArmour' ? 'bodyArmour' :
+          action.itemType === 'leggings' ? 'leggings' :
+            action.itemType === 'boots' ? 'boots' :
+              action.itemType === 'amulets' ? 'amulet' :
+                action.itemType === 'rings' ? 'ring' :
+                  action.itemType === 'belts' ? 'belt' :
+                    action.itemType === 'swords' ||
+                    action.itemType === 'bows' ? 'weapon' : null
+      return {
+        ...state,
+          helm: itemType === 'helm' ? action.createdItem : state.helm,
+          bodyArmour: itemType === 'bodyArmour' ? action.createdItem : state.bodyArmour,
+          leggings: itemType === 'leggings' ? action.createdItem : state.leggings,
+          boots: itemType === 'boots' ? action.createdItem : state.boots,
+          amulet: itemType === 'amulet' ? action.createdItem : state.amulet,
+          ring: itemType === 'ring' ? action.createdItem : state.ring,
+          belt: itemType === 'belt' ? action.createdItem : state.belt,
+          weapon: itemType === 'weapon' ? action.createdItem : state.weapon
       }
     case 'playerStats/KILL_PLAYER':
       return {
