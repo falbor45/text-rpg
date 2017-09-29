@@ -12,9 +12,13 @@ const initialState = {
   pMaxExperience: null,
   pStatPoints: 0,
   pStrength: 10,
+  pStrengthBase: 10,
   pWisdom: 10,
+  pWisdomBase: 10,
   pAgility: 10,
+  pAgilityBase: 10,
   pConstitution: 10,
+  pConstitutionBase: 10,
   pAttackPowerMin: 2,
   pAttackPowerMax: 4,
   pMagicDamage: 0,
@@ -44,22 +48,22 @@ export default (state = initialState, action) => {
     case 'playerStats/GAIN_STRENGTH':
       return {
           ...state,
-        pStrength: state.pStrength + action.value
+        pStrengthBase: state.pStrengthBase + action.value
       }
     case 'playerStats/GAIN_WISDOM':
       return {
           ...state,
-        pWisdom: state.pWisdom + action.value
+        pWisdomBase: state.pWisdomBase + action.value
       }
     case 'playerStats/GAIN_AGILITY':
       return {
           ...state,
-        pAgility: state.pAgility + action.value
+        pAgilityBase: state.pAgilityBase + action.value
       }
     case 'playerStats/GAIN_CONSTITUTION':
       return {
           ...state,
-        pConstitution: state.pConstitution + action.value
+        pConstitutionBase: state.pConstitutionBase + action.value
       }
     case 'playerStats/GAIN_HEALTH':
       return {
@@ -146,6 +150,10 @@ export default (state = initialState, action) => {
         pMaxHealth: initialState.pMaxHealth + state.pMaxHealthBonus + ((state.pConstitution - 10) * 5) + eqMaxHealth,
         pMaxEnergy: initialState.pMaxEnergy + state.pMaxEnergyBonus + ((state.pWisdom - 10) * 2) + eqMaxEnergy,
         pMagicDamage: initialState.pMagicDamage + (state.pWisdom * 2.5) + eqMagicDamage,
+        pStrength: state.pStrengthBase + eqStrength,
+        pWisdom: state.pWisdomBase + eqWisdom,
+        pAgility: state.pAgilityBase + eqAgility,
+        pConstitution: state.pConstitutionBase + eqConstitution
       }
     case 'playerStats/EQUIP_ITEM':
       let itemType = action.itemType === 'helms' ? 'helm' :
@@ -214,9 +222,13 @@ export default (state = initialState, action) => {
       return {
         ...state,
         pStrength: strength,
+        pStrengthBase: strength,
         pAgility: agility,
+        pAgilityBase: agility,
         pWisdom: wisdom,
-        pConstitution: constitution
+        pWisdomBase: wisdom,
+        pConstitution: constitution,
+        pConstitutionBase: constitution
       }
     case 'playerStats/CREATE_CHARACTER':
       return {
