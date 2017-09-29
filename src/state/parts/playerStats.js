@@ -114,22 +114,42 @@ export default (state = initialState, action) => {
         pMaxEnergy: state.pMaxEnergy - action.value
       }
     case 'playerStats/CALCULATE_STATS':
+      let eqBonusCalc = (what) => {
+        let result = 0;
+        for (let i = 0; i < eqArr.length; i++) {
+          result = result + eqArr[i][what]
+        }
+        return result
+      }
+      let eqArr = [state.helm, state.bodyArmour, state.leggings, state.boots, state.amulet, state.ring, state.belt, state.weapon].filter((e) => e !== null)
+      let eqArmour = eqBonusCalc('armour')
+      let eqAttackPowerMin = eqBonusCalc('attackPowerMin')
+      let eqAttackPowerMax = eqBonusCalc('attackPowerMax')
+      let eqSpeed = eqBonusCalc('speed')
+      let eqMaxHealth = eqBonusCalc('maxHealthBonus')
+      let eqMaxEnergy = eqBonusCalc('maxEnergyBonus')
+      let eqMagicDamage = eqBonusCalc('magicDamage')
+      let eqStrength = eqBonusCalc('strength')
+      let eqWisdom = eqBonusCalc('wisdom')
+      let eqAgility = eqBonusCalc('agility')
+      let eqConstitution = eqBonusCalc('constitution')
+      console.log(`Strength: ${eqStrength}, Wisdom: ${eqWisdom}, Agility: ${eqAgility}, Constitution: ${eqConstitution}`)
       return {
         ...state,
-        pAttackPowerMin: initialState.pAttackPowerMin + Math.floor((state.pStrength - 10) / 2),
-        pAttackPowerMax: initialState.pAttackPowerMax + (state.pStrength - 10),
+        pAttackPowerMin: initialState.pAttackPowerMin + Math.floor((state.pStrength - 10) / 2) + eqAttackPowerMin,
+        pAttackPowerMax: initialState.pAttackPowerMax + (state.pStrength - 10) + eqAttackPowerMax,
         pBaseDodgeChance: state.pAgility / 2,
-        pArmour: initialState.pArmour + Math.floor((state.pConstitution - 10) / 3),
+        pArmour: initialState.pArmour + Math.floor((state.pConstitution - 10) / 3) + eqArmour,
         pDamageReduction: Math.round(state.pArmour/(state.pArmour + 100) * 100),
         pMaxExperience: Math.round(40 * Math.exp(0.9 + (state.pLevel/10))),
-        pSpeed: Math.round(state.pAgility / 3),
-        pMaxHealth: initialState.pMaxHealth + state.pMaxHealthBonus + ((state.pConstitution - 10) * 5),
-        pMaxEnergy: initialState.pMaxEnergy + state.pMaxEnergyBonus + ((state.pWisdom - 10) * 2),
-        pMagicDamage: initialState.pMagicDamage + (state.pWisdom * 2.5)
+        pSpeed: Math.round((state.pAgility / 3) + eqSpeed),
+        pMaxHealth: initialState.pMaxHealth + state.pMaxHealthBonus + ((state.pConstitution - 10) * 5) + eqMaxHealth,
+        pMaxEnergy: initialState.pMaxEnergy + state.pMaxEnergyBonus + ((state.pWisdom - 10) * 2) + eqMaxEnergy,
+        pMagicDamage: initialState.pMagicDamage + (state.pWisdom * 2.5) + eqMagicDamage,
       }
     case 'playerStats/EQUIP_ITEM':
       let itemType = action.itemType === 'helms' ? 'helm' :
-        action.itemType === 'bodyArmour' ? 'bodyArmour' :
+        action.itemType === 'bodyArmours' ? 'bodyArmour' :
           action.itemType === 'leggings' ? 'leggings' :
             action.itemType === 'boots' ? 'boots' :
               action.itemType === 'amulets' ? 'amulet' :
