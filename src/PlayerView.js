@@ -99,6 +99,54 @@ export default connect (
         left: '-50%'
       }
 
+      eqElStyle = {
+        height: '32px',
+        display: 'flex',
+        justifyContent: 'space-around',
+        margin: '8px 0'
+      }
+
+      createEqTooltip = (equipment) => (
+        <Tooltip id="tooltipEq" style={{textAlign: "center"}}>
+          <div style={{color: "#d3d3d3"}}>
+            {this.props.playerStats[equipment].name}
+          </div>
+          <div>
+            {this.props.playerStats[equipment].attackPowerMin !== 0 ? `+${this.props.playerStats[equipment].attackPowerMin} to minimum attack damage` : null}
+          </div>
+          <div>
+            {this.props.playerStats[equipment].attackPowerMax !== 0 ? `+${this.props.playerStats[equipment].attackPowerMax} to maximum attack damage` : null}
+          </div>
+          <div>
+            {this.props.playerStats[equipment].magicDamage !== 0 ? `+${this.props.playerStats[equipment].magicDamage} to magic damage` : null}
+          </div>
+          <div>
+            {this.props.playerStats[equipment].armour !== 0 ? `+${this.props.playerStats[equipment].armour} to armour` : null}
+          </div>
+          <div>
+            {this.props.playerStats[equipment].speed !== 0 ? `+${this.props.playerStats[equipment].speed} to speed` : null}
+          </div>
+          <div>
+            {this.props.playerStats[equipment].maxHealthBonus !== 0 ? `+${this.props.playerStats[equipment].maxHealthBonus} to maximum health` : null}
+          </div>
+          <div>
+            {this.props.playerStats[equipment].maxEnergyBonus !== 0 ? `+${this.props.playerStats[equipment].maxEnergyBonus} to maximum energy` : null}
+          </div>
+          <div>
+            {this.props.playerStats[equipment].strength !== 0 ? `+${this.props.playerStats[equipment].strength} to strength` : null}
+          </div>
+          <div>
+            {this.props.playerStats[equipment].wisdom !== 0 ? `+${this.props.playerStats[equipment].wisdom} to wisdom` : null}
+          </div>
+          <div>
+            {this.props.playerStats[equipment].agility !== 0 ? `+${this.props.playerStats[equipment].agility} to agility` : null}
+          </div>
+          <div>
+            {this.props.playerStats[equipment].constitution !== 0 ? `+${this.props.playerStats[equipment].constitution} to constitution` : null}
+          </div>
+        </Tooltip>
+      )
+
       render() {
         for (let i = 0; i < document.getElementsByTagName('img').length; i++) {
           document.getElementsByTagName('img')[i].oncontextmenu = () => {
@@ -134,6 +182,7 @@ export default connect (
                 <Button style={this.state.viewedTab === 'attributes' ? {fontWeight: 'bold'} : null} onClick={() => this.setState({viewedTab: 'attributes'})}>Attributes</Button>
                 <Button style={this.state.viewedTab === 'details' ? {fontWeight: 'bold'} : null} onClick={() => this.setState({viewedTab: 'details'})}>Details</Button>
                 <Button style={this.state.viewedTab === 'abilities' ? {fontWeight: 'bold'} : null} onClick={() => this.setState({viewedTab: 'abilities'})}>Abilities</Button>
+                <Button style={this.state.viewedTab === 'equipment' ? {fontWeight: 'bold'} : null} onClick={() => this.setState({viewedTab: 'equipment'})}>Equipment</Button>
               </div>
               {this.state.viewedTab === 'attributes' ? (
                 <div>
@@ -235,6 +284,89 @@ export default connect (
                         </OverlayTrigger>
                       ))
                     }
+                  </div>
+                </div>
+              ) : this.state.viewedTab === 'equipment' ? (
+                <div>
+                  <div style={this.eqElStyle}>
+                    <h4>Head:&nbsp;
+                      {this.props.playerStats.helm !== null ? (
+                        <OverlayTrigger placement="top" overlay={this.createEqTooltip('helm')}>
+                          <img src="http://lorempizza.com/32/32"/>
+                        </OverlayTrigger>
+                      ) : null
+                      }
+                    </h4>
+                  </div>
+                  <div style={this.eqElStyle}>
+                    <h4>Torso:&nbsp;
+                      {this.props.playerStats.bodyArmour !== null ? (
+                        <OverlayTrigger placement="top" overlay={this.createEqTooltip('bodyArmour')}>
+                          <img src="http://lorempizza.com/32/32"/>
+                        </OverlayTrigger>
+                      ) : null
+                      }
+                    </h4>
+                  </div>
+                  <div style={this.eqElStyle}>
+                    <h4>Belt:&nbsp;
+                      {this.props.playerStats.belt !== null ? (
+                        <OverlayTrigger placement="top" overlay={this.createEqTooltip('belt')}>
+                          <img src="http://lorempizza.com/32/32"/>
+                        </OverlayTrigger>
+                      ) : null
+                      }
+                    </h4>
+                  </div>
+                  <div style={this.eqElStyle}>
+                    <h4>Legs:&nbsp;
+                      {this.props.playerStats.leggings !== null ? (
+                        <OverlayTrigger placement="top" overlay={this.createEqTooltip('leggings')}>
+                          <img src="http://lorempizza.com/32/32"/>
+                        </OverlayTrigger>
+                      ) : null
+                      }
+                    </h4>
+                  </div>
+                  <div style={this.eqElStyle}>
+                    <h4>Boots:&nbsp;
+                      {this.props.playerStats.boots !== null ? (
+                        <OverlayTrigger placement="top" overlay={this.createEqTooltip('boots')}>
+                          <img src="http://lorempizza.com/32/32"/>
+                        </OverlayTrigger>
+                      ) : null
+                      }
+                    </h4>
+                  </div>
+                  <div style={this.eqElStyle}>
+                    <h4>Weapon:&nbsp;
+                      {this.props.playerStats.weapon !== null ? (
+                        <OverlayTrigger placement="top" overlay={this.createEqTooltip('weapon')}>
+                          <img src="http://lorempizza.com/32/32"/>
+                        </OverlayTrigger>
+                      ) : null
+                      }
+                    </h4>
+                  </div>
+                  <div style={this.eqElStyle}>
+                    <h4>Ring:&nbsp;
+                      {this.props.playerStats.ring !== null ? (
+                        <OverlayTrigger placement="top" overlay={this.createEqTooltip('ring')}>
+                          <img src="http://lorempizza.com/32/32"/>
+                        </OverlayTrigger>
+                      ) : null
+                      }
+                    </h4>
+                  </div>
+                  <div style={this.eqElStyle}>
+                    <h4>Amulet:&nbsp;
+                      {this.props.playerStats.amulet !== null ? (
+                        <OverlayTrigger placement="top" overlay={this.createEqTooltip('amulet')}>
+                          <img src="http://lorempizza.com/32/32"/>
+                        </OverlayTrigger>
+                      ) : null
+                      }
+                    </h4>
                   </div>
                 </div>
               ) : null}
