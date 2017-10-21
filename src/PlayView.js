@@ -195,8 +195,10 @@ class PlayView extends Component {
   }
 
   handleStoryUpdate = () => {
-    let filteredEnemies = this.props.enemies.data.filter((i) => i.difficulty <= Math.sqrt(this.props.playView.days))
-    if ((this.props.playView.inputValue === 'explore' && this.props.playView.possibleActions.includes('explore')) || (this.props.playView.inputValue === 'e' && this.props.playView.possibleActions.includes('explore'))) {
+    let [events, eventRNG, inputValue, possibleActions, days, storyOutput, battleLogOutput] = this.props.playView
+    let [enemyRNG] = this.props.enemies
+    let filteredEnemies = this.props.enemies.data.filter((i) => i.difficulty <= Math.sqrt(days))
+    if ((inputValue === 'explore' && possibleActions.includes('explore')) || (inputValue === 'e' && possibleActions.includes('explore'))) {
       this.props.playViewForwardTime()
       this.passiveEffects()
       this.setState({
@@ -207,36 +209,36 @@ class PlayView extends Component {
       this.props.playerStatsCalculateStats()
       this.props.abilitiesFilterAbilities(this.usableAbilities(), this.usableCommands())
       setTimeout(() => {
-        if (this.props.playView.events[this.props.playView.eventRNG] === 'fight') {
+        if (events[eventRNG] === 'fight') {
           this.setState({
             viewedTab: 'battleLog'
           })
           this.props.playerStatsCalculateStats()
           this.props.abilitiesFilterAbilities(this.usableAbilities(), this.usableCommands())
-          let exploreIndex = this.props.playView.possibleActions.indexOf('explore');
-          exploreIndex > -1 ? this.props.playView.possibleActions.splice(exploreIndex, 1) : null
-          this.props.playView.possibleActions.push('attack')
-          this.props.playView.possibleActions.push('dodge')
+          let exploreIndex = possibleActions.indexOf('explore');
+          exploreIndex > -1 ? possibleActions.splice(exploreIndex, 1) : null
+          possibleActions.push('attack')
+          possibleActions.push('dodge')
         }
-        if (this.props.playView.events[this.props.playView.eventRNG] === 'choiceEvent') {
+        if (events[eventRNG] === 'choiceEvent') {
           this.props.playerStatsCalculateStats()
           this.props.abilitiesFilterAbilities(this.usableAbilities(), this.usableCommands())
-          let exploreIndex = this.props.playView.possibleActions.indexOf('explore');
-          exploreIndex > -1 ? this.props.playView.possibleActions.splice(exploreIndex, 1) : null
-          this.props.playView.possibleActions.push('choose')
+          let exploreIndex = possibleActions.indexOf('explore');
+          exploreIndex > -1 ? possibleActions.splice(exploreIndex, 1) : null
+          possibleActions.push('choose')
         }
-        this.props.playView.events[this.props.playView.eventRNG] === 'fight' ? this.props.enemiesSetEnemyRNG(filteredEnemies.length) : null
-        this.props.playView.events[this.props.playView.eventRNG] === 'choiceEvent' ? this.props.choiceEventsSetChoiceEventRNG() : null
-        this.props.playView.events[this.props.playView.eventRNG] === 'fight' ? (this.props.playView.battleLogOutput.push('You encounter ' + filteredEnemies[this.props.enemies.enemyRNG].eName + '!')  && this.props.playView.storyOutput.push(this.props.areas.data[this.props.areas.areaRNG].description,
-            'You encounter ' + filteredEnemies[this.props.enemies.enemyRNG].eName + '!')) : this.props.playView.events[this.props.playView.eventRNG] === 'choiceEvent' ?
-            this.props.playView.storyOutput.push(this.props.choiceEvents.data[this.props.choiceEvents.choiceEventRNG].description) : null
-        this.props.playView.events[this.props.playView.eventRNG] === 'fight' ? this.props.enemyStatsSetEnemy(filteredEnemies[this.props.enemies.enemyRNG].eName, filteredEnemies[this.props.enemies.enemyRNG].eHealth, filteredEnemies[this.props.enemies.enemyRNG].eMaxHealth, filteredEnemies[this.props.enemies.enemyRNG].eSpeed, filteredEnemies[this.props.enemies.enemyRNG].eAttackPowerMin, filteredEnemies[this.props.enemies.enemyRNG].eAttackPowerMax, filteredEnemies[this.props.enemies.enemyRNG].eAccuracy, filteredEnemies[this.props.enemies.enemyRNG].aPattern, filteredEnemies[this.props.enemies.enemyRNG].eExperience) : null
+        events[eventRNG] === 'fight' ? this.props.enemiesSetEnemyRNG(filteredEnemies.length) : null
+        events[eventRNG] === 'choiceEvent' ? this.props.choiceEventsSetChoiceEventRNG() : null
+        events[eventRNG] === 'fight' ? (battleLogOutput.push('You encounter ' + filteredEnemies[enemyRNG].eName + '!')  && storyOutput.push(this.props.areas.data[this.props.areas.areaRNG].description,
+            'You encounter ' + filteredEnemies[enemyRNG].eName + '!')) : events[eventRNG] === 'choiceEvent' ?
+            storyOutput.push(this.props.choiceEvents.data[this.props.choiceEvents.choiceEventRNG].description) : null
+        events[eventRNG] === 'fight' ? this.props.enemyStatsSetEnemy(filteredEnemies[enemyRNG].eName, filteredEnemies[enemyRNG].eHealth, filteredEnemies[enemyRNG].eMaxHealth, filteredEnemies[enemyRNG].eSpeed, filteredEnemies[enemyRNG].eAttackPowerMin, filteredEnemies[enemyRNG].eAttackPowerMax, filteredEnemies[enemyRNG].eAccuracy, filteredEnemies[enemyRNG].aPattern, filteredEnemies[enemyRNG].eExperience) : null
         this.setState({
           isDisabled: false
         })
       }, 0)
     }
-    if(["attack", "a"].concat(this.props.abilities.usableCommands).includes(this.props.playView.inputValue) && this.props.playView.possibleActions.includes('attack')) {
+    if(["attack", "a"].concat(this.props.abilities.usableCommands).includes(inputValue) && possibleActions.includes('attack')) {
       if (this.props.enemyStats.eHealth > 0) {
         this.hitTrade()
         this.passiveEffects()
@@ -247,12 +249,12 @@ class PlayView extends Component {
           }, 100)
           setTimeout(() => {
             if (this.props.enemyStats.eHealth <= 0) {
-              this.props.playView.storyOutput.push(`You've killed ${filteredEnemies[this.props.enemies.enemyRNG].eName}!`)
-              this.props.playView.battleLogOutput.push(`You've killed ${filteredEnemies[this.props.enemies.enemyRNG].eName}!`)
+              storyOutput.push(`You've killed ${filteredEnemies[enemyRNG].eName}!`)
+              battleLogOutput.push(`You've killed ${filteredEnemies[enemyRNG].eName}!`)
               this.props.itemsChangeItemPending()
               this.props.itemsSetCreatedItem(this.createItem())
               this.props.enemyStatsHideEnemy()
-              this.props.playerStatsGainExperience(filteredEnemies[this.props.enemies.enemyRNG].eExperience)
+              this.props.playerStatsGainExperience(filteredEnemies[enemyRNG].eExperience)
               setTimeout(() => {
                 if (this.props.playerStats.pExperience > this.props.playerStats.pMaxExperience) {
                   this.props.playerStatsGainExperience(0)
@@ -260,9 +262,9 @@ class PlayView extends Component {
               }, 0)
               this.props.playerStatsCalculateStats()
               this.props.abilitiesFilterAbilities(this.usableAbilities(), this.usableCommands())
-              let attackIndex = this.props.playView.possibleActions.indexOf('attack');
-              attackIndex > -1 ? this.props.playView.possibleActions.splice(attackIndex, 1) : null;
-              this.props.playView.possibleActions.push('explore')
+              let attackIndex = possibleActions.indexOf('attack');
+              attackIndex > -1 ? possibleActions.splice(attackIndex, 1) : null;
+              possibleActions.push('explore')
               this.setState({
                 viewedTab: 'exploration',
                 turnCounter: 1
@@ -275,64 +277,65 @@ class PlayView extends Component {
   }
 
   handleChoice = (choice) =>  {
+    let [data, choiceEventRNG] = this.props.choiceEvents
     this.passiveEffects()
     if (choice === 1) {
-      this.props.playView.storyOutput.push(this.props.choiceEvents.data[this.props.choiceEvents.choiceEventRNG].choiceOne)
-      if (this.props.choiceEvents.data[this.props.choiceEvents.choiceEventRNG].choiceOneEffects.hasOwnProperty('pAttGain') === true) {
-        this.props.playerStatsGainAttack(this.props.choiceEvents.data[this.props.choiceEvents.choiceEventRNG].choiceOneEffects.pAttGain)
+      this.props.playView.storyOutput.push(data[choiceEventRNG].choiceOne)
+      if (data[choiceEventRNG].choiceOneEffects.hasOwnProperty('pAttGain') === true) {
+        this.props.playerStatsGainAttack(data[choiceEventRNG].choiceOneEffects.pAttGain)
       }
-      if (this.props.choiceEvents.data[this.props.choiceEvents.choiceEventRNG].choiceOneEffects.hasOwnProperty('pStrGain') === true) {
-        this.props.playerStatsGainStrength(this.props.choiceEvents.data[this.props.choiceEvents.choiceEventRNG].choiceOneEffects.pStrGain)
+      if (data[choiceEventRNG].choiceOneEffects.hasOwnProperty('pStrGain') === true) {
+        this.props.playerStatsGainStrength(data[choiceEventRNG].choiceOneEffects.pStrGain)
       }
-      if (this.props.choiceEvents.data[this.props.choiceEvents.choiceEventRNG].choiceOneEffects.hasOwnProperty('pWisGain') === true) {
-        this.props.playerStatsGainWisdom(this.props.choiceEvents.data[this.props.choiceEvents.choiceEventRNG].choiceOneEffects.pWisGain)
+      if (data[choiceEventRNG].choiceOneEffects.hasOwnProperty('pWisGain') === true) {
+        this.props.playerStatsGainWisdom(data[choiceEventRNG].choiceOneEffects.pWisGain)
       }
-      if (this.props.choiceEvents.data[this.props.choiceEvents.choiceEventRNG].choiceOneEffects.hasOwnProperty('pAgiGain') === true) {
-        this.props.playerStatsGainAgility(this.props.choiceEvents.data[this.props.choiceEvents.choiceEventRNG].choiceOneEffects.pAgiGain)
+      if (data[choiceEventRNG].choiceOneEffects.hasOwnProperty('pAgiGain') === true) {
+        this.props.playerStatsGainAgility(data[choiceEventRNG].choiceOneEffects.pAgiGain)
       }
-      if (this.props.choiceEvents.data[this.props.choiceEvents.choiceEventRNG].choiceOneEffects.hasOwnProperty('pConstGain') === true) {
-        this.props.playerStatsGainConstitution(this.props.choiceEvents.data[this.props.choiceEvents.choiceEventRNG].choiceOneEffects.pConstGain)
+      if (data[choiceEventRNG].choiceOneEffects.hasOwnProperty('pConstGain') === true) {
+        this.props.playerStatsGainConstitution(data[choiceEventRNG].choiceOneEffects.pConstGain)
       }
-      if (this.props.choiceEvents.data[this.props.choiceEvents.choiceEventRNG].choiceOneEffects.hasOwnProperty('pHealthGain') === true) {
-        this.props.playerStatsGainHealth(this.props.choiceEvents.data[this.props.choiceEvents.choiceEventRNG].choiceOneEffects.pHealthGain)
+      if (data[choiceEventRNG].choiceOneEffects.hasOwnProperty('pHealthGain') === true) {
+        this.props.playerStatsGainHealth(data[choiceEventRNG].choiceOneEffects.pHealthGain)
         setTimeout(() => {
           if (this.props.playerStats.pHealth > this.props.playerStats.pMaxHealth) {
             this.props.playerStatsEqualize('health')
           }
         }, 0)
       }
-      if (this.props.choiceEvents.data[this.props.choiceEvents.choiceEventRNG].choiceOneEffects.hasOwnProperty('pMaxHealthGain') === true) {
-        this.props.playerStatsGainMaxHealth(this.props.choiceEvents.data[this.props.choiceEvents.choiceEventRNG].choiceOneEffects.pMaxHealthGain)
+      if (data[choiceEventRNG].choiceOneEffects.hasOwnProperty('pMaxHealthGain') === true) {
+        this.props.playerStatsGainMaxHealth(data[choiceEventRNG].choiceOneEffects.pMaxHealthGain)
         this.props.playerStatsCalculateStats()
         this.props.abilitiesFilterAbilities(this.usableAbilities(), this.usableCommands())
       }
-      if (this.props.choiceEvents.data[this.props.choiceEvents.choiceEventRNG].choiceOneEffects.hasOwnProperty('pEnergyGain') === true) {
-        this.props.playerStatsGainEnergy(this.props.choiceEvents.data[this.props.choiceEvents.choiceEventRNG].choiceOneEffects.pEnergyGain)
+      if (data[choiceEventRNG].choiceOneEffects.hasOwnProperty('pEnergyGain') === true) {
+        this.props.playerStatsGainEnergy(data[choiceEventRNG].choiceOneEffects.pEnergyGain)
         setTimeout(() => {
           if (this.props.playerStats.pEnergy > this.props.playerStats.pMaxEnergy) {
             this.props.playerStatsEqualize('energy')
           }
         }, 0)
       }
-      if (this.props.choiceEvents.data[this.props.choiceEvents.choiceEventRNG].choiceOneEffects.hasOwnProperty('pMaxEnergyGain') === true) {
-        this.props.playerStatsGainMaxEnergy(this.props.choiceEvents.data[this.props.choiceEvents.choiceEventRNG].choiceOneEffects.pMaxEnergyGain)
+      if (data[choiceEventRNG].choiceOneEffects.hasOwnProperty('pMaxEnergyGain') === true) {
+        this.props.playerStatsGainMaxEnergy(data[choiceEventRNG].choiceOneEffects.pMaxEnergyGain)
       }
-      if (this.props.choiceEvents.data[this.props.choiceEvents.choiceEventRNG].choiceOneEffects.hasOwnProperty('pHealthLoss') === true) {
-        this.props.playerStatsLoseHealth(this.props.choiceEvents.data[this.props.choiceEvents.choiceEventRNG].choiceOneEffects.pHealthLoss)
+      if (data[choiceEventRNG].choiceOneEffects.hasOwnProperty('pHealthLoss') === true) {
+        this.props.playerStatsLoseHealth(data[choiceEventRNG].choiceOneEffects.pHealthLoss)
         setTimeout(() => {
           if (this.props.playerStats.pHealth <= 0) {
             this.props.playerStatsKillPlayer()
           }
         }, 100)
       }
-      if (this.props.choiceEvents.data[this.props.choiceEvents.choiceEventRNG].choiceOneEffects.hasOwnProperty('pMaxHealthLoss') === true) {
-        this.props.playerStatsLoseMaxHealth(this.props.choiceEvents.data[this.props.choiceEvents.choiceEventRNG].choiceOneEffects.pMaxHealthLoss)
+      if (data[choiceEventRNG].choiceOneEffects.hasOwnProperty('pMaxHealthLoss') === true) {
+        this.props.playerStatsLoseMaxHealth(data[choiceEventRNG].choiceOneEffects.pMaxHealthLoss)
       }
-      if (this.props.choiceEvents.data[this.props.choiceEvents.choiceEventRNG].choiceOneEffects.hasOwnProperty('pEnergyLoss') === true) {
-        this.props.playerStatsLoseEnergy(this.props.choiceEvents.data[this.props.choiceEvents.choiceEventRNG].choiceOneEffects.pEnergyLoss)
+      if (data[choiceEventRNG].choiceOneEffects.hasOwnProperty('pEnergyLoss') === true) {
+        this.props.playerStatsLoseEnergy(data[choiceEventRNG].choiceOneEffects.pEnergyLoss)
       }
-      if (this.props.choiceEvents.data[this.props.choiceEvents.choiceEventRNG].choiceOneEffects.hasOwnProperty('pMaxEnergyLoss') === true) {
-        this.props.playerStatsLoseMaxEnergy(this.props.choiceEvents.data[this.props.choiceEvents.choiceEventRNG].choiceOneEffects.pMaxEnergyLoss)
+      if (data[choiceEventRNG].choiceOneEffects.hasOwnProperty('pMaxEnergyLoss') === true) {
+        this.props.playerStatsLoseMaxEnergy(data[choiceEventRNG].choiceOneEffects.pMaxEnergyLoss)
       }
       let chooseIndex = this.props.playView.possibleActions.indexOf('choose');
       chooseIndex > -1 ? this.props.playView.possibleActions.splice(chooseIndex, 1) : null
@@ -340,62 +343,62 @@ class PlayView extends Component {
       this.props.playViewForceUpdate()
     }
     if (choice === 2) {
-      this.props.playView.storyOutput.push(this.props.choiceEvents.data[this.props.choiceEvents.choiceEventRNG].choiceTwo)
-      if (this.props.choiceEvents.data[this.props.choiceEvents.choiceEventRNG].choiceTwoEffects.hasOwnProperty('pAttGain') === true) {
-        this.props.playerStatsGainAttack(this.props.choiceEvents.data[this.props.choiceEvents.choiceEventRNG].choiceTwoEffects.pAttGain)
+      this.props.playView.storyOutput.push(data[choiceEventRNG].choiceTwo)
+      if (data[choiceEventRNG].choiceTwoEffects.hasOwnProperty('pAttGain') === true) {
+        this.props.playerStatsGainAttack(data[choiceEventRNG].choiceTwoEffects.pAttGain)
       }
-      if (this.props.choiceEvents.data[this.props.choiceEvents.choiceEventRNG].choiceTwoEffects.hasOwnProperty('pStrGain') === true) {
-        this.props.playerStatsGainStrength(this.props.choiceEvents.data[this.props.choiceEvents.choiceEventRNG].choiceTwoEffects.pStrGain)
+      if (data[choiceEventRNG].choiceTwoEffects.hasOwnProperty('pStrGain') === true) {
+        this.props.playerStatsGainStrength(data[choiceEventRNG].choiceTwoEffects.pStrGain)
       }
-      if (this.props.choiceEvents.data[this.props.choiceEvents.choiceEventRNG].choiceTwoEffects.hasOwnProperty('pWisGain') === true) {
-        this.props.playerStatsGainWisdom(this.props.choiceEvents.data[this.props.choiceEvents.choiceEventRNG].choiceTwoEffects.pWisGain)
+      if (data[choiceEventRNG].choiceTwoEffects.hasOwnProperty('pWisGain') === true) {
+        this.props.playerStatsGainWisdom(data[choiceEventRNG].choiceTwoEffects.pWisGain)
       }
-      if (this.props.choiceEvents.data[this.props.choiceEvents.choiceEventRNG].choiceTwoEffects.hasOwnProperty('pAgiGain') === true) {
-        this.props.playerStatsGainAgility(this.props.choiceEvents.data[this.props.choiceEvents.choiceEventRNG].choiceTwoEffects.pAgiGain)
+      if (data[choiceEventRNG].choiceTwoEffects.hasOwnProperty('pAgiGain') === true) {
+        this.props.playerStatsGainAgility(data[choiceEventRNG].choiceTwoEffects.pAgiGain)
       }
-      if (this.props.choiceEvents.data[this.props.choiceEvents.choiceEventRNG].choiceTwoEffects.hasOwnProperty('pConstGain') === true) {
-        this.props.playerStatsGainConstitution(this.props.choiceEvents.data[this.props.choiceEvents.choiceEventRNG].choiceTwoEffects.pConstGain)
+      if (data[choiceEventRNG].choiceTwoEffects.hasOwnProperty('pConstGain') === true) {
+        this.props.playerStatsGainConstitution(data[choiceEventRNG].choiceTwoEffects.pConstGain)
       }
-      if (this.props.choiceEvents.data[this.props.choiceEvents.choiceEventRNG].choiceTwoEffects.hasOwnProperty('pHealthGain') === true) {
-        this.props.playerStatsGainHealth(this.props.choiceEvents.data[this.props.choiceEvents.choiceEventRNG].choiceTwoEffects.pHealthGain)
+      if (data[choiceEventRNG].choiceTwoEffects.hasOwnProperty('pHealthGain') === true) {
+        this.props.playerStatsGainHealth(data[choiceEventRNG].choiceTwoEffects.pHealthGain)
         setTimeout(() => {
           if (this.props.playerStats.pHealth > this.props.playerStats.pMaxHealth) {
             this.props.playerStatsEqualize('health')
           }
         }, 0)
       }
-      if (this.props.choiceEvents.data[this.props.choiceEvents.choiceEventRNG].choiceTwoEffects.hasOwnProperty('pMaxHealthGain') === true) {
-        this.props.playerStatsGainMaxHealth(this.props.choiceEvents.data[this.props.choiceEvents.choiceEventRNG].choiceTwoEffects.pMaxHealthGain)
+      if (data[choiceEventRNG].choiceTwoEffects.hasOwnProperty('pMaxHealthGain') === true) {
+        this.props.playerStatsGainMaxHealth(data[choiceEventRNG].choiceTwoEffects.pMaxHealthGain)
         this.props.playerStatsCalculateStats()
         this.props.abilitiesFilterAbilities(this.usableAbilities(), this.usableCommands())
       }
-      if (this.props.choiceEvents.data[this.props.choiceEvents.choiceEventRNG].choiceTwoEffects.hasOwnProperty('pEnergyGain') === true) {
-        this.props.playerStatsGainEnergy(this.props.choiceEvents.data[this.props.choiceEvents.choiceEventRNG].choiceTwoEffects.pEnergyGain)
+      if (data[choiceEventRNG].choiceTwoEffects.hasOwnProperty('pEnergyGain') === true) {
+        this.props.playerStatsGainEnergy(data[choiceEventRNG].choiceTwoEffects.pEnergyGain)
         setTimeout(() => {
           if (this.props.playerStats.pEnergy > this.props.playerStats.pMaxEnergy) {
             this.props.playerStatsEqualize('energy')
           }
         }, 0)
       }
-      if (this.props.choiceEvents.data[this.props.choiceEvents.choiceEventRNG].choiceTwoEffects.hasOwnProperty('pMaxEnergyGain') === true) {
-        this.props.playerStatsGainMaxEnergy(this.props.choiceEvents.data[this.props.choiceEvents.choiceEventRNG].choiceTwoEffects.pMaxEnergyGain)
+      if (data[choiceEventRNG].choiceTwoEffects.hasOwnProperty('pMaxEnergyGain') === true) {
+        this.props.playerStatsGainMaxEnergy(data[choiceEventRNG].choiceTwoEffects.pMaxEnergyGain)
       }
-      if (this.props.choiceEvents.data[this.props.choiceEvents.choiceEventRNG].choiceTwoEffects.hasOwnProperty('pHealthLoss') === true) {
-        this.props.playerStatsLoseHealth(this.props.choiceEvents.data[this.props.choiceEvents.choiceEventRNG].choiceTwoEffects.pHealthLoss)
+      if (data[choiceEventRNG].choiceTwoEffects.hasOwnProperty('pHealthLoss') === true) {
+        this.props.playerStatsLoseHealth(data[choiceEventRNG].choiceTwoEffects.pHealthLoss)
         setTimeout(() => {
           if (this.props.playerStats.pHealth <= 0) {
             this.props.playerStatsKillPlayer()
           }
         }, 100)
       }
-      if (this.props.choiceEvents.data[this.props.choiceEvents.choiceEventRNG].choiceTwoEffects.hasOwnProperty('pMaxHealthLoss') === true) {
-        this.props.playerStatsLoseMaxHealth(this.props.choiceEvents.data[this.props.choiceEvents.choiceEventRNG].choiceTwoEffects.pMaxHealthLoss)
+      if (data[choiceEventRNG].choiceTwoEffects.hasOwnProperty('pMaxHealthLoss') === true) {
+        this.props.playerStatsLoseMaxHealth(data[choiceEventRNG].choiceTwoEffects.pMaxHealthLoss)
       }
-      if (this.props.choiceEvents.data[this.props.choiceEvents.choiceEventRNG].choiceTwoEffects.hasOwnProperty('pEnergyLoss') === true) {
-        this.props.playerStatsLoseEnergy(this.props.choiceEvents.data[this.props.choiceEvents.choiceEventRNG].choiceTwoEffects.pEnergyLoss)
+      if (data[choiceEventRNG].choiceTwoEffects.hasOwnProperty('pEnergyLoss') === true) {
+        this.props.playerStatsLoseEnergy(data[choiceEventRNG].choiceTwoEffects.pEnergyLoss)
       }
-      if (this.props.choiceEvents.data[this.props.choiceEvents.choiceEventRNG].choiceTwoEffects.hasOwnProperty('pMaxEnergyLoss') === true) {
-        this.props.playerStatsLoseMaxEnergy(this.props.choiceEvents.data[this.props.choiceEvents.choiceEventRNG].choiceTwoEffects.pMaxEnergyLoss)
+      if (data[choiceEventRNG].choiceTwoEffects.hasOwnProperty('pMaxEnergyLoss') === true) {
+        this.props.playerStatsLoseMaxEnergy(data[choiceEventRNG].choiceTwoEffects.pMaxEnergyLoss)
       }
       let chooseIndex = this.props.playView.possibleActions.indexOf('choose');
       chooseIndex > -1 ? this.props.playView.possibleActions.splice(chooseIndex, 1) : null
