@@ -1,5 +1,112 @@
-[{"id":1,"area":"Forest","description":"It's unbelieveably quiet here, you take caution with every step..."},
-  {"id":2,"area":"Deep forest","description":"The light no longer pierces through the leaves, you vanish in the shadows and move blindly..."},
-  {"id":3,"area":"Cave","description":"You enter a cave mouth of impenetrable blackness. As you step in you watch your shadow dissolve into the surrounding darkness..."},
-  {"id":4,"area":"River","description":"You see a river flowing; flowing like it didn't notice you - carelessly, free..."},
-  {"id":5,"area":"City","description":"The noise around makes you feel uneasy, yet you step into the city to rest..."}]
+[
+  {
+    "id": 1,
+    "area": "Farm",
+    "description": "The smell of farm makes you calm. As you approach it the only thing you can think of is that variety never hurt anyone."
+  },
+  {
+    "id": 2,
+    "area": "Barbarian Camp",
+    "description": "Shouts and screams of those surrounding you are unsettling."
+  },
+  {
+    "id": 3,
+    "area": "Secluded Strand",
+    "description": "Quiet. Emptied. Still. That's what's gonna be your companion for the rest of your adventure."
+  },
+  {
+    "id": 4,
+    "area": "Waterfalls",
+    "description": "Water striking down the rocks looks beautiful, yet you cannot waste much time."
+  },
+  {
+    "id": 5,
+    "area": "Bat cave",
+    "description": "Water drops falling from the cave's ceiling unnerve you."
+  },
+  {
+    "id": 6,
+    "area": "Spider lair",
+    "description": "Water drops falling from the cave's ceiling unnerve you."
+  },
+  {
+    "id": 7,
+    "area": "Caverns",
+    "description": "Water drops falling from the cave's ceiling unnerve you."
+  },
+  {
+    "id": 8,
+    "area": "Thanux's Desert",
+    "description": "Great dunes you've heard about are actually true. Scary."
+  },
+  {
+    "id": 9,
+    "area": "Skeleton dungeon",
+    "description": "Bones, bones everywhere."
+  },
+  {
+    "id": 10,
+    "area": "Mountains",
+    "description": "Even the bravest men must sometimes climb the highest mountains."
+  },
+  {
+    "id": 11,
+    "area": "Windy Steppes",
+    "description": "The horizon is not the only thing a human seeks."
+  },
+  {
+    "id": 12,
+    "area": "Catacombs Lv.1",
+    "description": "You enter a dim-lightened construction and seem to notice moving shadows. Maybe it's just your imagination."
+  },
+  {
+    "id": 13,
+    "area": "Catacombs Lv.2",
+    "description": "Bones, bones everywhere."
+  },
+  {
+    "id": 14,
+    "area": "Catacombs Lv.3",
+    "description": "The time you spent in the catacombs is driving you crazy. You feel like you need to get out as soon as possible."
+  },
+  {
+    "id": 15,
+    "area": "Spiral Tower",
+    "description": "Upon entering the bright light in the center of the tower looks like a message from above: 'Come and reach me'."
+  },
+  {
+    "id": 16,
+    "area": "Sky Tower",
+    "description": "Dragons' roars send a chill down your spine. You carefully step into the tower."
+  },
+  {
+    "id": 17,
+    "area": "Labyrinth of the Minotaur",
+    "description": "You've heard about the labyrinth before, although those news were not happy-ending stories."
+  },
+  {
+    "id": 18,
+    "area": "Spreading Sands",
+    "description": "Wherever you look, it's only sand and your own demise."
+  },
+  {
+    "id": 19,
+    "area": "Glacial Grounds",
+    "description": "Trying to walk on the ice, you make an impression of a penguin."
+  },
+  {
+    "id": 20,
+    "area": "Magical Forest",
+    "description": "A myth-like forest spreads in front of your eyes."
+  },
+  {
+    "id": 21,
+    "area": "Haunted Forest",
+    "description": "A mist grasping your feet makes you feel abandoned."
+  },
+  {
+    "id": 22,
+    "area": "The Void",
+    "description": "The hell-like screams and ambience is almost impossible to withstand."
+  }
+]
