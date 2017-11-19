@@ -38,7 +38,7 @@ export default connect(
       enemyStatsSetEnemy: (eName, eHealth, eMaxHealth, eSpeed, eAttackPowerMin, eAttackPowerMax, eAccuracy, aPattern, eExperience) => dispatch({ type: 'enemyStats/SET_ENEMY', eName, eHealth, eMaxHealth, eSpeed, eAttackPowerMin, eAttackPowerMax, eAccuracy, aPattern, eExperience}),
       enemyStatsHideEnemy: () => dispatch({ type: 'enemyStats/HIDE_ENEMY'}),
       inputChange: value => dispatch({ type: 'playView/INPUT_CHANGE', value}),
-      playViewSetEventRNG: () => dispatch({type: 'playView/SET_EVENT_RNG'}),
+      playViewSetEvent: () => dispatch({type: 'playView/SET_EVENT'}),
       playViewForceUpdate: () => dispatch({type: 'playView/FORCE_UPDATE'}),
       playViewForwardTime: () => dispatch({type: 'playView/FORWARD_TIME'}),
       areasSetAreaRNG: () => dispatch({ type: 'areas/SET_AREA_RNG'}),
@@ -196,7 +196,7 @@ class PlayView extends Component {
   }
 
   handleStoryUpdate = () => {
-    let {events, eventRNG, inputValue, possibleActions, storyOutput, battleLogOutput} = this.props.playView
+    let {inputValue, possibleActions, storyOutput, battleLogOutput, chosenEvent} = this.props.playView
     let {enemyRNG} = this.props.enemies
     let filteredEnemies;
     if ((inputValue === 'explore' && possibleActions.includes('explore')) || (inputValue === 'e' && possibleActions.includes('explore'))) {
@@ -209,11 +209,11 @@ class PlayView extends Component {
       setTimeout(() => {
         filteredEnemies = this.props.enemies.data.filter(i => i.eZoneId === this.props.areas.areaRNG + 1)
       }, 0)
-      this.props.playViewSetEventRNG()
+      this.props.playViewSetEvent()
       this.props.playerStatsCalculateStats()
       this.props.abilitiesFilterAbilities(this.usableAbilities(), this.usableCommands())
       setTimeout(() => {
-        if (events[eventRNG] === 'fight') {
+        if (chosenEvent === 'fight') {
           this.setState({
             viewedTab: 'battleLog'
           })
@@ -224,19 +224,19 @@ class PlayView extends Component {
           possibleActions.push('attack')
           possibleActions.push('dodge')
         }
-        if (events[eventRNG] === 'choiceEvent') {
+        if (chosenEvent === 'choiceEvent') {
           this.props.playerStatsCalculateStats()
           this.props.abilitiesFilterAbilities(this.usableAbilities(), this.usableCommands())
           let exploreIndex = possibleActions.indexOf('explore');
           exploreIndex > -1 ? possibleActions.splice(exploreIndex, 1) : null
           possibleActions.push('choose')
         }
-        events[eventRNG] === 'fight' ? this.props.enemiesSetEnemyRNG(filteredEnemies.length) : null
-        events[eventRNG] === 'choiceEvent' ? this.props.choiceEventsSetChoiceEventRNG() : null
-        events[eventRNG] === 'fight' ? (battleLogOutput.push('You encounter ' + filteredEnemies[enemyRNG].eName + '!')  && storyOutput.push(this.props.areas.data[this.props.areas.areaRNG].description,
-            'You encounter ' + filteredEnemies[enemyRNG].eName + '!')) : events[eventRNG] === 'choiceEvent' ?
+        chosenEvent === 'fight' ? this.props.enemiesSetEnemyRNG(filteredEnemies.length) : null
+        chosenEvent === 'choiceEvent' ? this.props.choiceEventsSetChoiceEventRNG() : null
+        chosenEvent === 'fight' ? (battleLogOutput.push('You encounter ' + filteredEnemies[enemyRNG].eName + '!')  && storyOutput.push(this.props.areas.data[this.props.areas.areaRNG].description,
+            'You encounter ' + filteredEnemies[enemyRNG].eName + '!')) : chosenEvent === 'choiceEvent' ?
             storyOutput.push(this.props.choiceEvents.data[this.props.choiceEvents.choiceEventRNG].description) : null
-        events[eventRNG] === 'fight' ? (this.props.enemyStatsSetEnemy(filteredEnemies[enemyRNG].eName, filteredEnemies[enemyRNG].eHealth, filteredEnemies[enemyRNG].eMaxHealth, filteredEnemies[enemyRNG].eSpeed, filteredEnemies[enemyRNG].eAttackPowerMin, filteredEnemies[enemyRNG].eAttackPowerMax, filteredEnemies[enemyRNG].eAccuracy, filteredEnemies[enemyRNG].aPattern, filteredEnemies[enemyRNG].eExperience), this.props.enemiesSetPattern(filteredEnemies[enemyRNG].aPattern)) : null
+        chosenEvent === 'fight' ? (this.props.enemyStatsSetEnemy(filteredEnemies[enemyRNG].eName, filteredEnemies[enemyRNG].eHealth, filteredEnemies[enemyRNG].eMaxHealth, filteredEnemies[enemyRNG].eSpeed, filteredEnemies[enemyRNG].eAttackPowerMin, filteredEnemies[enemyRNG].eAttackPowerMax, filteredEnemies[enemyRNG].eAccuracy, filteredEnemies[enemyRNG].aPattern, filteredEnemies[enemyRNG].eExperience), this.props.enemiesSetPattern(filteredEnemies[enemyRNG].aPattern)) : null
         this.setState({
           isDisabled: false
         })

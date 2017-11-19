@@ -3,7 +3,7 @@ const initialState = {
   storyOutput: [],
   battleLogOutput: [],
   events: ['fight', 'choiceEvent'],
-  eventRNG: 0,
+  chosenEvent: null,
   possibleActions: ['explore'],
   map: [
     [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,6,6,6,6,6,0,6,6,6,0,0,0,0,0,0],
@@ -65,10 +65,11 @@ export default (state = initialState, action) => {
         ...state,
         inputValue: action.value
       }
-    case 'playView/SET_EVENT_RNG':
+    case 'playView/SET_EVENT':
+      let eventRNG = Math.floor(Math.random() * state.events.length)
       return {
         ...state,
-        eventRNG: Math.floor(Math.random() * state.events.length)
+        chosenEvent: state.events[eventRNG]
       }
     case 'playView/SET_STORY_OUTPUT':
       return {
