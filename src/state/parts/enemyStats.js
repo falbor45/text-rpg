@@ -8,7 +8,8 @@ const initialState = {
   eAccuracy: null,
   aPattern: null,
   eExperience: 0,
-  eIsAlive: false
+  eIsAlive: false,
+  eLocked: false
 }
 
 export default (state = initialState, action) => {
@@ -30,16 +31,23 @@ export default (state = initialState, action) => {
         eAccuracy: action.eAccuracy,
         aPattern: action.aPattern,
         eExperience: action.eExperience,
-        eIsAlive: true
+        eIsAlive: true,
+        eLocked: true,
       }
       case 'enemyStats/HIDE_ENEMY' :
         return {
             ...state,
+            eName: null,
             eHealth: null,
             eMaxHealth: null,
-            eEnergy: null,
-            eMaxEnergy: null,
-            eIsAlive: false
+            eSpeed: null,
+            eAttackPowerMin: null,
+            eAttackPowerMax: null,
+            eAccuracy: null,
+            aPattern: null,
+            eExperience: 0,
+            eIsAlive: false,
+            eLocked: false
         }
     default:
       return state
