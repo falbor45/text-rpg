@@ -41,6 +41,8 @@ export default connect(
       playViewSetEvent: () => dispatch({type: 'playView/SET_EVENT'}),
       playViewForceUpdate: () => dispatch({type: 'playView/FORCE_UPDATE'}),
       playViewForwardTime: () => dispatch({type: 'playView/FORWARD_TIME'}),
+      playViewPossibleActions: (abilities) => dispatch({type: 'playView/POSSIBLE_ACTIONS', abilities}),
+      playViewUpdatePosition: (direction, areas) => dispatch({type: 'playView/UPDATE_POSITION', direction, areas}),
       areasSetAreaRNG: () => dispatch({ type: 'areas/SET_AREA_RNG'}),
       enemiesSetEnemyRNG: (value) => dispatch({ type: 'enemies/SET_ENEMY_RNG', value}),
       enemiesNextAttPattern: () => dispatch({ type: 'enemies/NEXT_ATT_PATTERN'}),
@@ -58,6 +60,8 @@ class PlayView extends Component {
     this.props.playerStatsCalculateStats()
     this.props.playerStatsEqualize('health')
     this.props.playerStatsEqualize('energy')
+    this.props.playViewPossibleActions(this.usableAbilities())
+    this.props.playViewSetEvent()
   }
 
   storyOutputStyle = {
@@ -281,6 +285,38 @@ class PlayView extends Component {
     return null
   }
 
+  handleStory = (action) => {
+    let {possibleActions, chosenEvent, posX, posY, map} = this.props.playView
+    let {playViewSetEvent, playViewPossibleActions, playViewUpdatePosition, enemyStatsSetEnemy, enemiesSetPattern, enemiesSetEnemyRNG} = this.props
+    let {usableAbilities} = this.props.abilities
+    let {enemyRNG} = this.props.enemies
+    let {eLocked} = this.props.enemyStats
+    playViewPossibleActions(usableAbilities)
+    let filteredEnemies = this.props.enemies.data.filter(i => i.eZoneId === map[posY][posX] + 2)
+    console.log(filteredEnemies)
+    if ((possibleActions.includes('north') || possibleActions.includes('east') ||
+        possibleActions.includes('west') || possibleActions.includes('south')) &&
+      (action === 'north' || action === 'east' || action === 'west' || action === 'south')) {
+      playViewUpdatePosition(action, this.props.areas.data)
+      playViewSetEvent()
+      playViewPossibleActions(usableAbilities)
+    }
+    if (chosenEvent === 'fight' && eLocked !== true) {
+      enemiesSetEnemyRNG(filteredEnemies.length)
+      enemyStatsSetEnemy(
+        filteredEnemies[enemyRNG].eName,
+        filteredEnemies[enemyRNG].eHealth,
+        filteredEnemies[enemyRNG].eMaxHealth,
+        filteredEnemies[enemyRNG].eSpeed,
+        filteredEnemies[enemyRNG].eAttackPowerMin,
+        filteredEnemies[enemyRNG].eAttackPowerMax,
+        filteredEnemies[enemyRNG].eAccuracy,
+        filteredEnemies[enemyRNG].aPattern,
+        filteredEnemies[enemyRNG].eExperience);
+      enemiesSetPattern(filteredEnemies[enemyRNG].aPattern);
+    }
+  }
+
   handleChoice = (choice) =>  {
     let {data, choiceEventRNG} = this.props.choiceEvents
     this.passiveEffects()
@@ -488,6 +524,13 @@ class PlayView extends Component {
   render() {
     return (
         <Col lg={6}>
+          <div>
+          {
+            this.props.playView.possibleActions.map(e =>
+              <button onClick={() => this.handleStory(e)} key={e}>{e}</button>
+            )
+          }
+          </div>
           {
             this.props.playerStats.pIsAlive === true ?
                 (
