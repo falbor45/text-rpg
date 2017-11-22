@@ -87,9 +87,7 @@ export default (state = initialState, action) => {
       if (state.chosenEvent === 'fight') {
         possibleActions = ['attack']
         for (let i = 0; i < usableAbilities.length; i++) {
-          for (let j = 0; j < usableAbilities[i].command.length; j++) {
-            possibleActions.push(usableAbilities[i].command[j]);
-          }
+            possibleActions.push(usableAbilities[i].command);
         }
       }
       if (state.chosenEvent === 'choiceEvent') {

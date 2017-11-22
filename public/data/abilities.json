@@ -14,7 +14,7 @@
       "agility": 0,
       "constitution": 0
     },
-    "command": ["heavy attack", "HA"],
+    "command": "heavy attack",
     "passive": false,
     "icon32": "http://lorempizza.com/32/32"
   },
@@ -51,7 +51,7 @@
       "agility": 0,
       "constitution": 0
     },
-    "command": ["fireball", "Fb"],
+    "command": "fireball",
     "passive": false,
     "icon32": "http://lorempizza.com/32/32"
   },
