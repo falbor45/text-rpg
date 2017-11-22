@@ -118,13 +118,14 @@ class PlayView extends Component {
 
   usableCommands = () => [].concat.apply([], (this.usableAbilities().map(i => i["command"]))).filter(i => i !== null)
 
-  hitTrade = () => {
+  hitTrade = (typeOfAtt) => {
     let {pMagicDamage, pSpeed, pBaseDodgeChance, pAttackPowerMax, pAttackPowerMin, pDamageReduction} = this.props.playerStats
     let {aPattern, eAccuracy, eSpeed, eAttackPowerMax, eAttackPowerMin} = this.props.enemyStats
+    let {pattern} = this.props.enemies
     let pDmgMod = 1
     let isSpell = null
-    if (this.props.playView.inputValue !== 'a' && this.props.playView.inputValue !== 'attack') {
-      let usedAbility = this.usableAbilities().filter(i => i.command !== null).filter(i => i.command.includes(this.props.playView.inputValue))
+    if (typeOfAtt !== 'a' && typeOfAtt !== 'attack') {
+      let usedAbility = this.usableAbilities().filter(i => i.command !== null).filter(i => i.command.includes(typeOfAtt))
       pDmgMod = usedAbility[0].dmgMod
       usedAbility[0].spell === true ? isSpell = true : isSpell = false
       this.props.playerStatsLoseEnergy(usedAbility[0].energyCost)
@@ -146,7 +147,10 @@ class PlayView extends Component {
     let eHitCalcR = Math.round((Math.random() * (eAttackPowerMax - eAttackPowerMin) + eAttackPowerMin) * (1 - (pDamageReduction / 100)) * (1 - (blockRedR / 100)))
     this.props.playView.battleLogOutput.push(`Turn ${this.state.turnCounter}:`)
     if (numberRoll1to100 >= dodgeThreshold || numberRoll1to100 === 100) {
-      let dodgeMessage = aPattern[this.props.enemies.aPatternI] === 'f' ? 'front' : aPattern[this.props.enemies.aPatternI] === 'r' ? 'right side' : aPattern[this.props.enemies.aPatternI] === 'l' ? 'left side' : null
+      let dodgeMessage = pattern[this.props.enemies.aPatternI] === 'f' ?
+        'front' : pattern[this.props.enemies.aPatternI] === 'r' ?
+          'right side' : pattern[this.props.enemies.aPatternI] === 'l' ?
+            'left side' : null
       this.props.playView.battleLogOutput.push(`You dodged an attack from the ${dodgeMessage}!`)
       this.props.playView.battleLogOutput.push(`You hit an enemy for ${isSpell === false || isSpell === null ? pHitCalc : isSpell === true ? pSpellCalc : null} damage!`)
       this.props.hitEnemy(isSpell === false || isSpell === null ? pHitCalc : isSpell === true ? pSpellCalc : null);
@@ -165,7 +169,7 @@ class PlayView extends Component {
         this.props.hitEnemy(isSpell === false || isSpell === null ? pHitCalc : isSpell === true ? pSpellCalc : null)
       }
       this.props.playView.battleLogOutput.push(`You hit an enemy for ${isSpell === false || isSpell === null ? pHitCalc : isSpell === true ? pSpellCalc : null} damage!`)
-      if (aPattern[this.props.enemies.aPatternI] === 'f') {
+      if (pattern[this.props.enemies.aPatternI] === 'f') {
         this.props.playerStatsLoseHealth(eHitCalcF)
         this.props.playView.battleLogOutput.push(`Enemy attacks you head on and deals ${eHitCalcF} damage!`)
         if (enemyDoubleAttack === true) {
@@ -174,7 +178,7 @@ class PlayView extends Component {
           this.props.playView.battleLogOutput.push(`Enemy strikes you second time for ${eHitCalcF} damage!`)
         }
       }
-      if (aPattern[this.props.enemies.aPatternI] === 'l') {
+      if (pattern[this.props.enemies.aPatternI] === 'l') {
         this.props.playerStatsLoseHealth(eHitCalcL)
         this.props.playView.battleLogOutput.push(`Enemy attacks you from the left side and deals ${eHitCalcL} damage!`)
         if (enemyDoubleAttack === true) {
@@ -183,7 +187,7 @@ class PlayView extends Component {
           this.props.playView.battleLogOutput.push(`Enemy strikes you second time for ${eHitCalcL} damage!`)
         }
       }
-      if (aPattern[this.props.enemies.aPatternI] === 'r') {
+      if (pattern[this.props.enemies.aPatternI] === 'r') {
         this.props.playerStatsLoseHealth(eHitCalcR)
         this.props.playView.battleLogOutput.push(`Enemy attacks you from the right side and deals ${eHitCalcR} damage!`)
         if (enemyDoubleAttack === true) {
@@ -291,6 +295,15 @@ class PlayView extends Component {
     let {usableAbilities} = this.props.abilities
     let {enemyRNG} = this.props.enemies
     let {eLocked} = this.props.enemyStats
+    let fightCommands = () => {
+      let base = this.usableAbilities()
+      let result = [];
+      for (let i = 0; i < base.length; i++) {
+        result.push(base[i].command);
+      }
+      result.push('attack');
+      return result;
+    }
     playViewPossibleActions(usableAbilities)
     let filteredEnemies = this.props.enemies.data.filter(i => i.eZoneId === map[posY][posX] + 2)
     console.log(filteredEnemies)
@@ -314,6 +327,9 @@ class PlayView extends Component {
         filteredEnemies[enemyRNG].aPattern,
         filteredEnemies[enemyRNG].eExperience);
       enemiesSetPattern(filteredEnemies[enemyRNG].aPattern);
+    }
+    if (chosenEvent === 'fight' && fightCommands().includes(action)) {
+      this.hitTrade(action)
     }
   }
 
