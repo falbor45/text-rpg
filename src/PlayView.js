@@ -43,6 +43,7 @@ export default connect(
       playViewForwardTime: () => dispatch({type: 'playView/FORWARD_TIME'}),
       playViewPossibleActions: (abilities) => dispatch({type: 'playView/POSSIBLE_ACTIONS', abilities}),
       playViewUpdatePosition: (direction, areas) => dispatch({type: 'playView/UPDATE_POSITION', direction, areas}),
+      playViewResetEvent: () => dispatch({ type: 'playView/RESET_EVENT'}),
       areasSetAreaRNG: () => dispatch({ type: 'areas/SET_AREA_RNG'}),
       enemiesSetEnemyRNG: (value) => dispatch({ type: 'enemies/SET_ENEMY_RNG', value}),
       enemiesNextAttPattern: () => dispatch({ type: 'enemies/NEXT_ATT_PATTERN'}),
@@ -290,47 +291,59 @@ class PlayView extends Component {
   }
 
   handleStory = (action) => {
-    let {possibleActions, chosenEvent, posX, posY, map} = this.props.playView
-    let {playViewSetEvent, playViewPossibleActions, playViewUpdatePosition, enemyStatsSetEnemy, enemiesSetPattern, enemiesSetEnemyRNG} = this.props
-    let {usableAbilities} = this.props.abilities
-    let {enemyRNG} = this.props.enemies
-    let {eLocked} = this.props.enemyStats
-    let fightCommands = () => {
-      let base = this.usableAbilities()
-      let result = [];
-      for (let i = 0; i < base.length; i++) {
-        result.push(base[i].command);
+      let {possibleActions, chosenEvent, posX, posY, map} = this.props.playView
+      let {playViewSetEvent, playViewPossibleActions, playViewUpdatePosition, enemyStatsSetEnemy, enemiesSetPattern, enemiesSetEnemyRNG} = this.props
+      let {usableAbilities} = this.props.abilities
+      let {enemyRNG} = this.props.enemies
+      let {eLocked} = this.props.enemyStats
+      let fightCommands = () => {
+        let base = this.usableAbilities()
+        let result = [];
+        for (let i = 0; i < base.length; i++) {
+          result.push(base[i].command);
+        }
+        result.push('attack');
+        return result;
       }
-      result.push('attack');
-      return result;
-    }
-    playViewPossibleActions(usableAbilities)
-    let filteredEnemies = this.props.enemies.data.filter(i => i.eZoneId === map[posY][posX] + 2)
-    console.log(filteredEnemies)
-    if ((possibleActions.includes('north') || possibleActions.includes('east') ||
-        possibleActions.includes('west') || possibleActions.includes('south')) &&
-      (action === 'north' || action === 'east' || action === 'west' || action === 'south')) {
-      playViewUpdatePosition(action, this.props.areas.data)
-      playViewSetEvent()
+      let filteredEnemies = this.props.enemies.data.filter(i => i.eZoneId === map[posY][posX] + 2)
+      console.log(filteredEnemies)
+      if ((possibleActions.includes('north') || possibleActions.includes('east') ||
+          possibleActions.includes('west') || possibleActions.includes('south')) &&
+        (action === 'north' || action === 'east' || action === 'west' || action === 'south')) {
+        playViewUpdatePosition(action, this.props.areas.data)
+        playViewSetEvent()
+      }
+      if (chosenEvent === 'fight' && eLocked !== true) {
+        enemiesSetEnemyRNG(filteredEnemies.length)
+        enemyStatsSetEnemy(
+          filteredEnemies[enemyRNG].eName,
+          filteredEnemies[enemyRNG].eHealth,
+          filteredEnemies[enemyRNG].eMaxHealth,
+          filteredEnemies[enemyRNG].eSpeed,
+          filteredEnemies[enemyRNG].eAttackPowerMin,
+          filteredEnemies[enemyRNG].eAttackPowerMax,
+          filteredEnemies[enemyRNG].eAccuracy,
+          filteredEnemies[enemyRNG].aPattern,
+          filteredEnemies[enemyRNG].eExperience);
+        enemiesSetPattern(filteredEnemies[enemyRNG].aPattern);
+      }
+      if (chosenEvent === 'fight' && fightCommands().includes(action)) {
+        this.hitTrade(action)
+      }
+      if (this.props.enemyStats.eHealth <= 0 && this.props.enemyStats.eHealth !== null) {
+        this.props.itemsChangeItemPending()
+        this.props.itemsSetCreatedItem(this.createItem())
+        this.props.enemyStatsHideEnemy()
+        this.props.playerStatsGainExperience(filteredEnemies[enemyRNG].eExperience)
+        this.props.playerStatsCalculateStats()
+        this.props.abilitiesFilterAbilities(this.usableAbilities(), this.usableCommands())
+        this.props.playViewResetEvent()
+      }
+      if (this.props.playerStats.pHealth <= 0) {
+        this.props.playerStatsKillPlayer()
+      }
       playViewPossibleActions(usableAbilities)
-    }
-    if (chosenEvent === 'fight' && eLocked !== true) {
-      enemiesSetEnemyRNG(filteredEnemies.length)
-      enemyStatsSetEnemy(
-        filteredEnemies[enemyRNG].eName,
-        filteredEnemies[enemyRNG].eHealth,
-        filteredEnemies[enemyRNG].eMaxHealth,
-        filteredEnemies[enemyRNG].eSpeed,
-        filteredEnemies[enemyRNG].eAttackPowerMin,
-        filteredEnemies[enemyRNG].eAttackPowerMax,
-        filteredEnemies[enemyRNG].eAccuracy,
-        filteredEnemies[enemyRNG].aPattern,
-        filteredEnemies[enemyRNG].eExperience);
-      enemiesSetPattern(filteredEnemies[enemyRNG].aPattern);
-    }
-    if (chosenEvent === 'fight' && fightCommands().includes(action)) {
-      this.hitTrade(action)
-    }
+      this.props.playViewForceUpdate()
   }
 
   handleChoice = (choice) =>  {
@@ -542,9 +555,10 @@ class PlayView extends Component {
         <Col lg={6}>
           <div>
           {
+            this.props.items.itemPending === false ?
             this.props.playView.possibleActions.map(e =>
               <button onClick={() => this.handleStory(e)} key={e}>{e}</button>
-            )
+            ) : null
           }
           </div>
           {
