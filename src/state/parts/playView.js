@@ -68,10 +68,18 @@ export default (state = initialState, action) => {
         inputValue: action.value
       }
     case 'playView/SET_EVENT':
-      let eventRNG = Math.floor(Math.random() * state.events.length)
+      // Possible choice event drop
+
+      // let eventRNG = Math.floor(Math.random() * state.events.length)
       return {
         ...state,
-        chosenEvent: state.events[eventRNG]
+        // chosenEvent: state.events[eventRNG]
+        chosenEvent: 'fight'
+      }
+    case 'playView/RESET_EVENT':
+      return {
+        ...state,
+        chosenEvent: null
       }
     case 'playView/SET_STORY_OUTPUT':
       return {
@@ -129,7 +137,7 @@ export default (state = initialState, action) => {
         posX -= 1;
       }
       if (state.map[posY][posX] !== previousArea) {
-        storyOutput.push(action.areas[state.map[posY][posX]])
+        storyOutput.push(action.areas[state.map[posY][posX] + 2].description)
       }
       console.log(posY, posX)
       return {
