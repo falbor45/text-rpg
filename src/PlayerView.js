@@ -232,9 +232,6 @@ export default connect (
                               {i.name}
                             </div>
                             <div>{i.energyCost} Energy</div>
-                            <div>
-                              Commands: {i.command.join(', ')}
-                            </div>
                             <br/>
                             <div>
                               {i.description}
