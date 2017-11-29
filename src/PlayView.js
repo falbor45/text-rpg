@@ -289,59 +289,65 @@ class PlayView extends Component {
     }
     return null
   }
+  handleFight = (action) => {
+    let {chosenEvent, posX, posY, map} = this.props.playView
+    let {enemyRNG} = this.props.enemies
+    let {eLocked} = this.props.enemyStats
+    let {enemyStatsSetEnemy, enemiesSetPattern, enemiesSetEnemyRNG} = this.props
+    let filteredEnemies = this.props.enemies.data.filter(i => i.eZoneId === map[posY][posX] + 2)
+    let fightCommands = () => {
+      let base = this.usableAbilities()
+      let result = [];
+      for (let i = 0; i < base.length; i++) {
+        result.push(base[i].command);
+      }
+      result.push('attack');
+      return result;
+    }
+    if (chosenEvent === 'fight' && eLocked !== true) {
+      enemiesSetEnemyRNG(filteredEnemies.length)
+      enemyStatsSetEnemy(
+        filteredEnemies[enemyRNG].eName,
+        filteredEnemies[enemyRNG].eHealth,
+        filteredEnemies[enemyRNG].eMaxHealth,
+        filteredEnemies[enemyRNG].eSpeed,
+        filteredEnemies[enemyRNG].eAttackPowerMin,
+        filteredEnemies[enemyRNG].eAttackPowerMax,
+        filteredEnemies[enemyRNG].eAccuracy,
+        filteredEnemies[enemyRNG].aPattern,
+        filteredEnemies[enemyRNG].eExperience);
+      enemiesSetPattern(filteredEnemies[enemyRNG].aPattern);
+    }
+    if (chosenEvent === 'fight' && fightCommands().includes(action)) {
+      this.hitTrade(action)
+    }
+    if (this.props.enemyStats.eHealth <= 0 && this.props.enemyStats.eHealth !== null) {
+      this.props.itemsChangeItemPending()
+      this.props.itemsSetCreatedItem(this.createItem())
+      this.props.enemyStatsHideEnemy()
+      this.props.playerStatsGainExperience(filteredEnemies[enemyRNG].eExperience)
+      this.props.playerStatsCalculateStats()
+      this.props.abilitiesFilterAbilities(this.usableAbilities(), this.usableCommands())
+      this.props.playViewResetEvent()
+    }
+    if (this.props.playerStats.pHealth <= 0) {
+      this.props.playerStatsKillPlayer()
+    }
+  }
 
   handleStory = (action) => {
-      let {possibleActions, chosenEvent, posX, posY, map} = this.props.playView
-      let {playViewSetEvent, playViewPossibleActions, playViewUpdatePosition, enemyStatsSetEnemy, enemiesSetPattern, enemiesSetEnemyRNG} = this.props
+      let {possibleActions} = this.props.playView
+      let {playViewSetEvent, playViewPossibleActions, playViewUpdatePosition} = this.props
       let {usableAbilities} = this.props.abilities
-      let {enemyRNG} = this.props.enemies
-      let {eLocked} = this.props.enemyStats
-      let fightCommands = () => {
-        let base = this.usableAbilities()
-        let result = [];
-        for (let i = 0; i < base.length; i++) {
-          result.push(base[i].command);
-        }
-        result.push('attack');
-        return result;
-      }
-      let filteredEnemies = this.props.enemies.data.filter(i => i.eZoneId === map[posY][posX] + 2)
-      console.log(filteredEnemies)
       if ((possibleActions.includes('north') || possibleActions.includes('east') ||
           possibleActions.includes('west') || possibleActions.includes('south')) &&
         (action === 'north' || action === 'east' || action === 'west' || action === 'south')) {
         playViewUpdatePosition(action, this.props.areas.data)
         playViewSetEvent()
       }
-      if (chosenEvent === 'fight' && eLocked !== true) {
-        enemiesSetEnemyRNG(filteredEnemies.length)
-        enemyStatsSetEnemy(
-          filteredEnemies[enemyRNG].eName,
-          filteredEnemies[enemyRNG].eHealth,
-          filteredEnemies[enemyRNG].eMaxHealth,
-          filteredEnemies[enemyRNG].eSpeed,
-          filteredEnemies[enemyRNG].eAttackPowerMin,
-          filteredEnemies[enemyRNG].eAttackPowerMax,
-          filteredEnemies[enemyRNG].eAccuracy,
-          filteredEnemies[enemyRNG].aPattern,
-          filteredEnemies[enemyRNG].eExperience);
-        enemiesSetPattern(filteredEnemies[enemyRNG].aPattern);
-      }
-      if (chosenEvent === 'fight' && fightCommands().includes(action)) {
-        this.hitTrade(action)
-      }
-      if (this.props.enemyStats.eHealth <= 0 && this.props.enemyStats.eHealth !== null) {
-        this.props.itemsChangeItemPending()
-        this.props.itemsSetCreatedItem(this.createItem())
-        this.props.enemyStatsHideEnemy()
-        this.props.playerStatsGainExperience(filteredEnemies[enemyRNG].eExperience)
-        this.props.playerStatsCalculateStats()
-        this.props.abilitiesFilterAbilities(this.usableAbilities(), this.usableCommands())
-        this.props.playViewResetEvent()
-      }
-      if (this.props.playerStats.pHealth <= 0) {
-        this.props.playerStatsKillPlayer()
-      }
+      setTimeout(() => {
+        this.handleFight(action)
+      }, 0)
       playViewPossibleActions(usableAbilities)
       this.props.playViewForceUpdate()
   }
