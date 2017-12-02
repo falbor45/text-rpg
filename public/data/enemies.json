@@ -13,7 +13,7 @@
     "eExperience": 1
   },
   {
-    "id": 1,
+    "id": 2,
     "eName": "a rat",
     "eZoneId": 1,
     "eHealth": 4,
@@ -26,7 +26,7 @@
     "eExperience": 1
   },
   {
-    "id": 1,
+    "id": 3,
     "eName": "a barbarian",
     "eZoneId": 2,
     "eHealth": 400,
@@ -39,7 +39,7 @@
     "eExperience": 100
   },
   {
-    "id": 1,
+    "id": 4,
     "eName": "a barbarian",
     "eZoneId": 2,
     "eHealth": 380,
@@ -52,7 +52,7 @@
     "eExperience": 100
   },
   {
-    "id": 1,
+    "id": 5,
     "eName": "a barbarian",
     "eZoneId": 2,
     "eHealth": 360,
@@ -65,7 +65,7 @@
     "eExperience": 100
   },
   {
-    "id": 1,
+    "id": 6,
     "eName": "a barbarian chieftain",
     "eZoneId": 2,
     "eHealth": 800,
@@ -78,7 +78,7 @@
     "eExperience": 200
   },
   {
-    "id": 1,
+    "id": 7,
     "eName": "a rat",
     "eZoneId": 2,
     "eHealth": 9,
@@ -91,7 +91,7 @@
     "eExperience": 1
   },
   {
-    "id": 1,
+    "id": 8,
     "eName": "a crab",
     "eZoneId": 3,
     "eHealth": 30,
@@ -104,7 +104,7 @@
     "eExperience": 1
   },
   {
-    "id": 1,
+    "id": 9,
     "eName": "a soulless body",
     "eZoneId": 3,
     "eHealth": 45,
@@ -117,7 +117,7 @@
     "eExperience": 1
   },
   {
-    "id": 1,
+    "id": 10,
     "eName": "a bear cub",
     "eZoneId": 4,
     "eHealth": 20,
@@ -130,7 +130,7 @@
     "eExperience": 2
   },
   {
-    "id": 1,
+    "id": 11,
     "eName": "a snake",
     "eZoneId": 4,
     "eHealth": 30,
@@ -143,7 +143,7 @@
     "eExperience": 3
   },
   {
-    "id": 1,
+    "id": 12,
     "eName": "a wolf",
     "eZoneId": 4,
     "eHealth": 60,
@@ -156,7 +156,7 @@
     "eExperience": 4
   },
   {
-    "id": 1,
+    "id": 13,
     "eName": "a bear",
     "eZoneId": 4,
     "eHealth": 80,
@@ -169,7 +169,7 @@
     "eExperience": 5
   },
   {
-    "id": 1,
+    "id": 14,
     "eName": "a crocodile",
     "eZoneId": 4,
     "eHealth": 120,
@@ -182,7 +182,7 @@
     "eExperience": 5
   },
   {
-    "id": 1,
+    "id": 15,
     "eName": "a grizzly bear(b)",
     "eZoneId": 4,
     "eHealth": 200,
@@ -195,7 +195,7 @@
     "eExperience": 20
   },
   {
-    "id": 1,
+    "id": 16,
     "eName": "a bat",
     "eZoneId": 5,
     "eHealth": 20,
@@ -208,7 +208,7 @@
     "eExperience": 1
   },
   {
-    "id": 1,
+    "id": 17,
     "eName": "a spider",
     "eZoneId": 6,
     "eHealth": 50,
@@ -221,7 +221,7 @@
     "eExperience": 3
   },
   {
-    "id": 1,
+    "id": 18,
     "eName": "a black spider",
     "eZoneId": 6,
     "eHealth": 70,
@@ -234,7 +234,7 @@
     "eExperience": 5
   },
   {
-    "id": 1,
+    "id": 19,
     "eName": "a tarantula",
     "eZoneId": 6,
     "eHealth": 120,
@@ -247,7 +247,7 @@
     "eExperience": 8
   },
   {
-    "id": 1,
+    "id": 20,
     "eName": "a crazed shaman",
     "eZoneId": 7,
     "eHealth": 10,
@@ -260,7 +260,7 @@
     "eExperience": 0
   },
   {
-    "id": 1,
+    "id": 21,
     "eName": "a snake",
     "eZoneId": 7,
     "eHealth": 60,
@@ -273,7 +273,7 @@
     "eExperience": 4
   },
   {
-    "id": 1,
+    "id": 22,
     "eName": "a cave goblin",
     "eZoneId": 7,
     "eHealth": 190,
@@ -286,7 +286,7 @@
     "eExperience": 5
   },
   {
-    "id": 1,
+    "id": 23,
     "eName": "a bear",
     "eZoneId": 7,
     "eHealth": 100,
@@ -299,7 +299,7 @@
     "eExperience": 7
   },
   {
-    "id": 1,
+    "id": 24,
     "eName": "a tiger",
     "eZoneId": 7,
     "eHealth": 180,
@@ -312,7 +312,7 @@
     "eExperience": 16
   },
   {
-    "id": 1,
+    "id": 25,
     "eName": "a troll",
     "eZoneId": 7,
     "eHealth": 200,
@@ -325,7 +325,7 @@
     "eExperience": 18
   },
   {
-    "id": 1,
+    "id": 26,
     "eName": "a cobra",
     "eZoneId": 8,
     "eHealth": 200,
@@ -338,7 +338,7 @@
     "eExperience": 20
   },
   {
-    "id": 1,
+    "id": 27,
     "eName": "a scorpion",
     "eZoneId": 8,
     "eHealth": 150,
@@ -351,7 +351,7 @@
     "eExperience": 20
   },
   {
-    "id": 1,
+    "id": 28,
     "eName": "a grave scorpion",
     "eZoneId": 8,
     "eHealth": 150,
@@ -364,7 +364,7 @@
     "eExperience": 25
   },
   {
-    "id": 1,
+    "id": 29,
     "eName": "a soulless body",
     "eZoneId": 8,
     "eHealth": 200,
@@ -377,7 +377,7 @@
     "eExperience": 25
   },
   {
-    "id": 1,
+    "id": 30,
     "eName": "a posion scorpion",
     "eZoneId": 8,
     "eHealth": 165,
@@ -390,7 +390,7 @@
     "eExperience": 30
   },
   {
-    "id": 1,
+    "id": 31,
     "eName": "a skeleton",
     "eZoneId": 8,
     "eHealth": 300,
@@ -403,7 +403,7 @@
     "eExperience": 30
   },
   {
-    "id": 1,
+    "id": 32,
     "eName": "a vulture",
     "eZoneId": 8,
     "eHealth": 300,
@@ -416,7 +416,7 @@
     "eExperience": 35
   },
   {
-    "id": 1,
+    "id": 33,
     "eName": "a skeleton archer",
     "eZoneId": 8,
     "eHealth": 300,
@@ -429,7 +429,7 @@
     "eExperience": 38
   },
   {
-    "id": 1,
+    "id": 34,
     "eName": "a rabid dog",
     "eZoneId": 8,
     "eHealth": 150,
@@ -442,7 +442,7 @@
     "eExperience": 40
   },
   {
-    "id": 1,
+    "id": 35,
     "eName": "a skeleton warrior",
     "eZoneId": 8,
     "eHealth": 500,
@@ -455,7 +455,7 @@
     "eExperience": 44
   },
   {
-    "id": 1,
+    "id": 36,
     "eName": "a mummy",
     "eZoneId": 8,
     "eHealth": 600,
@@ -468,7 +468,7 @@
     "eExperience": 50
   },
   {
-    "id": 1,
+    "id": 37,
     "eName": "a desert slime",
     "eZoneId": 8,
     "eHealth": 1200,
@@ -481,7 +481,7 @@
     "eExperience": 65
   },
   {
-    "id": 1,
+    "id": 38,
     "eName": "a slime",
     "eZoneId": 9,
     "eHealth": 400,
@@ -494,7 +494,7 @@
     "eExperience": 120
   },
   {
-    "id": 1,
+    "id": 39,
     "eName": "a skeleton",
     "eZoneId": 9,
     "eHealth": 1400,
@@ -507,7 +507,7 @@
     "eExperience": 190
   },
   {
-    "id": 1,
+    "id": 40,
     "eName": "a skeleton archer",
     "eZoneId": 9,
     "eHealth": 1400,
@@ -520,7 +520,7 @@
     "eExperience": 210
   },
   {
-    "id": 1,
+    "id": 41,
     "eName": "a black slime",
     "eZoneId": 9,
     "eHealth": 1800,
@@ -533,7 +533,7 @@
     "eExperience": 220
   },
   {
-    "id": 1,
+    "id": 42,
     "eName": "a skeleton warrior",
     "eZoneId": 9,
     "eHealth": 2000,
@@ -546,7 +546,7 @@
     "eExperience": 250
   },
   {
-    "id": 1,
+    "id": 43,
     "eName": "a ghost",
     "eZoneId": 9,
     "eHealth": 2000,
@@ -559,7 +559,7 @@
     "eExperience": 260
   },
   {
-    "id": 1,
+    "id": 44,
     "eName": "a spectre",
     "eZoneId": 9,
     "eHealth": 2500,
@@ -572,7 +572,7 @@
     "eExperience": 280
   },
   {
-    "id": 1,
+    "id": 45,
     "eName": "a skeleton warlock",
     "eZoneId": 9,
     "eHealth": 1800,
@@ -585,7 +585,7 @@
     "eExperience": 290
   },
   {
-    "id": 1,
+    "id": 46,
     "eName": "a banshee",
     "eZoneId": 9,
     "eHealth": 2800,
@@ -598,7 +598,7 @@
     "eExperience": 320
   },
   {
-    "id": 1,
+    "id": 47,
     "eName": "a skeleton revenant",
     "eZoneId": 9,
     "eHealth": 4500,
@@ -611,7 +611,7 @@
     "eExperience": 450
   },
   {
-    "id": 1,
+    "id": 48,
     "eName": "a blue dragonling",
     "eZoneId": 10,
     "eHealth": 400,
@@ -624,7 +624,7 @@
     "eExperience": 20
   },
   {
-    "id": 1,
+    "id": 49,
     "eName": "a wolf",
     "eZoneId": 10,
     "eHealth": 280,
@@ -637,7 +637,7 @@
     "eExperience": 55
   },
   {
-    "id": 1,
+    "id": 50,
     "eName": "a goblin",
     "eZoneId": 10,
     "eHealth": 390,
@@ -650,7 +650,7 @@
     "eExperience": 60
   },
   {
-    "id": 1,
+    "id": 51,
     "eName": "a cave goblin",
     "eZoneId": 10,
     "eHealth": 420,
@@ -663,7 +663,7 @@
     "eExperience": 70
   },
   {
-    "id": 1,
+    "id": 52,
     "eName": "a air elemental",
     "eZoneId": 10,
     "eHealth": 800,
@@ -676,7 +676,7 @@
     "eExperience": 78
   },
   {
-    "id": 1,
+    "id": 53,
     "eName": "a giant",
     "eZoneId": 10,
     "eHealth": 1000,
@@ -689,7 +689,7 @@
     "eExperience": 80
   },
   {
-    "id": 1,
+    "id": 54,
     "eName": "a direwolf",
     "eZoneId": 10,
     "eHealth": 750,
@@ -702,7 +702,7 @@
     "eExperience": 90
   },
   {
-    "id": 1,
+    "id": 55,
     "eName": "a cyclops",
     "eZoneId": 10,
     "eHealth": 1000,
@@ -715,7 +715,7 @@
     "eExperience": 100
   },
   {
-    "id": 1,
+    "id": 56,
     "eName": "a earth elemental",
     "eZoneId": 10,
     "eHealth": 1200,
@@ -728,7 +728,7 @@
     "eExperience": 100
   },
   {
-    "id": 1,
+    "id": 57,
     "eName": "a medusa",
     "eZoneId": 10,
     "eHealth": 600,
@@ -741,7 +741,7 @@
     "eExperience": 120
   },
   {
-    "id": 1,
+    "id": 58,
     "eName": "a wyvern",
     "eZoneId": 10,
     "eHealth": 1800,
@@ -754,7 +754,7 @@
     "eExperience": 190
   },
   {
-    "id": 1,
+    "id": 59,
     "eName": "a blue dragon",
     "eZoneId": 10,
     "eHealth": 2200,
@@ -767,7 +767,7 @@
     "eExperience": 250
   },
   {
-    "id": 1,
+    "id": 60,
     "eName": "a vulture",
     "eZoneId": 11,
     "eHealth": 1500,
@@ -780,7 +780,7 @@
     "eExperience": 200
   },
   {
-    "id": 1,
+    "id": 61,
     "eName": "a hyena",
     "eZoneId": 11,
     "eHealth": 1400,
@@ -793,7 +793,7 @@
     "eExperience": 220
   },
   {
-    "id": 1,
+    "id": 62,
     "eName": "a lion",
     "eZoneId": 11,
     "eHealth": 2400,
@@ -806,7 +806,7 @@
     "eExperience": 250
   },
   {
-    "id": 1,
+    "id": 63,
     "eName": "a tiger",
     "eZoneId": 11,
     "eHealth": 1900,
@@ -819,7 +819,7 @@
     "eExperience": 250
   },
   {
-    "id": 1,
+    "id": 64,
     "eName": "a soulless body",
     "eZoneId": 12,
     "eHealth": 1200,
@@ -832,7 +832,7 @@
     "eExperience": 10
   },
   {
-    "id": 1,
+    "id": 65,
     "eName": "a rat",
     "eZoneId": 12,
     "eHealth": 400,
@@ -845,7 +845,7 @@
     "eExperience": 20
   },
   {
-    "id": 1,
+    "id": 66,
     "eName": "a bat",
     "eZoneId": 12,
     "eHealth": 400,
@@ -858,7 +858,7 @@
     "eExperience": 20
   },
   {
-    "id": 1,
+    "id": 67,
     "eName": "a giant rat",
     "eZoneId": 12,
     "eHealth": 1200,
@@ -871,7 +871,7 @@
     "eExperience": 160
   },
   {
-    "id": 1,
+    "id": 68,
     "eName": "a skeleton",
     "eZoneId": 12,
     "eHealth": 2000,
@@ -884,7 +884,7 @@
     "eExperience": 220
   },
   {
-    "id": 1,
+    "id": 69,
     "eName": "a skeleton archer",
     "eZoneId": 12,
     "eHealth": 2000,
@@ -897,7 +897,7 @@
     "eExperience": 240
   },
   {
-    "id": 1,
+    "id": 70,
     "eName": "a skeleton warrior",
     "eZoneId": 12,
     "eHealth": 3500,
@@ -910,7 +910,7 @@
     "eExperience": 260
   },
   {
-    "id": 1,
+    "id": 71,
     "eName": "a cave slime",
     "eZoneId": 12,
     "eHealth": 8000,
@@ -923,7 +923,7 @@
     "eExperience": 290
   },
   {
-    "id": 1,
+    "id": 72,
     "eName": "a scarab",
     "eZoneId": 12,
     "eHealth": 2000,
@@ -936,7 +936,7 @@
     "eExperience": 290
   },
   {
-    "id": 1,
+    "id": 73,
     "eName": "a skeleton warlock",
     "eZoneId": 12,
     "eHealth": 3000,
@@ -949,7 +949,7 @@
     "eExperience": 320
   },
   {
-    "id": 1,
+    "id": 74,
     "eName": "a ghoul",
     "eZoneId": 12,
     "eHealth": 3500,
@@ -962,7 +962,7 @@
     "eExperience": 320
   },
   {
-    "id": 1,
+    "id": 75,
     "eName": "a animated armour",
     "eZoneId": 12,
     "eHealth": 4000,
@@ -975,7 +975,7 @@
     "eExperience": 350
   },
   {
-    "id": 1,
+    "id": 76,
     "eName": "a ghast",
     "eZoneId": 12,
     "eHealth": 4200,
@@ -988,7 +988,7 @@
     "eExperience": 350
   },
   {
-    "id": 1,
+    "id": 77,
     "eName": "a banshee",
     "eZoneId": 12,
     "eHealth": 3200,
@@ -1001,7 +1001,7 @@
     "eExperience": 360
   },
   {
-    "id": 1,
+    "id": 78,
     "eName": "a necromancer",
     "eZoneId": 12,
     "eHealth": 3000,
@@ -1014,7 +1014,7 @@
     "eExperience": 380
   },
   {
-    "id": 1,
+    "id": 79,
     "eName": "a black wizard",
     "eZoneId": 12,
     "eHealth": 3200,
@@ -1027,7 +1027,7 @@
     "eExperience": 400
   },
   {
-    "id": 1,
+    "id": 80,
     "eName": "a spectre",
     "eZoneId": 12,
     "eHealth": 4000,
@@ -1040,7 +1040,7 @@
     "eExperience": 400
   },
   {
-    "id": 1,
+    "id": 81,
     "eName": "a ghost",
     "eZoneId": 13,
     "eHealth": 3000,
@@ -1053,7 +1053,7 @@
     "eExperience": 450
   },
   {
-    "id": 1,
+    "id": 82,
     "eName": "a shadow spider",
     "eZoneId": 13,
     "eHealth": 4000,
@@ -1066,7 +1066,7 @@
     "eExperience": 450
   },
   {
-    "id": 1,
+    "id": 83,
     "eName": "a mummy",
     "eZoneId": 13,
     "eHealth": 3200,
@@ -1079,7 +1079,7 @@
     "eExperience": 490
   },
   {
-    "id": 1,
+    "id": 84,
     "eName": "a skeleton revenant",
     "eZoneId": 13,
     "eHealth": 6200,
@@ -1092,7 +1092,7 @@
     "eExperience": 500
   },
   {
-    "id": 1,
+    "id": 85,
     "eName": "a lesser demon",
     "eZoneId": 13,
     "eHealth": 5000,
@@ -1105,7 +1105,7 @@
     "eExperience": 500
   },
   {
-    "id": 1,
+    "id": 86,
     "eName": "a zombie",
     "eZoneId": 13,
     "eHealth": 7500,
@@ -1118,7 +1118,7 @@
     "eExperience": 500
   },
   {
-    "id": 1,
+    "id": 87,
     "eName": "a bloodworm",
     "eZoneId": 13,
     "eHealth": 8500,
@@ -1131,7 +1131,7 @@
     "eExperience": 590
   },
   {
-    "id": 1,
+    "id": 88,
     "eName": "a stone gargoyle",
     "eZoneId": 13,
     "eHealth": 6700,
@@ -1144,7 +1144,7 @@
     "eExperience": 590
   },
   {
-    "id": 1,
+    "id": 89,
     "eName": "a hellhound",
     "eZoneId": 14,
     "eHealth": 10000,
@@ -1157,7 +1157,7 @@
     "eExperience": 950
   },
   {
-    "id": 1,
+    "id": 90,
     "eName": "a demon",
     "eZoneId": 14,
     "eHealth": 12000,
@@ -1170,7 +1170,7 @@
     "eExperience": 1000
   },
   {
-    "id": 1,
+    "id": 91,
     "eName": "a air elemental",
     "eZoneId": 15,
     "eHealth": 3000,
@@ -1183,7 +1183,7 @@
     "eExperience": 400
   },
   {
-    "id": 1,
+    "id": 92,
     "eName": "a black wizard",
     "eZoneId": 15,
     "eHealth": 2900,
@@ -1196,7 +1196,7 @@
     "eExperience": 700
   },
   {
-    "id": 1,
+    "id": 93,
     "eName": "a earth elemental",
     "eZoneId": 15,
     "eHealth": 12000,
@@ -1209,7 +1209,7 @@
     "eExperience": 400
   },
   {
-    "id": 1,
+    "id": 94,
     "eName": "a fire elemental",
     "eZoneId": 15,
     "eHealth": 4000,
@@ -1222,7 +1222,7 @@
     "eExperience": 400
   },
   {
-    "id": 1,
+    "id": 95,
     "eName": "a giant rat",
     "eZoneId": 15,
     "eHealth": 1200,
@@ -1235,7 +1235,7 @@
     "eExperience": 40
   },
   {
-    "id": 1,
+    "id": 96,
     "eName": "a greater demon",
     "eZoneId": 15,
     "eHealth": 16000,
@@ -1248,7 +1248,7 @@
     "eExperience": 4000
   },
   {
-    "id": 1,
+    "id": 97,
     "eName": "a lesser demon",
     "eZoneId": 15,
     "eHealth": 6000,
@@ -1261,7 +1261,7 @@
     "eExperience": 600
   },
   {
-    "id": 1,
+    "id": 98,
     "eName": "a water elemental",
     "eZoneId": 15,
     "eHealth": 8000,
@@ -1274,7 +1274,7 @@
     "eExperience": 450
   },
   {
-    "id": 1,
+    "id": 99,
     "eName": "a wizard",
     "eZoneId": 15,
     "eHealth": 2900,
@@ -1287,7 +1287,7 @@
     "eExperience": 600
   },
   {
-    "id": 1,
+    "id": 100,
     "eName": "a demon",
     "eZoneId": 15,
     "eHealth": 12000,
@@ -1300,7 +1300,7 @@
     "eExperience": 1000
   },
   {
-    "id": 1,
+    "id": 101,
     "eName": "a air elemental",
     "eZoneId": 16,
     "eHealth": 4000,
@@ -1313,7 +1313,7 @@
     "eExperience": 490
   },
   {
-    "id": 1,
+    "id": 102,
     "eName": "a black dragon",
     "eZoneId": 16,
     "eHealth": 10000,
@@ -1326,7 +1326,7 @@
     "eExperience": 560
   },
   {
-    "id": 1,
+    "id": 103,
     "eName": "a black dragonling",
     "eZoneId": 16,
     "eHealth": 5000,
@@ -1339,7 +1339,7 @@
     "eExperience": 230
   },
   {
-    "id": 1,
+    "id": 104,
     "eName": "a blue dragon",
     "eZoneId": 16,
     "eHealth": 9200,
@@ -1352,7 +1352,7 @@
     "eExperience": 520
   },
   {
-    "id": 1,
+    "id": 105,
     "eName": "a blue dragonling",
     "eZoneId": 16,
     "eHealth": 4600,
@@ -1365,7 +1365,7 @@
     "eExperience": 260
   },
   {
-    "id": 1,
+    "id": 106,
     "eName": "a green dragon",
     "eZoneId": 16,
     "eHealth": 8500,
@@ -1378,7 +1378,7 @@
     "eExperience": 500
   },
   {
-    "id": 1,
+    "id": 107,
     "eName": "a green dragonling",
     "eZoneId": 16,
     "eHealth": 4250,
@@ -1391,7 +1391,7 @@
     "eExperience": 250
   },
   {
-    "id": 1,
+    "id": 108,
     "eName": "a red dragon",
     "eZoneId": 16,
     "eHealth": 9700,
@@ -1404,7 +1404,7 @@
     "eExperience": 540
   },
   {
-    "id": 1,
+    "id": 109,
     "eName": "a red dragonling",
     "eZoneId": 16,
     "eHealth": 4850,
@@ -1417,7 +1417,7 @@
     "eExperience": 270
   },
   {
-    "id": 1,
+    "id": 110,
     "eName": "a bronze dragon",
     "eZoneId": 17,
     "eHealth": 22000,
@@ -1430,7 +1430,7 @@
     "eExperience": 800
   },
   {
-    "id": 1,
+    "id": 111,
     "eName": "a iron dragon",
     "eZoneId": 17,
     "eHealth": 22000,
@@ -1443,7 +1443,7 @@
     "eExperience": 800
   },
   {
-    "id": 1,
+    "id": 112,
     "eName": "a mithril dragon",
     "eZoneId": 17,
     "eHealth": 22000,
@@ -1456,7 +1456,7 @@
     "eExperience": 800
   },
   {
-    "id": 1,
+    "id": 113,
     "eName": "a steel dragon",
     "eZoneId": 17,
     "eHealth": 22000,
@@ -1469,7 +1469,7 @@
     "eExperience": 800
   },
   {
-    "id": 1,
+    "id": 114,
     "eName": "a ice giant",
     "eZoneId": 19,
     "eHealth": 6000,
@@ -1482,7 +1482,7 @@
     "eExperience": 320
   },
   {
-    "id": 1,
+    "id": 115,
     "eName": "a ice spider",
     "eZoneId": 19,
     "eHealth": 4900,
@@ -1495,7 +1495,7 @@
     "eExperience": 340
   },
   {
-    "id": 1,
+    "id": 116,
     "eName": "a wate elemental",
     "eZoneId": 19,
     "eHealth": 7000,
@@ -1508,7 +1508,7 @@
     "eExperience": 350
   },
   {
-    "id": 1,
+    "id": 117,
     "eName": "a white wolf",
     "eZoneId": 19,
     "eHealth": 2500,
@@ -1521,7 +1521,7 @@
     "eExperience": 250
   },
   {
-    "id": 1,
+    "id": 118,
     "eName": "a pixie",
     "eZoneId": 20,
     "eHealth": 5000,
@@ -1534,7 +1534,7 @@
     "eExperience": 400
   },
   {
-    "id": 1,
+    "id": 119,
     "eName": "a shapeshifter",
     "eZoneId": 20,
     "eHealth": 6700,
@@ -1547,7 +1547,7 @@
     "eExperience": 600
   },
   {
-    "id": 1,
+    "id": 120,
     "eName": "a shining dust",
     "eZoneId": 20,
     "eHealth": 2800,
@@ -1560,7 +1560,7 @@
     "eExperience": 200
   },
   {
-    "id": 1,
+    "id": 121,
     "eName": "a witch",
     "eZoneId": 20,
     "eHealth": 12000,
@@ -1573,7 +1573,7 @@
     "eExperience": 800
   },
   {
-    "id": 1,
+    "id": 122,
     "eName": "a banshee",
     "eZoneId": 21,
     "eHealth": 8000,
@@ -1586,7 +1586,7 @@
     "eExperience": 900
   },
   {
-    "id": 1,
+    "id": 123,
     "eName": "a basilisk",
     "eZoneId": 21,
     "eHealth": 4000,
@@ -1599,7 +1599,7 @@
     "eExperience": 950
   },
   {
-    "id": 1,
+    "id": 124,
     "eName": "a black wizard",
     "eZoneId": 21,
     "eHealth": 6500,
@@ -1612,7 +1612,7 @@
     "eExperience": 1200
   },
   {
-    "id": 1,
+    "id": 125,
     "eName": "a druid",
     "eZoneId": 21,
     "eHealth": 6500,
@@ -1625,7 +1625,7 @@
     "eExperience": 1100
   },
   {
-    "id": 1,
+    "id": 126,
     "eName": "a ghost",
     "eZoneId": 21,
     "eHealth": 8000,
@@ -1638,7 +1638,7 @@
     "eExperience": 850
   },
   {
-    "id": 1,
+    "id": 127,
     "eName": "a hobgoblin",
     "eZoneId": 21,
     "eHealth": 2000,
@@ -1651,7 +1651,7 @@
     "eExperience": 30
   },
   {
-    "id": 1,
+    "id": 128,
     "eName": "a red spider",
     "eZoneId": 21,
     "eHealth": 2600,
@@ -1664,7 +1664,7 @@
     "eExperience": 800
   },
   {
-    "id": 1,
+    "id": 129,
     "eName": "a slime",
     "eZoneId": 21,
     "eHealth": 1500,
@@ -1677,7 +1677,7 @@
     "eExperience": 20
   },
   {
-    "id": 1,
+    "id": 130,
     "eName": "a soulless body",
     "eZoneId": 21,
     "eHealth": 1500,
@@ -1690,7 +1690,7 @@
     "eExperience": 30
   },
   {
-    "id": 1,
+    "id": 131,
     "eName": "a wizard",
     "eZoneId": 21,
     "eHealth": 6500,
@@ -1703,7 +1703,7 @@
     "eExperience": 1000
   },
   {
-    "id": 1,
+    "id": 132,
     "eName": "a wolf",
     "eZoneId": 21,
     "eHealth": 1200,
@@ -1716,7 +1716,7 @@
     "eExperience": 10
   },
   {
-    "id": 1,
+    "id": 133,
     "eName": "a abyssal walker",
     "eZoneId": 22,
     "eHealth": 80000,
@@ -1729,7 +1729,7 @@
     "eExperience": 10000
   },
   {
-    "id": 1,
+    "id": 134,
     "eName": "a death dancer",
     "eZoneId": 22,
     "eHealth": 160000,
@@ -1742,7 +1742,7 @@
     "eExperience": 120000
   },
   {
-    "id": 1,
+    "id": 135,
     "eName": "a void spawn",
     "eZoneId": 22,
     "eHealth": 20000,
