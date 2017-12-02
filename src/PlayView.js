@@ -221,6 +221,9 @@ class PlayView extends Component {
     }
     this.passiveEffects()
     if (chosenEvent === 'fight' && eLocked !== true) {
+      this.setState({
+        viewedTab: 'battleLog'
+      })
       enemiesSetEnemyRNG(filteredEnemies.length)
       enemyStatsSetEnemy(
         filteredEnemies[enemyRNG].eName,
@@ -238,6 +241,9 @@ class PlayView extends Component {
       this.hitTrade(action)
     }
     if (this.props.enemyStats.eHealth <= 0 && this.props.enemyStats.eHealth !== null) {
+      this.setState({
+        viewedTab: 'exploration'
+      })
       this.props.itemsChangeItemPending()
       this.props.itemsSetCreatedItem(this.createItem())
       this.props.enemyStatsHideEnemy()
