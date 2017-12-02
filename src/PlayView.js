@@ -560,14 +560,6 @@ class PlayView extends Component {
   render() {
     return (
         <Col lg={6}>
-          <div>
-          {
-            this.props.items.itemPending === false ?
-            this.props.playView.possibleActions.map(e =>
-              <button onClick={() => this.handleStory(e)} key={e}>{e}</button>
-            ) : null
-          }
-          </div>
           {
             this.props.playerStats.pIsAlive === true ?
                 (
@@ -578,11 +570,6 @@ class PlayView extends Component {
                       <Button style={this.state.viewedTab === 'battleLog' ? {fontWeight: 'bold'} : null} onClick={() => this.setState({viewedTab: 'battleLog'})}>Battle log</Button>
                       < textarea style={this.storyOutputStyle} readOnly
                                  value={this.state.viewedTab === 'exploration' ? this.props.playView.storyOutput.join('\n') : this.props.playView.battleLogOutput.join('\n')}/>
-                      <input style={this.playerInputStyle}
-                             onChange={event => this.props.inputChange(event.target.value)}/>
-                      <button disabled={this.state.isDisabled} style={this.playerButtonStyle}
-                              onClick={() => this.handleStoryUpdate()}>Perform action
-                      </button>
                     </div>
                 )
                 : (
@@ -591,6 +578,14 @@ class PlayView extends Component {
                     </div>
             )
           }
+          <div>
+            {
+              this.props.items.itemPending === false ?
+                this.props.playView.possibleActions.map(e =>
+                  <button onClick={() => this.handleStory(e)} key={e}>{e}</button>
+                ) : null
+            }
+          </div>
           {
             this.props.playView.possibleActions.includes('choose') === true ?
                 (
