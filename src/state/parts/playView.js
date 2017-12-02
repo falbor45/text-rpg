@@ -137,7 +137,7 @@ export default (state = initialState, action) => {
         posX -= 1;
       }
       if (state.map[posY][posX] !== previousArea) {
-        storyOutput.push(action.areas[state.map[posY][posX] + 2].description)
+        storyOutput.push(action.areas[state.map[posY][posX] - 1].description)
       }
       console.log(posY, posX)
       return {
