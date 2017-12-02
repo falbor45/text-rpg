@@ -219,6 +219,7 @@ class PlayView extends Component {
       result.push('attack');
       return result;
     }
+    this.passiveEffects()
     if (chosenEvent === 'fight' && eLocked !== true) {
       enemiesSetEnemyRNG(filteredEnemies.length)
       enemyStatsSetEnemy(
