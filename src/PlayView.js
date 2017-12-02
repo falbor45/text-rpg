@@ -474,6 +474,11 @@ class PlayView extends Component {
   }
 
   render() {
+    {
+      document.getElementById("storyOutput") !== null ?
+        document.getElementById("storyOutput").scrollTop = document.getElementById("storyOutput").scrollHeight
+        : null
+    }
     return (
         <Col lg={6}>
           {
@@ -484,7 +489,8 @@ class PlayView extends Component {
                       <p>Day: {this.props.playView.days} ({this.props.playView.timeOfDay})</p>
                       <Button style={this.state.viewedTab === 'exploration' ? {fontWeight: 'bold'} : null} onClick={() => this.setState({viewedTab: 'exploration'})}>Exploration</Button>
                       <Button style={this.state.viewedTab === 'battleLog' ? {fontWeight: 'bold'} : null} onClick={() => this.setState({viewedTab: 'battleLog'})}>Battle log</Button>
-                      < textarea style={this.storyOutputStyle} readOnly
+                      < textarea id="storyOutput"
+                                 style={this.storyOutputStyle} readOnly
                                  value={this.state.viewedTab === 'exploration' ? this.props.playView.storyOutput.join('\n') : this.props.playView.battleLogOutput.join('\n')}/>
                     </div>
                 )
