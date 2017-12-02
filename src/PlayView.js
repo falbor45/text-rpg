@@ -496,7 +496,7 @@ class PlayView extends Component {
           }
           <div>
             {
-              this.props.items.itemPending === false ?
+              this.props.items.itemPending === false && this.props.playerStats.pIsAlive === true ?
                 this.props.playView.possibleActions.map(e =>
                   <button onClick={() => this.handleStory(e)} key={e}>{e}</button>
                 ) : null
