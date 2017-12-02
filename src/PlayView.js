@@ -348,8 +348,9 @@ class PlayView extends Component {
       setTimeout(() => {
         this.handleFight(action)
       }, 0)
-      playViewPossibleActions(usableAbilities)
-      this.props.playViewForceUpdate()
+      setTimeout(() => {
+        playViewPossibleActions(usableAbilities)
+      }, 0)
   }
 
   handleChoice = (choice) =>  {
