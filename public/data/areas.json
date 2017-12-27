@@ -11,102 +11,102 @@
   },
   {
     "id": 3,
-    "area": "Caverns",
-    "description": "Water drops falling from the cave's ceiling unnerve you."
-  },
-  {
-    "id": 4,
-    "area": "Thanux's Desert",
-    "description": "Great dunes you've heard about are actually true. Scary."
-  },
-  {
-    "id": 5,
-    "area": "Mountains",
-    "description": "Even the bravest men must sometimes climb the highest mountains."
-  },
-  {
-    "id": 6,
-    "area": "Windy Steppes",
-    "description": "The horizon is not the only thing a human seeks."
-  },
-  {
-    "id": 7,
-    "area": "Spreading Sands",
-    "description": "Wherever you look, it's only sand and your own demise."
-  },
-  {
-    "id": 8,
-    "area": "Glacial Grounds",
-    "description": "Trying to walk on the ice, you make an impression of a penguin."
-  },
-  {
-    "id": 9,
-    "area": "Magical Forest",
-    "description": "A myth-like forest spreads in front of your eyes."
-  },
-  {
-    "id": 10,
-    "area": "Haunted Forest",
-    "description": "A mist grasping your feet makes you feel abandoned."
-  },
-  {
-    "id": 11,
-    "area": "The Void",
-    "description": "The hell-like screams and ambience is almost impossible to withstand."
-  },
-  {
-    "id": 12,
-    "area": "Farm",
-    "description": "The smell of farm makes you calm. As you approach it the only thing you can think of is that variety never hurt anyone."
-  },
-  {
-    "id": 13,
-    "area": "Barbarian Camp",
-    "description": "Shouts and screams of those surrounding you are unsettling."
-  },
-  {
-    "id": 14,
     "area": "Bat cave",
     "description": "Water drops falling from the cave's ceiling unnerve you."
   },
   {
-    "id": 15,
+    "id": 4,
     "area": "Spider lair",
     "description": "Water drops falling from the cave's ceiling unnerve you."
   },
   {
-    "id": 16,
+    "id": 5,
+    "area": "Caverns",
+    "description": "Water drops falling from the cave's ceiling unnerve you."
+  },
+  {
+    "id": 6,
+    "area": "Thanux's Desert",
+    "description": "Great dunes you've heard about are actually true. Scary."
+  },
+  {
+    "id": 7,
     "area": "Skeleton dungeon",
     "description": "Bones, bones everywhere."
   },
   {
-    "id": 17,
+    "id": 8,
+    "area": "Mountains",
+    "description": "Even the bravest men must sometimes climb the highest mountains."
+  },
+  {
+    "id": 9,
+    "area": "Windy Steppes",
+    "description": "The horizon is not the only thing a human seeks."
+  },
+  {
+    "id": 10,
     "area": "Catacombs Lv.1",
     "description": "You enter a dim-lightened construction and seem to notice moving shadows. Maybe it's just your imagination."
   },
   {
-    "id": 18,
+    "id": 11,
     "area": "Catacombs Lv.2",
     "description": "Bones, bones everywhere."
   },
   {
-    "id": 19,
+    "id": 12,
     "area": "Catacombs Lv.3",
     "description": "The time you spent in the catacombs is driving you crazy. You feel like you need to get out as soon as possible."
   },
   {
-    "id": 20,
+    "id": 13,
     "area": "Spiral Tower",
     "description": "Upon entering the bright light in the center of the tower looks like a message from above: 'Come and reach me'."
   },
   {
-    "id": 21,
+    "id": 14,
     "area": "Sky Tower",
     "description": "Dragons' roars send a chill down your spine. You carefully step into the tower."
   },
   {
-    "id": 22,
+    "id": 15,
     "area": "Labyrinth of the Minotaur",
     "description": "You've heard about the labyrinth before, although those news were not happy-ending stories."
+  },
+  {
+    "id": 16,
+    "area": "Spreading Sands",
+    "description": "Wherever you look, it's only sand and your own demise."
+  },
+  {
+    "id": 17,
+    "area": "Glacial Grounds",
+    "description": "Trying to walk on the ice, you make an impression of a penguin."
+  },
+  {
+    "id": 18,
+    "area": "Magical Forest",
+    "description": "A myth-like forest spreads in front of your eyes."
+  },
+  {
+    "id": 19,
+    "area": "Haunted Forest",
+    "description": "A mist grasping your feet makes you feel abandoned."
+  },
+  {
+    "id": 20,
+    "area": "The Void",
+    "description": "The hell-like screams and ambience is almost impossible to withstand."
+  },
+  {
+    "id": 21,
+    "area": "Farm",
+    "description": "The smell of farm makes you calm. As you approach it the only thing you can think of is that variety never hurt anyone."
+  },
+  {
+    "id": 22,
+    "area": "Barbarian Camp",
+    "description": "Shouts and screams of those surrounding you are unsettling."
   }
 ]
