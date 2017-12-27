@@ -209,7 +209,7 @@ class PlayView extends Component {
     let {enemyRNG} = this.props.enemies
     let {eLocked} = this.props.enemyStats
     let {enemyStatsSetEnemy, enemiesSetPattern, enemiesSetEnemyRNG} = this.props
-    let filteredEnemies = this.props.enemies.data.filter(i => i.eZoneId === map[posY][posX] + 2)
+    let filteredEnemies = this.props.enemies.data.filter(i => i.eZoneId === map[posY][posX])
     let fightCommands = () => {
       let base = this.usableAbilities()
       let result = [];
