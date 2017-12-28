@@ -29,7 +29,8 @@ export default (state = initialState, action) => {
     case 'enemies/SET_PATTERN':
       return {
         ...state,
-        pattern: action.pattern
+        pattern: action.pattern,
+        aPatternI: 0
       }
     case 'enemies/SET_ENEMY_RNG':
       return {
