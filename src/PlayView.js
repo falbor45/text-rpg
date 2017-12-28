@@ -242,7 +242,8 @@ class PlayView extends Component {
     }
     if (this.props.enemyStats.eHealth <= 0 && this.props.enemyStats.eHealth !== null) {
       this.setState({
-        viewedTab: 'exploration'
+        viewedTab: 'exploration',
+        turnCounter: 1
       })
       this.props.itemsChangeItemPending()
       this.props.itemsSetCreatedItem(this.createItem())
