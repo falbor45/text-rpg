@@ -9,17 +9,32 @@
       {
         "name": "Bronze Helm",
         "armour": 2,
-        "difficulty": 1.4
+        "difficulty": 2
       },
       {
         "name": "Iron Helm",
         "armour": 3,
-        "difficulty": 2
+        "difficulty": 4
       },
       {
         "name": "Steel Helm",
         "armour": 4,
-        "difficulty": 4
+        "difficulty": 5
+      },
+      {
+        "name": "Dwarven Helm",
+        "armour": 6,
+        "difficulty": 8
+      },
+      {
+        "name": "Mithril Helm",
+        "armour": 10,
+        "difficulty": 11
+      },
+      {
+        "name": "Dragonscale Helm",
+        "armour": 13,
+        "difficulty": 14
       }
     ],
     "bodyArmours": [
@@ -42,6 +57,21 @@
         "name": "Steel Armour",
         "armour": 5,
         "difficulty": 4
+      },
+      {
+        "name": "Dwarven Armour",
+        "armour": 7,
+        "difficulty": 8
+      },
+      {
+        "name": "Mithril Armour",
+        "armour": 12,
+        "difficulty": 11
+      },
+      {
+        "name": "Dragonscale Armour",
+        "armour": 15,
+        "difficulty": 14
       }
     ],
     "leggings": [
@@ -64,6 +94,21 @@
         "name": "Steel Leggings",
         "armour": 4,
         "difficulty": 4
+      },
+      {
+        "name": "Dwarven Leggings",
+        "armour": 6,
+        "difficulty": 8
+      },
+      {
+        "name": "Mithril Leggings",
+        "armour": 10,
+        "difficulty": 11
+      },
+      {
+        "name": "Dragonscale Leggings",
+        "armour": 13,
+        "difficulty": 14
       }
     ],
     "boots": [
@@ -86,6 +131,21 @@
         "name": "Steel Boots",
         "armour": 3,
         "difficulty": 4
+      },
+      {
+        "name": "Dwarven Boots",
+        "armour": 5,
+        "difficulty": 8
+      },
+      {
+        "name": "Mithril Boots",
+        "armour": 9,
+        "difficulty": 11
+      },
+      {
+        "name": "Dragonscale Boots",
+        "armour": 11,
+        "difficulty": 14
       }
     ],
     "amulets": [
@@ -96,10 +156,34 @@
         "strength": 1
       },
       {
+        "name": "Amber Amulet",
+        "armour": 0,
+        "difficulty": 4,
+        "strength": 2
+      },
+      {
+        "name": "Amber Amulet",
+        "armour": 0,
+        "difficulty": 8,
+        "strength": 3
+      },
+      {
         "name": "Agate Amulet",
         "armour": 0,
         "difficulty": 0,
         "wisdom": 1
+      },
+      {
+        "name": "Agate Amulet",
+        "armour": 0,
+        "difficulty": 4,
+        "wisdom": 2
+      },
+      {
+        "name": "Agate Amulet",
+        "armour": 0,
+        "difficulty": 8,
+        "wisdom": 3
       },
       {
         "name": "Amethyst Amulet",
@@ -108,10 +192,34 @@
         "agility": 1
       },
       {
+        "name": "Amethyst Amulet",
+        "armour": 0,
+        "difficulty": 4,
+        "agility": 2
+      },
+      {
+        "name": "Amethyst Amulet",
+        "armour": 0,
+        "difficulty": 8,
+        "agility": 3
+      },
+      {
         "name": "Amazonite Amulet",
         "armour": 0,
         "difficulty": 0,
         "constitution": 1
+      },
+      {
+        "name": "Amazonite Amulet",
+        "armour": 0,
+        "difficulty": 4,
+        "constitution": 2
+      },
+      {
+        "name": "Amazonite Amulet",
+        "armour": 0,
+        "difficulty": 8,
+        "constitution": 3
       }
     ],
     "rings": [
@@ -122,10 +230,34 @@
         "strength": 1
       },
       {
+        "name": "Amber Ring",
+        "armour": 0,
+        "difficulty": 4,
+        "strength": 2
+      },
+      {
+        "name": "Amber Ring",
+        "armour": 0,
+        "difficulty": 8,
+        "strength": 3
+      },
+      {
         "name": "Agate Ring",
         "armour": 0,
         "difficulty": 0,
         "wisdom": 1
+      },
+      {
+        "name": "Agate Ring",
+        "armour": 0,
+        "difficulty": 4,
+        "wisdom": 2
+      },
+      {
+        "name": "Agate Ring",
+        "armour": 0,
+        "difficulty": 8,
+        "wisdom": 3
       },
       {
         "name": "Amethyst Ring",
@@ -134,10 +266,34 @@
         "agility": 1
       },
       {
+        "name": "Amethyst Ring",
+        "armour": 0,
+        "difficulty": 4,
+        "agility": 2
+      },
+      {
+        "name": "Amethyst Ring",
+        "armour": 0,
+        "difficulty": 8,
+        "agility": 3
+      },
+      {
         "name": "Amazonite Ring",
         "armour": 0,
         "difficulty": 0,
         "constitution": 1
+      },
+      {
+        "name": "Amazonite Ring",
+        "armour": 0,
+        "difficulty": 4,
+        "constitution": 2
+      },
+      {
+        "name": "Amazonite Ring",
+        "armour": 0,
+        "difficulty": 8,
+        "constitution": 3
       }
     ],
     "belts": [
@@ -149,10 +305,36 @@
         "constitution": 1
       },
       {
+        "name": "Scaled Belt",
+        "armour": 3,
+        "difficulty": 9,
+        "strength": 3,
+        "constitution": 3
+      },
+      {
+        "name": "Skull Belt",
+        "armour": 8,
+        "difficulty": 15,
+        "strength": 4,
+        "constitution": 5
+      },
+      {
         "name": "Light Belt",
         "armour": 0,
         "difficulty": 2,
         "wisdom": 3
+      },
+      {
+        "name": "Silken Belt",
+        "armour": 1,
+        "difficulty": 9,
+        "wisdom": 7
+      },
+      {
+        "name": "Crystaline Belt",
+        "armour": 5,
+        "difficulty": 15,
+        "wisdom": 10
       }
     ],
     "swords": [
@@ -164,21 +346,45 @@
       },
       {
         "name": "Bronze Sword",
-        "attackPowerMin": 3,
-        "attackPowerMax": 5,
-        "difficulty": 1.4
+        "attackPowerMin": 5,
+        "attackPowerMax": 8,
+        "difficulty": 1
       },
       {
         "name": "Iron Sword",
-        "attackPowerMin": 4,
-        "attackPowerMax": 6,
+        "attackPowerMin": 8,
+        "attackPowerMax": 14,
         "difficulty": 2
       },
       {
         "name": "Steel Sword",
-        "attackPowerMin": 5,
-        "attackPowerMax": 6,
+        "attackPowerMin": 14,
+        "attackPowerMax": 25,
+        "difficulty": 3
+      },
+      {
+        "name": "Bone Sword",
+        "attackPowerMin": 26,
+        "attackPowerMax": 59,
         "difficulty": 4
+      },
+      {
+        "name": "Fire Sword",
+        "attackPowerMin": 59,
+        "attackPowerMax": 90,
+        "difficulty": 5
+      },
+      {
+        "name": "Great Sword",
+        "attackPowerMin": 92,
+        "attackPowerMax": 150,
+        "difficulty": 6
+      },
+      {
+        "name": "Abyss Sword",
+        "attackPowerMin": 150,
+        "attackPowerMax": 240,
+        "difficulty": 7
       }
     ],
     "bows": [
@@ -190,21 +396,46 @@
       },
       {
         "name": "Short Bow",
-        "attackPowerMin": 2,
-        "attackPowerMax": 9,
-        "difficulty": 1.4
+        "attackPowerMin": 3,
+        "attackPowerMax": 12,
+        "difficulty": 1
       },
       {
         "name": "Long Bow",
-        "attackPowerMin": 2,
-        "attackPowerMax": 11,
+        "attackPowerMin": 5,
+        "attackPowerMax": 20,
         "difficulty": 2
       },
       {
         "name": "Elven Bow",
-        "attackPowerMin": 4,
-        "attackPowerMax": 12,
+        "attackPowerMin": 7,
+        "attackPowerMax": 50,
+        "difficulty": 3
+      },
+      {
+        "name": "Arcane Bow",
+        "attackPowerMin": 11,
+        "attackPowerMax": 85,
         "difficulty": 4
+      },
+      {
+        "name": "Spectral Bow",
+        "attackPowerMin": 54,
+        "attackPowerMax": 170,
+        "difficulty": 5
+      },
+      {
+        "name": "Great Bow",
+        "attackPowerMin": 79,
+        "attackPowerMax": 170,
+        "difficulty": 6
+      }
+    ,
+      {
+        "name": "Ethereal Bow",
+        "attackPowerMin": 140,
+        "attackPowerMax": 320,
+        "difficulty": 7
       }
     ]
   }
