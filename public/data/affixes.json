@@ -3,29 +3,169 @@
     "prefixes": [
       {
         "id": 1,
-        "name": "Omniscient ",
+        "name": "Pupil ",
         "difficulty": 2,
         "wisdom": 1
       },
       {
         "id": 2,
+        "name": "Philosopher ",
+        "difficulty": 6,
+        "wisdom": 3
+      },
+      {
+        "id": 3,
+        "name": "Prodigy ",
+        "difficulty": 10,
+        "wisdom": 5
+      },
+      {
+        "id": 4,
         "name": "Stubborn ",
         "difficulty": 2,
         "constitution": 1
+      },
+      {
+        "id": 5,
+        "name": "Gorilla ",
+        "difficulty": 6,
+        "constitution": 3
+      },
+      {
+        "id": 6,
+        "name": "Titan ",
+        "difficulty": 10,
+        "constitution": 5
+      },
+      {
+        "id": 7,
+        "name": "Reinforced ",
+        "difficulty": 12,
+        "constitution": 5,
+        "strength": 5
+      },
+      {
+        "id": 8,
+        "name": "Vaporous ",
+        "difficulty": 12,
+        "agility": 5,
+        "wisdom": 5
+      },
+      {
+        "id": 9,
+        "name": "Girded ",
+        "difficulty": 14,
+        "constitution": 7,
+        "strength": 7
+      },
+      {
+        "id": 10,
+        "name": "Phased ",
+        "difficulty": 14,
+        "agility": 7,
+        "wisdom": 7
+      },
+      {
+        "id": 11,
+        "name": "Thickened ",
+        "difficulty": 16,
+        "constitution": 10,
+        "strength": 10
+      },
+      {
+        "id": 12,
+        "name": "Fleet ",
+        "difficulty": 16,
+        "agility": 10,
+        "wisdom": 10
+      },
+      {
+        "id": 13,
+        "name": "Impregnable ",
+        "difficulty": 18,
+        "constitution": 15,
+        "strength": 15
+      },
+      {
+        "id": 14,
+        "name": "Dancer's ",
+        "difficulty": 18,
+        "agility": 15,
+        "wisdom": 15
       }
     ],
     "suffixes": [
       {
-        "id": 3,
-        "name": " of Fox",
+        "id": 15,
+        "name": " of the Fox",
         "difficulty": 2,
         "agility": 1
       },
       {
-        "id": 4,
-        "name": " of Bear",
+        "id": 16,
+        "name": " of the Panther",
+        "difficulty": 6,
+        "agility": 3
+      },
+      {
+        "id": 17,
+        "name": " of the Wind",
+        "difficulty": 10,
+        "agility": 5
+      },
+      {
+        "id": 18,
+        "name": " of the Bear",
         "difficulty": 2,
         "strength": 1
+      },
+      {
+        "id": 19,
+        "name": " of the Lion",
+        "difficulty": 6,
+        "strength": 3
+      },
+      {
+        "id": 20,
+        "name": " of the Goliath",
+        "difficulty": 10,
+        "strength": 5
+      },
+      {
+        "id": 21,
+        "name": " of the Sky",
+        "difficulty": 12,
+        "wisdom": 2,
+        "strength": 2,
+        "agility": 2,
+        "constitution": 2
+      },
+      {
+        "id": 22,
+        "name": " of the Comet",
+        "difficulty": 14,
+        "wisdom": 3,
+        "strength": 3,
+        "agility": 3,
+        "constitution": 3
+      },
+      {
+        "id": 23,
+        "name": " of the Infinite",
+        "difficulty": 16,
+        "wisdom": 5,
+        "strength": 5,
+        "agility": 5,
+        "constitution": 5
+      },
+      {
+        "id": 24,
+        "name": " of the Multiverse",
+        "difficulty": 18,
+        "wisdom": 8,
+        "strength": 8,
+        "agility": 8,
+        "constitution": 8
       }
     ]
   }
