@@ -249,7 +249,6 @@ class PlayView extends Component {
       this.props.itemsSetCreatedItem(this.createItem())
       this.props.enemyStatsHideEnemy()
       this.props.playerStatsGainExperience(filteredEnemies[enemyRNG].eExperience)
-      this.props.playerStatsCalculateStats()
       this.props.abilitiesFilterAbilities(this.usableAbilities(), this.usableCommands())
       this.props.playViewResetEvent()
     }
@@ -260,7 +259,7 @@ class PlayView extends Component {
 
   handleStory = (action) => {
       let {possibleActions} = this.props.playView
-      let {playViewSetEvent, playViewPossibleActions, playViewUpdatePosition} = this.props
+      let {playViewSetEvent, playViewPossibleActions, playViewUpdatePosition, playerStatsCalculateStats} = this.props
       let {usableAbilities} = this.props.abilities
       if ((possibleActions.includes('north') || possibleActions.includes('east') ||
           possibleActions.includes('west') || possibleActions.includes('south')) &&
@@ -270,6 +269,7 @@ class PlayView extends Component {
       }
       setTimeout(() => {
         this.handleFight(action)
+        playerStatsCalculateStats()
       }, 0)
       setTimeout(() => {
         playViewPossibleActions(usableAbilities)
@@ -430,13 +430,14 @@ class PlayView extends Component {
   }
 
   createItem = () => {
+    let {posY, posX, posZ} = this.props.playView
     let createdItem = {}
     let wearableItems = () => {
       let iterations = ["helms", "bodyArmours", "leggings", "boots", "amulets", "rings", "belts", "swords", "bows"]
       let result = {}
       for (let i = 0; i < iterations.length; i++) {
-        if (this.props.items.data[0][iterations[i]].filter(i => i.difficulty <= Math.sqrt(this.props.playView.days)).length !== 0) {
-          result[iterations[i]] = this.props.items.data[0][iterations[i]].filter(i => i.difficulty <= Math.sqrt(this.props.playView.days))
+        if (this.props.items.data[0][iterations[i]].filter(i => i.difficulty <= this.props.playView.map[posY][posZ][posX] && i.difficulty >= this.props.playView.map[posY][posZ][posX] - 5).length !== 0) {
+          result[iterations[i]] = this.props.items.data[0][iterations[i]].filter(i => i.difficulty <= this.props.playView.map[posY][posZ][posX] && i.difficulty >= this.props.playView.map[posY][posZ][posX] - 5)
         }
       }
       return result
